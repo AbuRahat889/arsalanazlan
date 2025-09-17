@@ -1,19 +1,17 @@
 "use client";
 
-import Image from "next/image";
-import image from "@/assets/logo.svg";
-import logo2 from "@/assets/logo.svg";
-import { useForm } from "react-hook-form";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
-import { setUser } from "@/redux/slices/authSlice";
-import { toast, ToastContainer } from "react-toastify";
+import image from "@/assets/loginImage.png";
 import Loader from "@/components/ui/Loader";
-import { useRef, useState } from "react";
 import { useAdminLoginMutation } from "@/redux/api/auth";
-
+import { setUser } from "@/redux/slices/authSlice";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 const ForgotPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -23,7 +21,7 @@ const ForgotPassword = () => {
   const [autoOtp, setAutoOtp] = useState("");
   const navigationInputs = useRef<any[]>([]);
 
-  const length = 6;
+  const length = 4;
 
   const onChange = (value: string) => {
     setAutoOtp(value);
@@ -54,10 +52,7 @@ const ForgotPassword = () => {
     }
   };
 
-  const handlePaste = (
-    e: React.ClipboardEvent<HTMLInputElement>,
-   
-  ) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedData = e.clipboardData
       .getData("text")
@@ -96,7 +91,7 @@ const ForgotPassword = () => {
 
   const onSubmit = async () => {
     try {
-      const res = await loginFN({ otp: autoOtp });
+      const res = await loginFN(autoOtp);
       if (res?.data?.success) {
         Cookies.set("token", res?.data?.data?.accessToken);
         dispatch(
@@ -107,7 +102,7 @@ const ForgotPassword = () => {
           })
         );
         toast.success("login successfully!");
-        router.push("/auth/new-password");
+        router.push("/");
       } else {
         const errorMessage =
           (res?.error &&
@@ -125,80 +120,82 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full shadow-2xl container mx-auto">
+    <div className="flex flex-col md:flex-row w-full ">
       <ToastContainer />
       {/* Left Section */}
-
-      <div className="hidden md:block w-full lg:w-1/2">
+      <div className="hidden md:block w-full ">
         <Image
           src={image}
           alt="Fishing Trip"
           className="h-full w-full lg:h-[100vh] object-fill"
+          height={600}
+          width={600}
         />
       </div>
 
       {/* Right Section */}
-      <div className="relative py-12 flex flex-col justify-between w-full lg:w-1/2 ml-0 lg:ml-10">
-        <Link href={"/"}>
-          <Image
-            src={logo2}
-            alt="logo"
-            height={200}
-            width={200}
-            className="h-24 w-80"
-          />
-        </Link>
-
-        <div className="text-start w-full flex flex-col justify-between px-2 md:px-8">
-          <div>
-            <h2 className="text-[40px] text-[#171717] font-bold leading-normal my-2">
-              Verify account
-            </h2>
-            <p className="text-base text-[#6C7278] font-medium">
-              The code has been sent to johndoe@gmail.com.
-            </p>
-            <p className="text-base text-[#6C7278] font-medium mb-6">
-              Enter the code to verify your account.
-            </p>
-          </div>
-
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full pt-6 space-y-4"
+      <div className="w-full h-screen flex items-center justify-center px-5 lg:px-0 ">
+        <div className="w-[576px] mx-auto shadow-custom-shadow rounded-3xl px-5 lg:px-9 py-12">
+          <div
+            onClick={() => router.back()}
+            className="flex items-center gap-1 cursor-pointer"
           >
-            <div className="grid grid-cols-6 gap-3">
-              {Array.from({ length }).map((_, index) => (
-                <input
-                  key={index}
-                  ref={(el) => {
-                    navigationInputs.current[index] = el;
-                  }}
-                  //   inputMode="numeric"
-                  className="p-3 text-center dark:bg-transparent dark:border-slate-700 dark:text-[#abc2d3] dark:placeholder:text-slate-500 border border-[#bcbcbc] rounded-md outline-none focus:border-[#3B9DF8]"
-                  placeholder="0"
-                  onWheel={(e) => (e.target as HTMLInputElement).blur()}
-                  onChange={(e) => handleInputChange(e, index)}
-                  onKeyDown={(e) => handleKeydown(e, index)}
-                  onPaste={(e) => handlePaste(e)}
-                  //   type="number"
-                />
-              ))}
+            <HiArrowNarrowLeft />
+            <p>back</p>
+          </div>
+          <div className="text-start flex flex-col items-center justify-between ">
+            <div>
+              <h2 className="text-2xl md:text-4xl text-textColor font-semibold leading-[110%] w-full text-center mb-4">
+                Enter Code
+              </h2>
+
+              <p className="text-sm md:text-lg text-secondaryColor font-normal leading-[150%] text-center mb-6">
+                We’ve sent a code to mahadi88@gmail.com
+              </p>
             </div>
 
-            <button
-              type="submit"
-              className="w-full mt-6 font-bold text-base py-3 rounded-lg bg-primaryColor text-white"
+            {/* Form */}
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full pt-5 space-y-4"
             >
-              {isLoading ? <Loader /> : "Verify account"}
-            </button>
-          </form>
-        </div>
+              <div className="flex justify-center gap-3">
+                {Array.from({ length }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="border-2 border-[#222222] rounded-md h-16 w-16  flex items-center justify-center"
+                  >
+                    <input
+                      ref={(el) => {
+                        navigationInputs.current[index] = el;
+                      }}
+                      //   inputMode="numeric"
+                      className="w-3 outline-none "
+                      placeholder="0"
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                      onChange={(e) => handleInputChange(e, index)}
+                      onKeyDown={(e) => handleKeydown(e, index)}
+                      onPaste={(e) => handlePaste(e)}
+                      //   type="number"
+                    />
+                  </div>
+                ))}
+              </div>
+              <p className="text-textColor text-base font-normal leading-6 mt-6 text-center">
+                Didn’t get a code?{" "}
+                <span className="hover:text-primaryColor font-bold hover:underline transition-colors duration-300 ease-in-out cursor-pointer ">
+                  Click to resend
+                </span>
+              </p>
 
-        <div>
-          <h1 className="text-textColor font-medium text-sm md:text-base text-center">
-            © {new Date().getFullYear()} AnestheLink. All rights reserved.
-          </h1>
+              <button
+                type="submit"
+                className="w-full mt-6 font-bold text-base py-3 rounded-lg bg-primaryColor text-white"
+              >
+                {isLoading ? <Loader /> : "Verify account"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
