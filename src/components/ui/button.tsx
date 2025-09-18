@@ -13,7 +13,7 @@ const buttonVariants = cva("inline-flex items-center justify-center gap-2", {
       pagenation:
         "bg-primaryColor text-sm rounded-md text-white px-2 py-2 md:text-base font-normal w-36",
       outline:
-        "border-2 border-primaryColor text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal w-36",
+        "border-2 border-primaryColor text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal ",
       secondary:
         "bg-[#ccedfa] text-secondary-foreground shadow-sm hover:bg-[#ccedfa]/80",
       ghost: "hover:bg-accent hover:text-accent-foreground",

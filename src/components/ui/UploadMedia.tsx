@@ -3,7 +3,6 @@
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
 import { X, Upload, Play, ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { Card } from "antd";
 import { useFormContext } from "react-hook-form";
 
 export interface UploadedFile {
@@ -111,7 +110,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
 
   return (
     <>
-      <Card className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0] max-w-3xl">
+      <div className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0] max-w-3xl">
         <div className="p-5 text-center space-y-4">
           <div
             className={`${isDragOver ? "bg-white border-blue-300" : ""}`}
@@ -140,7 +139,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
             />
           </div>
         </div>
-      </Card>
+      </div>
 
       {uploadedFiles.length > 0 && (
         <div className="pt-6">
