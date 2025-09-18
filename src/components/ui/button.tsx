@@ -9,7 +9,7 @@ const buttonVariants = cva("inline-flex items-center justify-center gap-2", {
   variants: {
     variant: {
       default:
-        "bg-primaryColor text-sm rounded-full text-white px-2 py-2 md:text-base font-normal w-48",
+        "bg-primaryColor text-white text-sm rounded-lg text-white px-2 py-2 md:text-base font-normal ",
       pagenation:
         "bg-primaryColor text-sm rounded-md text-white px-2 py-2 md:text-base font-normal w-36",
       outline:

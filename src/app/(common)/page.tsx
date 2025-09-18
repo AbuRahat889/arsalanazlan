@@ -1,3 +1,4 @@
+import ChoosePatn from "@/components/Home/ChoosePatn";
 import Hero from "@/components/Home/Hero";
 import SecurityCard from "@/components/Home/SecurityCard";
 import React from "react";
@@ -7,6 +8,7 @@ export default function page() {
     <div>
       <Hero />
       <SecurityCard />
+      <ChoosePatn />
     </div>
   );
 }

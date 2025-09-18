@@ -55,6 +55,48 @@ const Hero = () => {
             Browse Templates
           </button>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <p className="text-white max-w-[800px] mt-10 md:mt-[64px] mb-3 md:mb-10 text-base md:text-lg">
+            Trusted by professionals worldwide
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-9 lg:gap-14">
+            <div>
+              <p className="text-base md:text-2xl text-primaryColor font-bold leading-8">
+                15,000+
+              </p>
+              <p className=" text-white mt-3 text-sm md:text-lg">
+                Certified Professionals
+              </p>
+            </div>
+            <div>
+              <p className="text-base md:text-2xl text-primaryColor font-bold leading-8">
+                500+
+              </p>
+              <p className="text-white   mt-3 text-sm md:text-lg">
+                Accredited Providers
+              </p>
+            </div>
+            <div>
+              <p className="text-base md:text-2xl text-primaryColor font-bold leading-8">
+                85+
+              </p>
+              <p className="text-white   mt-3 text-sm md:text-lg"> Countries</p>
+            </div>
+            <div>
+              <p className="text-base md:text-2xl text-primaryColor font-bold leading-8">
+                99.8%
+              </p>
+              <p className="text-white   mt-3 text-sm md:text-lg">
+                Verification Accuracy
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </CircuitBoard>
   );

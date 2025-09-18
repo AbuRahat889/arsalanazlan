@@ -42,7 +42,7 @@ export default function SecurityCard() {
           {/* <h1 className="text-2xl font-semibold text-textColor leading-8 text-center">
            TRUSTED STANDARDS AND SECURITY 
           </h1> */}
-          TRUSTED STANDARDS AND SECURITY
+          Trusted Standards and Security
         </ScrollFloat>
 
         <motion.div
