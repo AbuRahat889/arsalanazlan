@@ -22,7 +22,7 @@ export function Awards() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.4 }}
-        className="text-secondaryColor  mt-3 md:mt-6 text-sm md:text-lg text-center"
+        className="text-secondaryColor  mt-3 md:mt-6 text-sm md:text-lg text-center max-w-2xl mx-auto"
       >
         Our certification and accreditation programs deliver measurable value
         for professionals and organizations worldwide.

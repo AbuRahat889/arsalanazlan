@@ -2,6 +2,7 @@ import { Awards } from "@/components/Home/Award";
 import ChoosePatn from "@/components/Home/ChoosePatn";
 import Hero from "@/components/Home/Hero";
 import SecurityCard from "@/components/Home/SecurityCard";
+import Testimonial from "@/components/Home/Testimonial/Testimonial";
 
 export default function page() {
   return (
@@ -10,6 +11,7 @@ export default function page() {
       <SecurityCard />
       <ChoosePatn />
       <Awards />
+      <Testimonial />
     </div>
   );
 }
