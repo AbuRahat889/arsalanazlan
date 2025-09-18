@@ -44,8 +44,8 @@ export default function ChoosePatn() {
             className="p-4 md:p-6 shadow-security-card-shadow rounded-lg"
           >
             <div className="flex items-center gap-3">
-              <div className="bg-[#293650] rounded-lg p-3 size-14">
-                <MediaButton type="verified" />
+              <div className="bg-[#293650] rounded-lg flex items-center justify-center size-14">
+                <MediaButton type="men" />
               </div>
               <h1 className="text-base md:text-xl text-textColor font-semibold leading-[120%]">
                 Individual Professionals
@@ -136,8 +136,8 @@ export default function ChoosePatn() {
             className="p-4 md:p-6 shadow-security-card-shadow rounded-lg"
           >
             <div className="flex items-center gap-3">
-              <div className="bg-[#293650] rounded-lg p-2 md:p-3 size-10 md:size-14">
-                <MediaButton type="verified" />
+              <div className="bg-[#293650] flex items-center justify-center rounded-lg size-10 md:size-14">
+                <MediaButton type="provider" />
               </div>
               <h1 className="text-base md:text-xl text-textColor font-semibold leading-[120%]">
                 Individual Professionals

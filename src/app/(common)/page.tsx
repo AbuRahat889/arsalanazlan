@@ -1,7 +1,7 @@
+import { Awards } from "@/components/Home/Award";
 import ChoosePatn from "@/components/Home/ChoosePatn";
 import Hero from "@/components/Home/Hero";
 import SecurityCard from "@/components/Home/SecurityCard";
-import React from "react";
 
 export default function page() {
   return (
@@ -9,6 +9,7 @@ export default function page() {
       <Hero />
       <SecurityCard />
       <ChoosePatn />
+      <Awards />
     </div>
   );
 }
