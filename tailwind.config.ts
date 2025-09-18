@@ -4,7 +4,6 @@ export default {
   darkMode: ["class"],
 
   content: [
-    
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -62,6 +61,8 @@ export default {
       },
       boxShadow: {
         "custom-shadow": "0 16px 40px 0 rgba(237, 144, 12, 0.14)",
+        "security-card-shadow":
+          "0 0 40.4px 0 rgba(241, 166, 61, 0.10), 0 0 4px 0 rgba(116, 116, 116, 0.25)",
       },
       container: {
         center: true,
