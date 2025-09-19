@@ -1,5 +1,15 @@
+import Banner from "@/components/ui/Banner";
 import React from "react";
 
 export default function page() {
-  return <div>Certification</div>;
+  return (
+    <div>
+      <Banner
+        title="Professional"
+        colorTitle="Certification"
+        discription="Advance your career with globally recognized certification across Standard, Advanced, and Fellow Levels"
+        button="Apply Now"
+      />
+    </div>
+  );
 }
