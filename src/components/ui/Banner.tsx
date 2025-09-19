@@ -23,7 +23,7 @@ export default function Banner({
   return (
     <div
       style={{ backgroundImage: `url(${bgimage.src})` }}
-      className="relative w-full h-screen lg:h-[80vh] flex items-center justify-center flex-col overflow-hidden bg-cover bg-center bg-no-repeat "
+      className="relative w-full h-[60vh] lg:h-[80vh] flex items-center justify-center flex-col overflow-hidden bg-cover bg-center bg-no-repeat "
     >
       <div className="relative z-50 flex flex-col items-center justify-center w-full h-full text-center container mx-auto px-5 py-10 md:py-0 lg:lg:px-0 text-white">
         {subtitle && (
@@ -44,7 +44,7 @@ export default function Banner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-2xl lg:text-6xl font-semibold leading-normal lg:leading-[50px]"
+          className="text-3xl lg:text-6xl font-semibold leading-normal lg:leading-[50px]"
         >
           {title} <span className="text-primaryColor">{colorTitle}</span>
         </motion.h1>

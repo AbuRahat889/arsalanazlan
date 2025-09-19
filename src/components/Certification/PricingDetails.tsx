@@ -168,6 +168,7 @@ export default function PricingDetails({ priceDetails }: any) {
           <div>
             <Button
               variant={priceDetails.popular ? "default" : "outline"}
+              href={`/payment?plan=${priceDetails.id}&price=${isMonthly ? priceDetails.price : priceDetails.yearlyPrice}`}
               className={cn(
                 "w-full font-medium transition-all duration-300",
                 priceDetails.popular
