@@ -1,37 +1,22 @@
 "use client";
 
-import React from "react";
-import ScrollFloat from "../ui/Scrolling";
-import { motion } from "framer-motion";
-import { MediaButton } from "../ui/icon";
-import { Button } from "../ui/button";
-import { GoArrowRight } from "react-icons/go";
-import Image from "next/image";
 import path1 from "@/assets/Path1.png";
 import path2 from "@/assets/Path2.png";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { GoArrowRight } from "react-icons/go";
+import { Button } from "../ui/button";
+import Heading from "../ui/heading";
+import { MediaButton } from "../ui/icon";
 
 export default function ChoosePatn() {
   return (
     <div className="bg-[#f9fafb] py-16 px-5 xl:px-0">
-      <ScrollFloat
-        animationDuration={1}
-        ease="back.inOut(2)"
-        scrollStart="center bottom+=50%"
-        scrollEnd="bottom bottom-=40%"
-        stagger={0.03}
-        textClassName="text-2xl font-semibold text-textColor leading-8 text-center"
-      >
-        Choose Your Path to Excellence
-      </ScrollFloat>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.4 }}
-        className="text-secondaryColor  mt-3 md:mt-6 text-sm md:text-lg text-center max-w-2xl mx-auto"
-      >
-        Each level is designed to recognize different stages of professional
-        development and expertise.
-      </motion.p>
+      <Heading
+        title="Choose Your Path to Excellence"
+        subtitle="Each level is designed to recognize different stages of professional
+        development and expertise."
+      />
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-10 ">

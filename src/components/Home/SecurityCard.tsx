@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import { MediaButton } from "../ui/icon";
 import { motion } from "framer-motion";
-import ScrollFloat from "../ui/Scrolling";
+import Heading from "../ui/heading";
+import { MediaButton } from "../ui/icon";
 
 export default function SecurityCard() {
   const securityItems = [
@@ -31,19 +30,7 @@ export default function SecurityCard() {
   return (
     <div className="py-14 container mx-auto px-5 xl:px-0">
       <div>
-        <ScrollFloat
-          animationDuration={1}
-          ease="back.inOut(2)"
-          scrollStart="center bottom+=50%"
-          scrollEnd="bottom bottom-=40%"
-          stagger={0.03}
-          textClassName="text-2xl font-semibold text-textColor leading-8 text-center"
-        >
-          {/* <h1 className="text-2xl font-semibold text-textColor leading-8 text-center">
-           TRUSTED STANDARDS AND SECURITY 
-          </h1> */}
-          Trusted Standards and Security
-        </ScrollFloat>
+        <Heading title="Trusted Standards and Security" />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

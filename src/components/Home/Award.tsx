@@ -1,32 +1,17 @@
 "use client";
 
 import { HoverEffect } from "../ui/card-hover-effect";
+import Heading from "../ui/heading";
 import { MediaButton } from "../ui/icon";
-import { motion } from "framer-motion";
-import ScrollFloat from "../ui/Scrolling";
 
 export function Awards() {
   return (
     <div className="container mx-auto py-16 px-5 xl:px-0">
-      <ScrollFloat
-        animationDuration={1}
-        ease="back.inOut(2)"
-        scrollStart="center bottom+=50%"
-        scrollEnd="bottom bottom-=40%"
-        stagger={0.03}
-        textClassName="text-2xl font-semibold text-textColor leading-8 text-center"
-      >
-        Why Choose CPD Awards
-      </ScrollFloat>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.4 }}
-        className="text-secondaryColor  mt-3 md:mt-6 text-sm md:text-lg text-center max-w-2xl mx-auto"
-      >
-        Our certification and accreditation programs deliver measurable value
-        for professionals and organizations worldwide.
-      </motion.p>
+      <Heading
+        title="Why Choose CPD Awards"
+        subtitle="Our certification and accreditation programs deliver measurable value
+        for professionals and organizations worldwide."
+      />
 
       <div className="mt-11">
         <HoverEffect items={securityItems} />

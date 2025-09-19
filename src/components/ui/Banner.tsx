@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MediaButton } from "../ui/icon";
 import bgimage from "@/assets/bannerImage.svg";
+
 interface BannerProps {
   colorTitle?: string;
   title?: string;
