@@ -9,7 +9,6 @@ import TestimonialTab from "./TestimonialTab";
 export default function Testimonial() {
   return (
     <div className="bg-[#1e2d48] py-10 md:py-16 ">
-      
       <ScrollFloat
         animationDuration={1}
         ease="back.inOut(2)"
@@ -18,7 +17,7 @@ export default function Testimonial() {
         stagger={0.03}
         textClassName="text-2xl font-semibold text-white leading-8 text-center px-5 xl:px-0"
       >
-        Why Choose CPD Awards
+        Frequently Asked Questions
       </ScrollFloat>
       <motion.p
         initial={{ opacity: 0 }}
