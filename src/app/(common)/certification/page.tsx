@@ -1,3 +1,4 @@
+import Pricing from "@/components/Certification/Pricing";
 import Banner from "@/components/ui/Banner";
 import React from "react";
 
@@ -10,6 +11,7 @@ export default function page() {
         discription="Advance your career with globally recognized certification across Standard, Advanced, and Fellow Levels"
         button="Apply Now"
       />
+      <Pricing />
     </div>
   );
 }
