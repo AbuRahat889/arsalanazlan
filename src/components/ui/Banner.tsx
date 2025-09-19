@@ -66,7 +66,7 @@ export default function Banner({
             className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-4 md:mt-12"
           >
             <button className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor">
-              Earn Certification
+              {button}
               <MediaButton type="arrowRight" />
             </button>
           </motion.div>

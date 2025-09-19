@@ -1,51 +1,31 @@
 "use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { plans } from "@/constants/pricingInfo";
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const plans = [
-  {
-    id: "SCPD",
-    name: "Standard Certification",
-    description: "Entry-level recognition for structured learning.",
-    features: [
-      "300-500 word reflection",
-      "1 year certificate validity",
-      "5% audit rate",
-    ],
-    cta: "Choose SCPD",
-    popular: true,
-  },
-  {
-    id: "ACPD",
-    name: "Advanced Certification",
-    description: "Mid-level recognition for applied learning.",
-    features: [
-      "800-1200 word reflection",
-      "2 year certificate validity",
-      "Portfolio required",
-    ],
-    cta: "Choose ACPD",
-    popular: true,
-  },
-  {
-    id: "FCPD",
-    name: "Fellow Certification",
-    description: "Highest recognition for leadership impact.",
-    features: [
-      "1500-2000 word reflection",
-      "3 year certificate validity",
-      "Leadership evidence required",
-    ],
-    cta: "Choose FCPD",
-    popular: true,
-  },
-];
+interface CertificationLevelProps {
+  selectedPlan?: string | null;
+  setSelectedPlan?: (planId: string) => void;
+}
 
-export default function CertificationLevel() {
+export default function CertificationLevel({
+  selectedPlan,
+  setSelectedPlan,
+}: CertificationLevelProps) {
+  const path = usePathname();
+
+  const handleSelectPlan = (planId: string) => {
+    if (setSelectedPlan) {
+      setSelectedPlan(planId);
+    }
+  };
+
   return (
     <div className="relative flex w-full flex-col gap-16  px-4 py-16 text-center sm:px-8">
       <div className="flex flex-col items-center justify-center gap-8">
@@ -60,13 +40,16 @@ export default function CertificationLevel() {
               className="flex"
             >
               <div
+                onClick={() => {
+                  if (path === "/certification/price") {
+                    handleSelectPlan(plan.id);
+                  }
+                }}
                 className={cn(
-                  "bg-secondary/20 relative h-full w-full text-left transition-all duration-300 hover:shadow-lg p-6",
+                  " relative h-full w-full text-left transition-all hover:shadow-lg p-6 cursor-pointer ease-in-out ",
 
                   "ring-primaryColor/50 dark:shadow-primaryColor/10 shadow-md ring-2 rounded-lg",
-
-                  plan.popular &&
-                    "from-primaryColor/[0.03] bg-gradient-to-b to-transparent"
+                  selectedPlan === plan.id ? "bg-[#fef4e7]" : "bg-secondary/20"
                 )}
               >
                 {plan.popular && (
@@ -140,21 +123,23 @@ export default function CertificationLevel() {
                     </motion.div>
                   ))}
                 </div>
-                <div>
-                  <Button
-                    variant={plan.popular ? "default" : "outline"}
-                    href="/"
-                    className={cn(
-                      "w-full font-medium transition-all duration-300",
-                      plan.popular
-                        ? "bg-primaryColor hover:bg-primaryColor/90 hover:shadow-primaryColor/20 hover:shadow-md"
-                        : "hover:border-primaryColor/30 hover:bg-primaryColor/5 hover:text-primaryColor"
-                    )}
-                  >
-                    {plan.cta}
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Button>
-                </div>
+                {path !== "/certification/price" && (
+                  <div>
+                    <Button
+                      variant={plan.popular ? "default" : "outline"}
+                      href="/certification/price"
+                      className={cn(
+                        "w-full font-medium transition-all duration-300",
+                        plan.popular
+                          ? "bg-primaryColor hover:bg-primaryColor/90 hover:shadow-primaryColor/20 hover:shadow-md"
+                          : "hover:border-primaryColor/30 hover:bg-primaryColor/5 hover:text-primaryColor"
+                      )}
+                    >
+                      {plan.cta}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Button>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
