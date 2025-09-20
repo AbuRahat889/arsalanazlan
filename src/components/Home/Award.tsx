@@ -14,7 +14,24 @@ export function Awards() {
       />
 
       <div className="mt-11">
-        <HoverEffect items={securityItems} />
+        <HoverEffect
+          items={securityItems}
+          renderItem={(item) => (
+            <div className="p-7 bg-[#f9fafb]  shadow-security-card-shadow rounded-lg">
+              <div className="flex items-center gap-2">
+                <div className="bg-[#293650] rounded-lg flex items-center justify-center size-12">
+                  {item.iconType}
+                </div>
+                <h1 className="text-lg text-textColor font-semibold leading-[120%]">
+                  {item.title}
+                </h1>
+              </div>
+              <p className="text-sm text-secondaryColor font-normal leading-7 mt-3">
+                {item.description}
+              </p>
+            </div>
+          )}
+        />
       </div>
     </div>
   );

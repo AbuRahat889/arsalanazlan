@@ -1,27 +1,21 @@
+"use client";
+
 import { caseStudiesData } from "@/constants/caseStudiesData";
 import React from "react";
 import Heading from "../ui/heading";
 import Image from "next/image";
 import PlaceholderImage from "@/assets/placeholder.webp";
-
-interface CaseStudyCardProps {
-  title: string;
-  date: string;
-  bgGradient: string;
-  decorativeElements: string;
-  image?: string | "";
-}
+import { MovingButton } from "../ui/moving-border";
+import { HoverEffect } from "../ui/card-hover-effect";
 
 export default function CaseStudies() {
   return (
     <div className="bg-[#fef4e7] p-5 md:p-9 rounded-xl container mx-auto">
       <Heading title="CPD Provider Case Studies" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-        {caseStudiesData.map((caseStudy: CaseStudyCardProps, index: number) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-sm overflow-hidden"
-          >
+      <HoverEffect
+        items={caseStudiesData}
+        renderItem={(caseStudy) => (
+          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             {/* Header */}
             <div className="px-4 py-3 ">
               <div className="flex justify-between items-center text-xs text-gray-500 uppercase tracking-wide">
@@ -50,7 +44,16 @@ export default function CaseStudies() {
               </p>
             </div>
           </div>
-        ))}
+        )}
+      />
+
+      <div className="flex justify-center items-center pt-6">
+        <MovingButton
+          borderRadius="1.75rem"
+          className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+        >
+          View All
+        </MovingButton>
       </div>
     </div>
   );
