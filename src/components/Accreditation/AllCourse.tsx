@@ -27,29 +27,31 @@ export default function AllCourse() {
         accredited training providers
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
-        {courses.slice(0, 4).map((course, index) => (
-          <motion.div
-            key={course.id}
-            initial={{
-              x: index % 2 === 0 ? -100 : 100,
-              opacity: 0,
-            }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1.0, delay: index * 0.2 }}
-          >
-            <CourseCard course={course} />
-          </motion.div>
-        ))}
-      </div>
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+          {courses.slice(0, 4).map((course, index) => (
+            <motion.div
+              key={course.id}
+              initial={{
+                x: index % 2 === 0 ? -100 : 100,
+                opacity: 0,
+              }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.0, delay: index * 0.2 }}
+            >
+              <CourseCard course={course} />
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="flex justify-center items-center pt-6">
-        <MovingButton
-          borderRadius="1.75rem"
-          className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
-        >
-          View All
-        </MovingButton>
+        <div className="flex justify-center items-center pt-6">
+          <MovingButton
+            borderRadius="1.75rem"
+            className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+          >
+            View All
+          </MovingButton>
+        </div>
       </div>
     </div>
   );

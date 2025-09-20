@@ -1,4 +1,5 @@
 import AllCourse from "@/components/Accreditation/AllCourse";
+import CaseStudies from "@/components/Accreditation/CaseStudies";
 import Banner from "@/components/ui/Banner";
 
 export default function page() {
@@ -12,6 +13,7 @@ export default function page() {
         button="Apply for Accreditation"
       />
       <AllCourse />
+      <CaseStudies />
     </div>
   );
 }
