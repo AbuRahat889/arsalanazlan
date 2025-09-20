@@ -58,14 +58,17 @@ const Navbar = () => {
 
         {/* Action Buttons + Mobile Menu Toggle */}
         <div className="items-center gap-3 flex">
-          <MovingButton
-            borderRadius="1.75rem"
-            className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
-          >
-            {" "}
-            Log in
-          </MovingButton>
+          <Link href="/auth/login">
+            <MovingButton
+              borderRadius="1.75rem"
+              className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+            >
+              {" "}
+              Log in
+            </MovingButton>
+          </Link>
           <Button
+            href="/auth/sign-up"
             variant="default"
             className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-primaryColor transition-all duration-300 sm:flex hidden"
           >
