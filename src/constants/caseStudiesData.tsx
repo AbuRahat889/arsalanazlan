@@ -1,3 +1,5 @@
+import { MediaButton } from "@/components/ui/icon";
+
 export const caseStudiesData = [
   {
     id: 1,
@@ -46,5 +48,51 @@ export const caseStudiesData = [
     bgGradient: "from-blue-600 via-purple-600 to-pink-500",
     decorativeElements: "geometric-shapes",
     image: "/caseStudy1.png",
+  },
+];
+
+export const securityItems = [
+  {
+    title: "ISO 9001 Certified",
+    description: "Quality Management",
+    iconType: <MediaButton type="certified" />,
+  },
+  {
+    title: "Blockchain Verified",
+    description: "Tamper-Proof Records",
+    iconType: <MediaButton type="verified" />,
+  },
+  {
+    title: "LinkedIn Partner",
+    description: "Skills Verification",
+    iconType: <MediaButton type="partner" />,
+  },
+  {
+    title: "Independently Audited",
+    description: "Third-Party Validation",
+    iconType: <MediaButton type="audited" />,
+  },
+];
+
+export const EmployerTrainingInfo = [
+  {
+    title: "ISO 9001 Certified",
+    description: "Quality Management",
+    iconType: <MediaButton type="check" />,
+  },
+  {
+    title: "Blockchain Verified",
+    description: "Tamper-Proof Records",
+    iconType: <MediaButton type="multipleUsers" />,
+  },
+  {
+    title: "LinkedIn Partner",
+    description: "Skills Verification",
+    iconType: <MediaButton type="verified" />,
+  },
+  {
+    title: "Independently Audited",
+    description: "Third-Party Validation",
+    iconType: <MediaButton type="network" />,
   },
 ];

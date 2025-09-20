@@ -1,32 +1,10 @@
 "use client";
 
+import { securityItems } from "@/constants/caseStudiesData";
 import { motion } from "framer-motion";
 import Heading from "../ui/heading";
-import { MediaButton } from "../ui/icon";
 
 export default function SecurityCard() {
-  const securityItems = [
-    {
-      title: "ISO 9001 Certified",
-      description: "Quality Management",
-      iconType: <MediaButton type="certified" />,
-    },
-    {
-      title: "Blockchain Verified",
-      description: "Tamper-Proof Records",
-      iconType: <MediaButton type="verified" />,
-    },
-    {
-      title: "LinkedIn Partner",
-      description: "Skills Verification",
-      iconType: <MediaButton type="partner" />,
-    },
-    {
-      title: "Independently Audited",
-      description: "Third-Party Validation",
-      iconType: <MediaButton type="audited" />,
-    },
-  ];
   return (
     <div className="py-14 container mx-auto px-5 xl:px-0">
       <div>

@@ -1,5 +1,6 @@
 import AllCourse from "@/components/Accreditation/AllCourse";
 import CaseStudies from "@/components/Accreditation/CaseStudies";
+import EmployerTraining from "@/components/Accreditation/EmployerTraining";
 import Banner from "@/components/ui/Banner";
 
 export default function page() {
@@ -14,6 +15,7 @@ export default function page() {
       />
       <AllCourse />
       <CaseStudies />
+      <EmployerTraining />
     </div>
   );
 }

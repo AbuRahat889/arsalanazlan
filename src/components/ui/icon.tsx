@@ -27,7 +27,8 @@ type MediaButtonProps = {
     | "arrowRight"
     | "calender"
     | "card"
-    | "successCheck";
+    | "successCheck"
+    | "multipleUsers";
 };
 
 const icons = {
@@ -201,15 +202,36 @@ const icons = {
   check: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
       fill="none"
     >
-      <path
-        d="M9.99996 18.3333C5.39758 18.3333 1.66663 14.6023 1.66663 9.99996C1.66663 5.39758 5.39758 1.66663 9.99996 1.66663C14.6023 1.66663 18.3333 5.39758 18.3333 9.99996C18.3333 14.6023 14.6023 18.3333 9.99996 18.3333ZM9.16879 13.3333L15.0614 7.44073L13.8829 6.26223L9.16879 10.9763L6.8118 8.61921L5.63328 9.79779L9.16879 13.3333Z"
-        fill="#F1A63D"
-      />
+      <g clip-path="url(#clip0_240_1602)">
+        <path
+          d="M15 2.55155C14.053 2.2541 13.0452 2.09375 12 2.09375C6.47715 2.09375 2 6.5709 2 12.0938C2 17.6165 6.47715 22.0938 12 22.0938C17.5228 22.0938 22 17.6165 22 12.0938C22 11.0486 21.8396 10.0408 21.5422 9.09375"
+          stroke="#F1A63D"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+        <path
+          d="M8.5 9.59375L12 13.0938L21.0002 3.09375"
+          stroke="#F1A63D"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_240_1602">
+          <rect
+            width="24"
+            height="24"
+            fill="white"
+            transform="translate(0 0.09375)"
+          />
+        </clipPath>
+      </defs>
     </svg>
   ),
   men: (
@@ -458,6 +480,44 @@ const icons = {
         d="M20 31.25C20 31.25 23.75 31.25 28.75 40C28.75 40 42.647 17.0833 55 12.5"
         stroke="#43A22C"
         stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  ),
+  multipleUsers: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+    >
+      <path
+        d="M16.5098 21V19C16.5098 17.9391 16.0883 16.9217 15.3382 16.1716C14.588 15.4214 13.5706 15 12.5098 15H6.50977C5.4489 15 4.43148 15.4214 3.68134 16.1716C2.93119 16.9217 2.50977 17.9391 2.50977 19V21"
+        stroke="#ED900C"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9.50977 11C11.7189 11 13.5098 9.20914 13.5098 7C13.5098 4.79086 11.7189 3 9.50977 3C7.30063 3 5.50977 4.79086 5.50977 7C5.50977 9.20914 7.30063 11 9.50977 11Z"
+        stroke="#ED900C"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M22.5098 20.9999V18.9999C22.5091 18.1136 22.2141 17.2527 21.6711 16.5522C21.1281 15.8517 20.3679 15.3515 19.5098 15.1299"
+        stroke="#ED900C"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M16.5098 3.12988C17.3702 3.35018 18.1328 3.85058 18.6774 4.55219C19.222 5.2538 19.5176 6.11671 19.5176 7.00488C19.5176 7.89305 19.222 8.75596 18.6774 9.45757C18.1328 10.1592 17.3702 10.6596 16.5098 10.8799"
+        stroke="#ED900C"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
       />

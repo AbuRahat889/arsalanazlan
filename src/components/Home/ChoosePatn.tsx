@@ -40,7 +40,7 @@ export default function ChoosePatn() {
               Elevate your career with globally recognized professional
               certification
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               <li className="flex items-start md:items-center gap-2">
                 <MediaButton type="check" />
                 <span className="text-sm md:text-base text-secondaryColor font-normal leading-[160%]">
@@ -132,7 +132,7 @@ export default function ChoosePatn() {
               Elevate your career with globally recognized professional
               certification
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               <li className="flex items-start md:items-center gap-2">
                 <MediaButton type="check" />
                 <span className="text-sm md:text-base text-secondaryColor font-normal leading-[160%]">
