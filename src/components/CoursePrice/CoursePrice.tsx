@@ -73,7 +73,7 @@ export default function CoursePrice() {
         </div>
       </div>
 
-      <div className="sm:2 grid grid-cols-1 gap-4 md:grid-cols-6 mt-14">
+      <div className="sm:2 grid grid-cols-1 gap-4 md:grid-cols-5 mt-14 ">
         {CoursePlans.map((plan, index) => (
           <motion.div
             key={index}
@@ -123,8 +123,8 @@ export default function CoursePrice() {
               opacity: { duration: 0.5 },
             }}
             className={cn(
-              `bg-background relative rounded-2xl border-[1px] p-6 text-center lg:flex lg:flex-col lg:justify-center`,
-              plan.isPopular ? "border-primary border-2" : "border-border",
+              `bg-[#f1f5f9] relative rounded-2xl border-[1px] p-6 text-center lg:flex lg:flex-col lg:justify-center shadow-custom-shadow`,
+              plan.isPopular ? "border-primaryColor border-2" : "border-border",
               "flex flex-col",
               !plan.isPopular && "mt-5",
               index === 0 || index === 3
@@ -139,19 +139,41 @@ export default function CoursePrice() {
             )}
           >
             {plan.isPopular && (
-              <div className="bg-primary absolute top-0 right-0 flex items-center rounded-tr-xl rounded-bl-xl px-2 py-0.5">
+              <div className="bg-primaryColor absolute top-0 right-0 flex items-center rounded-tr-xl rounded-bl-xl px-2 py-0.5">
                 <Star className="text-primary-foreground h-4 w-4 fill-current" />
                 <span className="text-primary-foreground ml-1 font-sans font-semibold">
                   Popular
                 </span>
               </div>
             )}
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col mt-5">
               <p className="text-muted-foreground text-base font-semibold">
                 {plan.name}
               </p>
+              <p className="text-muted-foreground mt-6 text-xs leading-5">
+                {plan.description}
+              </p>
+              <p className="text-primaryColor text-sm leading-normal mt-5">
+                {plan.traningNumber}
+              </p>
+              <Link
+                prefetch={false}
+                href={"#"}
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                  }),
+                  "rounded-lg border-none relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter mt-7",
+                  "hover:bg-primaryColor hover:text-primary-foreground transition-all duration-300 ease-out",
+                  plan.isPopular
+                    ? "bg-primaryColor text-primary-foreground"
+                    : "bg-white text-foreground"
+                )}
+              >
+                Select Package
+              </Link>
               <div className="mt-6 flex items-center justify-center gap-x-2">
-                <span className="text-foreground text-5xl font-bold tracking-tight">
+                <span className="text-secondaryColor text-3xl font-bold tracking-tight">
                   <NumberFlow
                     value={
                       isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)
@@ -167,7 +189,7 @@ export default function CoursePrice() {
                       easing: "ease-out",
                     }}
                     willChange
-                    className="font-variant-numeric: tabular-nums"
+                    className="font-variant-numeric: tabular-nums "
                   />
                 </span>
                 {plan.period !== "Next 3 months" && (
@@ -177,40 +199,18 @@ export default function CoursePrice() {
                 )}
               </div>
 
-              <p className="text-muted-foreground text-xs leading-5">
-                {isMonthly ? "billed monthly" : "billed annually"}
-              </p>
-
-              <ul className="mt-5 flex flex-col gap-2">
+              <ul className="mt-5 flex flex-col gap-3">
                 {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <Check className="text-primary mt-1 h-4 w-4 flex-shrink-0" />
-                    <span className="text-left">{feature}</span>
+                  <li key={idx} className="flex items-center gap-2">
+                    <Check className="text-[#374151] h-4 w-4 flex-shrink-0" />
+                    <span className="text-left text-[#374151] text-sm">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
 
-              <hr className="my-4 w-full" />
-
-              <Link
-                prefetch={false}
-                href={plan.href}
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                  }),
-                  "group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter",
-                  "hover:bg-primary hover:text-primary-foreground hover:ring-primary transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-offset-1",
-                  plan.isPopular
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-background text-foreground"
-                )}
-              >
-                {plan.buttonText}
-              </Link>
-              <p className="text-muted-foreground mt-6 text-xs leading-5">
-                {plan.description}
-              </p>
+              
             </div>
           </motion.div>
         ))}
