@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { IoIosSearch } from "react-icons/io";
-import { CiMenuFries } from "react-icons/ci";
-import { IoMdClose } from "react-icons/io";
-import Image from "next/image";
-import { usePathname } from "next/navigation"; // ✅ usePathname
-import Link from "next/link";
 import logo from "@/assets/logo.svg";
-import StarBorder from "../ui/StarBorder";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation"; // ✅ usePathname
+import { useState } from "react";
+import { CiMenuFries } from "react-icons/ci";
+import { IoIosSearch, IoMdClose } from "react-icons/io";
 import { Button } from "../ui/button";
+import { MovingButton } from "../ui/moving-border";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -59,16 +58,20 @@ const Navbar = () => {
 
         {/* Action Buttons + Mobile Menu Toggle */}
         <div className="items-center gap-3 flex">
+          <MovingButton
+            borderRadius="1.75rem"
+            className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+          >
+            {" "}
+            Log in
+          </MovingButton>
           <Button
-            variant="outline"
+            variant="default"
             className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-primaryColor transition-all duration-300 sm:flex hidden"
           >
-            Log in
-          </Button>
-
-          <StarBorder as="button" className="" color="#720008" speed="5s">
+            {" "}
             Register
-          </StarBorder>
+          </Button>
 
           {/* Mobile Menu Icon */}
           <CiMenuFries

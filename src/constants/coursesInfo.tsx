@@ -22,7 +22,7 @@ export const courses = [
     learners: "8,200 learners trained",
     location: "New York, NY",
     description:
-      "Empowering professionals with leadership skills for the digital era.",
+      "Leading provider of software development and cybersecurity training programs.",
     specialties: [
       "Leadership",
       "Digital Transformation",
@@ -38,7 +38,7 @@ export const courses = [
     learners: "15,300 learners trained",
     location: "Boston, MA",
     description:
-      "Pioneering institute in artificial intelligence, machine learning, and robotics education.",
+      "Leading provider of software development and cybersecurity training programs.",
     specialties: [
       "Artificial Intelligence",
       "Machine Learning",
@@ -54,7 +54,7 @@ export const courses = [
     learners: "5,700 learners trained",
     location: "Los Angeles, CA",
     description:
-      "Specialized in multimedia, film production, and digital content creation.",
+      "Leading provider of software development and cybersecurity training programs.",
     specialties: [
       "Film Production",
       "Graphic Design",
@@ -70,7 +70,7 @@ export const courses = [
     learners: "9,850 learners trained",
     location: "Chicago, IL",
     description:
-      "Dedicated to advancing healthcare through technology and innovation.",
+      "Leading provider of software development and cybersecurity training programs.",
     specialties: [
       "Healthcare IT",
       "Medical Devices",

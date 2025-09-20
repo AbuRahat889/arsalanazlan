@@ -1,9 +1,11 @@
-import React from "react";
-import Heading from "../ui/heading";
-import SearchBar from "./SearchBar";
-import CourseCard from "./CourseCard";
+"use client";
+
 import { courses } from "@/constants/coursesInfo";
-import { Button } from "../ui/button";
+import { motion } from "framer-motion";
+import Heading from "../ui/heading";
+import { MovingButton } from "../ui/moving-border";
+import CourseCard from "./CourseCard";
+import SearchBar from "./SearchBar";
 
 export default function AllCourse() {
   return (
@@ -12,20 +14,42 @@ export default function AllCourse() {
         title="Provider Directory"
         subtitle="Discover world-class training providers that have earned our rigorous accreditation standards. Search by specialty, location, or accreditation level."
       />
-      <div className="mt-6">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="mt-6"
+      >
         <SearchBar />
-      </div>
+      </motion.div>
       <p className="text-sm  md:text-base text-secondaryColor max-w-7xl mx-auto py-6">
-        Showing <span className="text-primaryColor font-bold">4</span> accredited
-        training providers
+        Showing <span className="text-primaryColor font-bold">4</span>{" "}
+        accredited training providers
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto ">
-        {courses.slice(0, 4).map((course) => (
-          <CourseCard key={course.id} course={course} />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+        {courses.slice(0, 4).map((course, index) => (
+          <motion.div
+            key={course.id}
+            initial={{
+              x: index % 2 === 0 ? -100 : 100,
+              opacity: 0,
+            }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.0, delay: index * 0.2 }}
+          >
+            <CourseCard course={course} />
+          </motion.div>
         ))}
       </div>
-      <div className="flex justify-center items-center pt-3">
-        <Button variant={"outline"}>View All</Button>
+
+      <div className="flex justify-center items-center pt-6">
+        <MovingButton
+          borderRadius="1.75rem"
+          className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+        >
+          View All
+        </MovingButton>
       </div>
     </div>
   );
