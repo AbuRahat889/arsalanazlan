@@ -5,7 +5,7 @@ import { RxArrowLeft } from "react-icons/rx";
 export default function Page() {
   return (
     <div className="py-14 container mx-auto px-5 xl:px-0">
-      <div className="flex items-center gap-2 px-28">
+      <div className="flex items-center gap-2 px-0 md:px-28">
         <div>
           <RxArrowLeft className="cursor-pointer size-5" />
         </div>

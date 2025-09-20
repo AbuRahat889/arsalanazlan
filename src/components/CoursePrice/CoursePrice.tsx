@@ -73,45 +73,45 @@ export default function CoursePrice() {
         </div>
       </div>
 
-      <div className="sm:2 grid grid-cols-1 gap-4 md:grid-cols-5 mt-14 ">
+      <div className="sm:2 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5 mt-14 ">
         {CoursePlans.map((plan, index) => (
           <motion.div
             key={index}
             initial={{ y: 50, opacity: 1 }}
             whileInView={{
-              y: plan.isPopular
-                ? -25
-                : index === 0
-                ? 25
-                : index === 4
-                ? 25
-                : index === 5
-                ? 50
-                : 0,
-              opacity: 1,
-              x:
-                index === 0
-                  ? 60
-                  : index === 1
+              // only apply y offset on md+ screens
+              y:
+                plan.isPopular &&
+                typeof window !== "undefined" &&
+                window.innerWidth >= 765
+                  ? -25
+                  : index === 0 && window.innerWidth >= 765
                   ? 25
-                  : index === 2
-                  ? -10
-                  : index === 3
-                  ? -45
-                  : index === 4
-                  ? -83
-                  : index === 5
-                  ? -120
+                  : index === 4 && window.innerWidth >= 765
+                  ? 25
+                  : index === 5 && window.innerWidth >= 765
+                  ? 50
                   : 0,
-              scale:
-                index === 0 ||
-                index === 1 ||
-                index === 2 ||
-                index === 3 ||
-                index === 4 ||
-                index === 5
-                  ? 0.99
-                  : 1.0,
+              opacity: 1,
+              // only apply x offset on md+ screens
+              x:
+                window.innerWidth >= 765
+                  ? index === 0
+                    ? 60
+                    : index === 1
+                    ? 25
+                    : index === 2
+                    ? -10
+                    : index === 3
+                    ? -45
+                    : index === 4
+                    ? -83
+                    : index === 5
+                    ? -120
+                    : 0
+                  : 0,
+              // only scale on md+ screens
+              scale: window.innerWidth >= 768 ? 0.99 : 1,
             }}
             viewport={{ once: true }}
             transition={{
@@ -163,10 +163,10 @@ export default function CoursePrice() {
                   buttonVariants({
                     variant: "outline",
                   }),
-                  "rounded-lg border-none relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter mt-7",
+                  "rounded-lg border-none relative w-full gap-2 overflow-hidden text-sm xl:text-base font-semibold tracking-tighter mt-7 py-2",
                   "hover:bg-primaryColor hover:text-primary-foreground transition-all duration-300 ease-out",
                   plan.isPopular
-                    ? "bg-primaryColor text-primary-foreground"
+                    ? "bg-primaryColor text-primary-foreground py-0 lg:py-6 xl:py-0 "
                     : "bg-white text-foreground"
                 )}
               >
@@ -209,8 +209,6 @@ export default function CoursePrice() {
                   </li>
                 ))}
               </ul>
-
-              
             </div>
           </motion.div>
         ))}
