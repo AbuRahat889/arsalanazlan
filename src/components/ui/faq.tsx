@@ -20,7 +20,7 @@ export default function FaqItem({ faqItems }: { faqItems: FaqItem[] }) {
 
   return (
     <section className="bg-background ">
-      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+      <div className="container mx-auto max-w-6xl ">
         {/* FAQ Grid */}
         <div className="">
           <AnimatePresence>

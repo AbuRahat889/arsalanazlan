@@ -1,4 +1,5 @@
 import CoursePrice from "@/components/CoursePrice/CoursePrice";
+import PricingFaq from "@/components/CoursePrice/PricingFaq";
 import Heading from "@/components/ui/heading";
 import { RxArrowLeft } from "react-icons/rx";
 
@@ -19,6 +20,7 @@ export default function Page() {
       />
 
       <CoursePrice />
+      <PricingFaq />
     </div>
   );
 }

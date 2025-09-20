@@ -56,7 +56,7 @@ export default function Faqs() {
   ];
 
   return (
-    <div className="bg-white py-10 md:py-16 ">
+    <div className="bg-white py-10 md:py-16 px-5 xl:px-0 ">
       <Heading
         title="Frequently Asked Questions"
         subtitle="Our certification and accreditation programs deliver measurable value for professionals and organizations worldwide."
