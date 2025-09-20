@@ -63,6 +63,8 @@ export default {
         "custom-shadow": "0 16px 40px 0 rgba(237, 144, 12, 0.14)",
         "security-card-shadow":
           "0 0 40.4px 0 rgba(241, 166, 61, 0.10), 0 0 4px 0 rgba(116, 116, 116, 0.25)",
+        "course-shadow":
+          "0 4px 40px 6px rgba(237, 144, 12, 0.08), 0 0 4px 0 rgba(116, 116, 116, 0.20)",
       },
       container: {
         center: true,

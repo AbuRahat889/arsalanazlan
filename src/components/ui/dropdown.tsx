@@ -76,7 +76,7 @@ export function CustomDropdown({
     <div className={cn("relative", className)} ref={dropdownRef}>
       <label
         htmlFor="description"
-        className="text-sm font-medium text-gray-700"
+        className="text-sm font-medium text-textColor"
       >
         {label}
       </label>
@@ -84,17 +84,19 @@ export function CustomDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full min-w-48 flex items-center justify-between px-4 py-3 text-left bg-white border border-gray-200 rounded-lg "
+        className={cn(
+          "w-full flex items-center justify-between px-4 py-2 text-left border border-gray-200 rounded-lg "
+        )}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <span className="block truncate text-gray-900">
+        <span className="block truncate text-secondaryColor text-wrap">
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <div className="">
           <svg
             className={cn(
-              "w-4 h-4 text-gray-400 transition-transform duration-200",
+              "w-4 h-4 text-textColor transition-transform duration-200",
               isOpen && "rotate-180"
             )}
             fill="none"
@@ -125,8 +127,9 @@ export function CustomDropdown({
                   type="button"
                   onClick={() => handleSelect(option.value)}
                   className={cn(
-                    "w-full px-4 py-3 text-left text-gray-900 hover:bg-red-700 hover:text-white transition-colors duration-150",
-                    selectedValue === option.value && "bg-red-700 text-white"
+                    "w-full px-4 py-3 text-left text-gray-900 hover:bg-primaryColor hover:text-white transition-colors duration-150",
+                    selectedValue === option.value &&
+                      "bg-primaryColor text-white"
                   )}
                   role="option"
                   aria-selected={selectedValue === option.value}
@@ -155,5 +158,5 @@ export function CustomDropdown({
   value={selectedBrand}
   onChange={setSelectedBrand}
   placeholder="Select a car brand"
-/>; */
+/> */
 }
