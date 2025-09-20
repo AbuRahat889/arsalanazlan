@@ -156,9 +156,12 @@ export default function CoursePrice() {
               <p className="text-primaryColor text-sm leading-normal mt-5">
                 {plan.traningNumber}
               </p>
+              {/* payment?plan=SCPD&price=50 */}
               <Link
                 prefetch={false}
-                href={"#"}
+                href={`/payment?plan=${plan.name}&price=${
+                  isMonthly ? plan.price : plan.yearlyPrice
+                }`}
                 className={cn(
                   buttonVariants({
                     variant: "outline",

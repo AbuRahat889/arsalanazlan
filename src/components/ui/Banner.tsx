@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MediaButton } from "../ui/icon";
 import bgimage from "@/assets/bannerImage.svg";
+import Link from "next/link";
 
 interface BannerProps {
   colorTitle?: string;
@@ -11,6 +12,7 @@ interface BannerProps {
   subtitle?: string;
   discription?: string;
   button?: string;
+  buttonLink?: string;
 }
 
 export default function Banner({
@@ -19,6 +21,7 @@ export default function Banner({
   subtitle,
   discription,
   button,
+  buttonLink,
 }: BannerProps) {
   return (
     <div
@@ -44,7 +47,7 @@ export default function Banner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-3xl lg:text-6xl font-semibold leading-normal lg:leading-[50px]"
+          className="text-3xl lg:text-6xl font-semibold leading-normal lg:leading-[50px] max-w-4xl"
         >
           {title} <span className="text-primaryColor">{colorTitle}</span>
         </motion.h1>
@@ -65,10 +68,13 @@ export default function Banner({
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-4 md:mt-12"
           >
-            <button className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor">
+            <Link
+              href={`/${buttonLink}`}
+              className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor"
+            >
               {button}
               <MediaButton type="arrowRight" />
-            </button>
+            </Link>
           </motion.div>
         )}
       </div>

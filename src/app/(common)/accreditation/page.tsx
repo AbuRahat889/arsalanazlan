@@ -13,6 +13,7 @@ export default function page() {
         colorTitle="Provider Directory"
         discription="Discover world-class training providers that have earned our rigorous accreditation standards. Search by specialty, location, or accreditation level."
         button="Apply for Accreditation"
+        buttonLink="course-price"
       />
       <AllCourse />
       <CaseStudies />
