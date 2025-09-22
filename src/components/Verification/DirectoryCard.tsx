@@ -29,7 +29,7 @@ export default function DirectoryCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover={{ scale: 1.02 }}
-      className="max-w-7xl mx-auto flex items-center gap-10 px-6 py-4 rounded-lg shadow-security-card-shadow mb-6"
+      className="max-w-7xl w-full mx-auto flex items-center gap-10 px-6 py-4 rounded-lg shadow-none lg:shadow-security-card-shadow mb-6 border-b lg:border-none"
     >
       {/* Left section with avatar and user info */}
       <div className="flex items-center gap-4 w-72">
