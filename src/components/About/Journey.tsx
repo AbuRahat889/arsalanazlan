@@ -1,5 +1,3 @@
-'use client";';
-
 import React from "react";
 import Heading from "../ui/heading";
 import { Timeline } from "../ui/timeline";
