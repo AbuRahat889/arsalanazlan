@@ -1,51 +1,57 @@
 "use client";
 
 import { testimonials } from "@/constants/TestimonialCardInfo";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import TestimonialCard from "./TestimonialCard";
-
-interface NavigationOptions {
-  prevEl: HTMLElement | null;
-  nextEl: HTMLElement | null;
-}
 
 const SwiperSlider = () => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const [setSwiperInstance] = useState<any>(null);
 
   return (
     <div className="relative product-slider mt-10 px-5 md:px-16">
       <Swiper
-        onSwiper={setSwiperInstance}
         spaceBetween={20}
         slidesPerView={1}
-        autoplay={{ delay: 500 }}
-        loop={true} // Infinite loop
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
         speed={900}
         grabCursor={true}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        modules={[Pagination, Navigation]}
+        modules={[Pagination, Navigation, Autoplay]}
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
+        // this is the key: assign refs *after* swiper is initialized
         onBeforeInit={(swiper) => {
-          // Bind refs correctly
-          if (swiper.params.navigation) {
-            const navigation = swiper.params.navigation as NavigationOptions;
-            navigation.prevEl = prevRef.current;
-            navigation.nextEl = nextRef.current;
+          if (typeof swiper.params.navigation !== "boolean") {
+            swiper.params.navigation!.prevEl = prevRef.current;
+            swiper.params.navigation!.nextEl = nextRef.current;
           }
+        }}
+        onSwiper={(swiper) => {
+          setTimeout(() => {
+            // re-assign navigation elements & init/update
+            if (
+              swiper.params.navigation &&
+              typeof swiper.params.navigation !== "boolean"
+            ) {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+              swiper.navigation.destroy();
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          });
         }}
       >
         {testimonials?.map((testimonial: any, index: number) => (
@@ -55,17 +61,17 @@ const SwiperSlider = () => {
         ))}
       </Swiper>
 
-      {/* Navigation buttons near the cards */}
+      {/* Navigation buttons */}
       <button
         ref={prevRef}
-        className="absolute top-1/2 left-0 bg-[#b6b8bc] rounded-full h-10 w-10 flex items-center justify-center z-[3] shadow-lg"
+        className="absolute top-1/2 left-0 -translate-y-1/2 bg-[#b6b8bc] rounded-full h-10 w-10 flex items-center justify-center z-[3] shadow-lg"
       >
         <IoIosArrowBack className="text-[#141b34] text-2xl" />
       </button>
 
       <button
         ref={nextRef}
-        className="absolute top-1/2 right-0 bg-[#b6b8bc] rounded-full h-10 w-10 flex items-center justify-center z-[3] shadow-lg"
+        className="absolute top-1/2 right-0 -translate-y-1/2 bg-[#b6b8bc] rounded-full h-10 w-10 flex items-center justify-center z-[3] shadow-lg"
       >
         <IoIosArrowForward className="text-[#141b34] text-2xl" />
       </button>
