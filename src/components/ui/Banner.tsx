@@ -56,7 +56,7 @@ export default function Banner({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-white max-w-[800px] mt-3 md:mt-6 text-sm md:text-lg"
+          className="text-white max-w-[750px] mt-3 md:mt-6 text-sm md:text-lg"
         >
           {discription}
         </motion.p>
