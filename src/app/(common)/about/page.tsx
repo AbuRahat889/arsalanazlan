@@ -1,3 +1,4 @@
+import Journey from "@/components/About/Journey";
 import Leadership from "@/components/About/Leadership";
 import MissionVission from "@/components/About/MissionVission";
 import TrustCompliance from "@/components/About/TrustCompliance";
@@ -15,6 +16,7 @@ export default function page() {
       <MissionVission />
       <Values />
       <Leadership />
+      <Journey />
       <TrustCompliance />
     </div>
   );
