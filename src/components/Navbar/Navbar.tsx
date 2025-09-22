@@ -19,7 +19,7 @@ const Navbar = () => {
     { label: "Accreditation", href: "/accreditation" },
     { label: "Verification", href: "/verification" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact", href: "/contact-us" },
   ];
 
   return (
