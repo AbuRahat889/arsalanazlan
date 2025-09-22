@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { CustomDropdown } from "../ui/dropdown";
 import { CourseType, Locations } from "@/constants/dropdownInfo";
 
-export default function SearchBar() {
+export default function CertificationSearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [selectedType, setSelectedType] = useState("All Types");
 
@@ -15,38 +15,43 @@ export default function SearchBar() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white border border-borderColor rounded-lg px-3 md:px-7 py-5 shadow-sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-8">
         {/* Search Input */}
-        <div className="flex items-center gap-2 bg-[#f8f8f8] px-4 py-2 rounded-lg ">
+        <div className="flex items-center gap-2 bg-[#f8f8f8] border border-borderColor px-4 py-2 rounded-lg ">
           <CiSearch className="size-7" />
 
           <input
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search providers, specialties, or programs..."
+            placeholder="Search by name"
             className="w-full text-gray-700 placeholder-gray-400 bg-transparent border-none outline-none"
           />
         </div>
 
-        <div className="flex items-center gap-4 w-full">
-          {/* All Types Dropdown */}
-          <CustomDropdown
-            options={CourseType}
-            value={selectedType}
-            onChange={setSelectedType}
-            placeholder="All Types"
-            className="w-full bg-[#f8f8f8]"
-          />
-          {/* Locations Dropdown */}
-          <CustomDropdown
-            options={Locations}
-            value={selectedLocation}
-            onChange={setSelectedLocation}
-            placeholder="Locations"
-            className="w-full bg-[#f8f8f8]"
-          />
-        </div>
+        {/* All Types Dropdown */}
+        <CustomDropdown
+          options={CourseType}
+          value={selectedType}
+          onChange={setSelectedType}
+          placeholder="Certification Level"
+          className="w-full bg-[#f8f8f8]"
+        />
+        <CustomDropdown
+          options={Locations}
+          value={selectedLocation}
+          onChange={setSelectedLocation}
+          placeholder="Sector"
+          className="w-full bg-[#f8f8f8]"
+        />
+        {/* Locations Dropdown */}
+        <CustomDropdown
+          options={Locations}
+          value={selectedLocation}
+          onChange={setSelectedLocation}
+          placeholder="Locations"
+          className="w-full bg-[#f8f8f8]"
+        />
       </div>
 
       {/* Click outside to close dropdowns */}
