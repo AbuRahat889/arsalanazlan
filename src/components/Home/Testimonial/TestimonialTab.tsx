@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwiperSlider from "./SwiperSlider";
+import confetti from "canvas-confetti";
 
 const Testimonial = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -17,6 +18,29 @@ const Testimonial = () => {
       children: <SwiperSlider />,
     },
   ];
+
+  useEffect(() => {
+    if (activeTab === 2) {
+      // fire confetti when switched to Yearly
+      confetti({
+        particleCount: 550,
+        spread: 150,
+        origin: { x: 0.5, y: 0.5 },
+        colors: [
+          "hsl(var(--primary))",
+          "hsl(var(--accent))",
+          "hsl(var(--secondary))",
+          "hsl(var(--muted))",
+          "#f1a63d",
+        ],
+        ticks: 400,
+        gravity: 1.2,
+        decay: 0.94,
+        startVelocity: 40,
+        shapes: ["square", "circle", "star"],
+      });
+    }
+  }, [activeTab]);
 
   return (
     <>

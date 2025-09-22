@@ -20,8 +20,8 @@ export default function PricingDetails({ priceDetails }: any) {
     if (!val) {
       // fire confetti when switched to Yearly
       confetti({
-        particleCount: 50,
-        spread: 60,
+        particleCount: 550,
+        spread: 200,
         origin: { x: 0.5, y: 0.5 },
         colors: [
           "hsl(var(--primary))",
@@ -30,10 +30,10 @@ export default function PricingDetails({ priceDetails }: any) {
           "hsl(var(--muted))",
         ],
         ticks: 200,
-        gravity: 1.2,
+        gravity: 1.5,
         decay: 0.94,
         startVelocity: 30,
-        shapes: ["circle"],
+        shapes: ["square", "circle"],
       });
     }
   };
