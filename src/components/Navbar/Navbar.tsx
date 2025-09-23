@@ -1,14 +1,13 @@
 "use client";
 
 import logo from "@/assets/logo.svg";
+import profileImage from "@/assets/profile.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // ✅ usePathname
 import { useState } from "react";
-import { CiMenuFries } from "react-icons/ci";
-import { IoIosSearch, IoMdClose } from "react-icons/io";
-import { Button } from "../ui/button";
-import { MovingButton } from "../ui/moving-border";
+import { IoMdClose } from "react-icons/io";
+import { MediaButton } from "../ui/icon";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -56,8 +55,24 @@ const Navbar = () => {
           ))}
         </ul>
 
+        <div className=" flex items-center gap-8">
+          <div className="">
+            <MediaButton type="notification" />
+          </div>
+          <Link
+            href={"/user-profile/personal-info"}
+            className="bg-primaryColor rounded-full p-[1px]"
+          >
+            <Image
+              src={profileImage}
+              alt="Logo"
+              className="h-12 w-12 rounded-full "
+              priority
+            />
+          </Link>
+        </div>
         {/* Action Buttons + Mobile Menu Toggle */}
-        <div className="items-center gap-3 flex">
+        {/* <div className="items-center gap-3 flex">
           <Link href="/auth/login">
             <MovingButton
               borderRadius="1.75rem"
@@ -76,12 +91,11 @@ const Navbar = () => {
             Register
           </Button>
 
-          {/* Mobile Menu Icon */}
           <CiMenuFries
             className="text-[1.8rem] text-[#424242] cursor-pointer md:hidden flex"
             onClick={() => setMobileSidebarOpen(true)}
           />
-        </div>
+        </div> */}
 
         {/* Mobile Sidebar (Drawer) */}
         <aside
@@ -96,15 +110,6 @@ const Navbar = () => {
           >
             <IoMdClose />
           </button>
-
-          {/* Search Input */}
-          <div className="relative mb-5 mt-10">
-            <input
-              className="py-1.5 pr-4 w-full pl-10 rounded-full border border-gray-200 outline-none focus:border-primaryColor dark:bg-slate-800 dark:text-[#abc2d3]"
-              placeholder="Search..."
-            />
-            <IoIosSearch className="absolute top-[8px] left-3 text-gray-500 text-[1.3rem]" />
-          </div>
 
           {/* Mobile Links */}
           <ul className="flex flex-col gap-4 text-[1rem] text-gray-600 dark:text-[#abc2d3]">
