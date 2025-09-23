@@ -1,6 +1,5 @@
 import profileImage from "@/assets/profile.jpg";
 import {
-  CameraIcon,
   ClockIcon,
   GraduationCap,
   Lock,
@@ -31,7 +30,7 @@ export default function ProfileSetup() {
 
         {/* Profile Photo Section */}
         <div className="mb-8">
-          <div className="relative inline-block">
+          <div className="">
             <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-primaryColor">
               <Image
                 src={profileImage}
@@ -40,9 +39,6 @@ export default function ProfileSetup() {
                 height={96}
                 className="w-full h-full object-cover"
               />
-            </div>
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-              <CameraIcon className="w-4 h-4 text-white" />
             </div>
           </div>
           <p className="text-xl font-semibold text-gray-900 mt-4">
@@ -84,11 +80,14 @@ export default function ProfileSetup() {
       </div>
 
       {/* Security Section */}
-      <div className="border border-[#E4E4E4] p-6 mt-8 rounded-lg">
+      <div className="border border-[#E4E4E4] p-6 mt-8 rounded-lg w-full">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Security</h3>
-        <button className="w-full border border-[#E4E4E4] text-gray-700 py-3 px-4 rounded-lg transition-colors">
+        <Link
+          href={"/user-profile/change-password"}
+          className="w-full inline-block text-center text-lg font-semibold border border-[#E4E4E4] text-gray-700 py-3 px-4 rounded-lg "
+        >
           Change Password
-        </button>
+        </Link>
       </div>
     </div>
   );
