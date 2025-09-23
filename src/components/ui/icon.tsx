@@ -43,7 +43,8 @@ type MediaButtonProps = {
     | "notification"
     | "clock"
     | "file"
-    | "growth2";
+    | "growth2"
+    | "logout";
 };
 
 const icons = {
@@ -863,6 +864,37 @@ const icons = {
         d="M11.1667 4.66699H15.1667V8.66699"
         stroke="#555555"
         stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  ),
+  logout: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="21"
+      height="20"
+      viewBox="0 0 21 20"
+      fill="none"
+    >
+      <path
+        d="M7.91602 6.3002C8.17435 3.3002 9.71602 2.0752 13.091 2.0752H13.1993C16.9243 2.0752 18.416 3.56686 18.416 7.29186V12.7252C18.416 16.4502 16.9243 17.9419 13.1993 17.9419H13.091C9.74102 17.9419 8.19935 16.7335 7.92435 13.7835"
+        stroke="#DC3545"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M13.0009 10H3.51758"
+        stroke="#DC3545"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5.37565 7.20801L2.58398 9.99967L5.37565 12.7913"
+        stroke="#DC3545"
+        stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />

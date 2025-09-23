@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MediaButton } from "../ui/icon";
 
 export default function SettingsNavbar() {
   const path = usePathname();
@@ -72,8 +73,37 @@ export default function SettingsNavbar() {
       ),
     },
     {
-      label: "Notifications",
-      route: "/user-profile/notification",
+      label: "My Plans",
+      route: "/user-profile/my-plans",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="20"
+          viewBox="0 0 21 20"
+          fill="none"
+        >
+          <path
+            d="M10.5 12.5H10.5083"
+            stroke="black"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M5.5 18.333H15.5"
+            stroke="black"
+            stroke-width="1.25"
+            stroke-linecap="round"
+          />
+          <path
+            d="M2.16699 5.00033L5.08366 15.8337H15.917L18.8337 5.00033L14.2503 8.33366L10.5003 1.66699L6.75033 8.33366L2.16699 5.00033Z"
+            stroke="black"
+            stroke-width="1.25"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
     },
   ];
 
@@ -88,10 +118,10 @@ export default function SettingsNavbar() {
             <li key={item.route}>
               <Link
                 href={item.route}
-                className={`flex items-center gap-3 px-4 py-4 text-lg font-medium mb-2 rounded-md transition-colors text-[#131923] ${
+                className={`flex items-center gap-3 px-4 py-4 text-lg font-medium mb-2 rounded-md transition-all duration-300 ease-in-out text-[#131923] ${
                   isActive
                     ? "bg-[#ed900c]"
-                    : "text-[#30373D] hover:bg-[#f5e3c8]"
+                    : "text-[#30373D] hover:bg-[#f5e3c8] hover:scale-105 "
                 }`}
               >
                 {item.icon && <span className="text-xl">{item.icon}</span>}
@@ -100,6 +130,13 @@ export default function SettingsNavbar() {
             </li>
           );
         })}
+
+        <div
+          className={`flex items-center gap-3 px-4 py-4 text-lg font-medium mb-2 rounded-md `}
+        >
+          <MediaButton type="logout" />
+          <span className="text-sm text-red-500">Logout</span>
+        </div>
       </ul>
     </div>
   );
