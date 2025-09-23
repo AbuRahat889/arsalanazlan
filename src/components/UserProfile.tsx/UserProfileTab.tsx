@@ -73,8 +73,52 @@ export default function SettingsNavbar() {
       ),
     },
     {
+      label: "My Certification",
+      route: "/user-profile/my-certification",
+      activeFor: ["/user-profile/my-certification/certificate-details"],
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="20"
+          viewBox="0 0 21 20"
+          fill="none"
+        >
+          <path
+            d="M17.1673 6.87533V15.0003C17.1673 17.5003 15.6756 18.3337 13.834 18.3337H7.16732C5.32565 18.3337 3.83398 17.5003 3.83398 15.0003V6.87533C3.83398 4.16699 5.32565 3.54199 7.16732 3.54199C7.16732 4.05866 7.37563 4.52532 7.71729 4.86699C8.05896 5.20866 8.52565 5.41699 9.04232 5.41699H11.959C12.9923 5.41699 13.834 4.57533 13.834 3.54199C15.6756 3.54199 17.1673 4.16699 17.1673 6.87533Z"
+            stroke="#0C0D0C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M13.8327 3.54199C13.8327 4.57533 12.991 5.41699 11.9577 5.41699H9.04102C8.52435 5.41699 8.05766 5.20866 7.71599 4.86699C7.37433 4.52532 7.16602 4.05866 7.16602 3.54199C7.16602 2.50866 8.00768 1.66699 9.04102 1.66699H11.9577C12.4743 1.66699 12.941 1.87533 13.2827 2.217C13.6244 2.55866 13.8327 3.02533 13.8327 3.54199Z"
+            stroke="#0C0D0C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M7.16602 10.833H10.4993"
+            stroke="#0C0D0C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M7.16602 14.167H13.8327"
+            stroke="#0C0D0C"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
       label: "My Plans",
       route: "/user-profile/my-plans",
+
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -86,21 +130,21 @@ export default function SettingsNavbar() {
           <path
             d="M10.5 12.5H10.5083"
             stroke="black"
-            stroke-width="1.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M5.5 18.333H15.5"
             stroke="black"
-            stroke-width="1.25"
-            stroke-linecap="round"
+            strokeWidth="1.25"
+            strokeLinecap="round"
           />
           <path
             d="M2.16699 5.00033L5.08366 15.8337H15.917L18.8337 5.00033L14.2503 8.33366L10.5003 1.66699L6.75033 8.33366L2.16699 5.00033Z"
             stroke="black"
-            stroke-width="1.25"
-            stroke-linejoin="round"
+            strokeWidth="1.25"
+            strokeLinejoin="round"
           />
         </svg>
       ),
