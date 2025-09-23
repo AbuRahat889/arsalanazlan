@@ -1,5 +1,10 @@
+import ProfileSetup from "@/components/UserProfile.tsx/ProfileSetup";
 import React from "react";
 
 export default function page() {
-  return <div>page</div>;
+  return (
+    <div>
+      <ProfileSetup />
+    </div>
+  );
 }

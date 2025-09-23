@@ -5,7 +5,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col md:flex-row container mx-auto py-12 px-5 xl:px-0 gap-6">
       <UserProfileTab />
-      <div>{children} </div>
+      <div className="w-full">{children} </div>
     </div>
   );
 }
