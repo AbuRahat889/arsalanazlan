@@ -23,7 +23,7 @@ export function FormInput<T extends FieldValues>({
   const error = errors[name]?.message as string | undefined;
 
   return (
-    <div className="mb-4">
+    <div className="w-full">
       <label
         htmlFor={name}
         className="block mb-1 text-sm font-medium text-gray-700"
@@ -40,7 +40,7 @@ export function FormInput<T extends FieldValues>({
         })}
         {...rest}
         className={cn(
-          "w-full px-3 py-3  rounded-xl text-[#999] text-base font-medium outline-none",
+          "w-full px-3 py-2  rounded-xl text-[#999] text-base font-medium outline-none border border-[#CBD5E1]",
           error && "border-red-500",
           className
         )}
