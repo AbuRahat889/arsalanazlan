@@ -268,7 +268,7 @@ export default function SettingsNavbar() {
   ];
 
   return (
-    <div className="h-auto md:h-[460px] w-full md:w-80 p-6 rounded-xl border border-borderColor">
+    <div className="h-auto md:h-[520px] w-full md:w-80 p-6 rounded-xl border border-borderColor">
       <ul className="ml-1">
         {navigation.map((item) => {
           const isActive =

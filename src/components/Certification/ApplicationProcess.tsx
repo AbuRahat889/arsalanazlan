@@ -1,4 +1,6 @@
 // components/ApplicationProcess.tsx
+"use client";
+
 import { MoveRight } from "lucide-react";
 import {
   FaFileAlt,
@@ -6,6 +8,7 @@ import {
   FaCheckCircle,
   FaClipboardCheck,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
 import Heading from "../ui/heading";
 
 const steps = [
@@ -51,11 +54,22 @@ export default function ApplicationProcess() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-16 relative">
           {steps.map((step, index) => (
-            <div key={step.id} className="flex flex-col items-center relative">
+            <motion.div
+              key={step.id}
+              className="flex flex-col items-center relative"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+            >
               {/* Icon Circle */}
-              <div className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mb-4">
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center mb-4"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
                 {step.icon}
-              </div>
+              </motion.div>
 
               {/* Title */}
               <h3 className="font-semibold text-gray-900">{step.title}</h3>
@@ -63,17 +77,28 @@ export default function ApplicationProcess() {
               {/* Description */}
               <p className="text-gray-600 text-sm mt-2">{step.description}</p>
 
-              {/* Connecting Line */}
+              {/* Connecting Line + Arrow */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-0 right-[-20%] ">
+                <div className="hidden md:block absolute top-0 right-[-20%]">
                   {/* Step Number */}
-                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-sm ">
+                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-sm">
                     {step.id}
                   </div>
-                  <MoveRight className=" size-20 " />
+
+                  {/* Arrow Animation */}
+                  <motion.div
+                    animate={{ x: [0, 10, 0] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <MoveRight className="size-20 text-gray-400" />
+                  </motion.div>
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
