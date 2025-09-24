@@ -1,3 +1,5 @@
+import ApplicationProcess from "@/components/Certification/ApplicationProcess";
+import CertificateHelp from "@/components/Certification/CertificateHelp";
 import Pricing from "@/components/Certification/Pricing";
 import Banner from "@/components/ui/Banner";
 import React from "react";
@@ -12,6 +14,8 @@ export default function page() {
         button="Apply Now"
       />
       <Pricing />
+      <ApplicationProcess />
+      <CertificateHelp />
     </div>
   );
 }
