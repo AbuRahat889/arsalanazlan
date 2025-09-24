@@ -23,7 +23,7 @@ export default function CertificateHelp() {
           className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-3 md:mt-6"
         >
           <Link
-            href={"/course-price"}
+            href={"/contact-us"}
             className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor"
           >
             Contact Us
