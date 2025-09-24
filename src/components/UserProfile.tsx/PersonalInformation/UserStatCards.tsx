@@ -5,6 +5,7 @@ import { workshops } from "@/constants/activityInfo";
 import { Calendar, CheckCircle, Clock, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import React from "react";
+import Link from "next/link";
 
 export default function UserStatCards() {
   return (
@@ -120,7 +121,7 @@ export default function UserStatCards() {
           whileTap={{ scale: 0.95 }}
           className="w-full p-5 bg-primaryColor rounded-lg text-textColor font-semibold flex items-center justify-center cursor-pointer"
         >
-          <p>Add New Log Activity</p>
+          <Link href="/user-profile/add-log">Add New Log Activity</Link>
         </motion.div>
       </motion.div>
 

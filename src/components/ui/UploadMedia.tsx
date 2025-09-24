@@ -110,7 +110,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
 
   return (
     <>
-      <div className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0] max-w-3xl">
+      <div className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0] max-w-3xl rounded-md">
         <div className="p-5 text-center space-y-4">
           <div
             className={`${isDragOver ? "bg-white border-blue-300" : ""}`}
@@ -125,7 +125,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
             <button
               type="button"
               onClick={handleBrowseClick}
-              className="bg-[#f97316] text-sm rounded-md hover:bg-orange-600 text-white px-6 py-2 md:text-base font-semibold"
+              className="bg-primaryColor text-sm rounded-md text-white px-6 py-2 md:text-base font-semibold"
             >
               Browse to Upload
             </button>
