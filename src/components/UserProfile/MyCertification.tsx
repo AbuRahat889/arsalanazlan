@@ -164,7 +164,7 @@ export default function CertificationPage() {
                     "0 4px 40px 6px rgba(237, 144, 12, 0.08), 0 0 4px 0 rgba(116, 116, 116, 0.20)",
                   transition: { duration: 0.2 },
                 }}
-                className=" rounded-lg p-6 mb-4 duration-300"
+                className=" rounded-lg p-6 mb-4 duration-300 border"
               >
                 <div>
                   <div className="flex items-start md:items-center justify-between w-full">

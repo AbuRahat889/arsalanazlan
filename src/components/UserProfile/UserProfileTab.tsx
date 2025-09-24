@@ -88,8 +88,8 @@ export default function SettingsNavbar() {
       label: "Profile",
       route: "/user-profile/profile-set-up",
       activeFor: [
-        "/user-profile/change-password",
-        "/user-profile/edit-profile",
+        "/user-profile/profile-set-up/change-password",
+        "/user-profile/profile-set-up/edit-profile",
       ],
       icon: (
         <svg
@@ -119,7 +119,7 @@ export default function SettingsNavbar() {
     {
       label: "Course",
       route: "/user-profile/course",
-      activeFor: ["/user-profile/add-course"],
+      activeFor: ["/user-profile/course/add-course"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +153,34 @@ export default function SettingsNavbar() {
             d="M7.16602 14.166H13.8327"
             stroke="#0C0D0C"
             stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      label: "Case Studies",
+      route: "/user-profile/case-studies",
+      activeFor: ["/user-profile/add-course"],
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="20"
+          viewBox="0 0 21 20"
+          fill="none"
+        >
+          <path
+            d="M11.334 17.355V18.3327H12.3118C12.6529 18.3327 12.8235 18.3327 12.9769 18.2692C13.1302 18.2056 13.2509 18.085 13.4921 17.8438L17.5117 13.8238C17.7393 13.5963 17.8531 13.4826 17.9139 13.3599C18.0296 13.1264 18.0296 12.8523 17.9139 12.6188C17.8531 12.4961 17.7393 12.3823 17.5117 12.1548C17.2842 11.9273 17.1705 11.8136 17.0477 11.7528C16.8142 11.6371 16.5401 11.6371 16.3066 11.7528C16.1838 11.8136 16.0701 11.9273 15.8426 12.1548L11.8229 16.1748C11.5817 16.416 11.4611 16.5366 11.3975 16.6899C11.334 16.8433 11.334 17.0138 11.334 17.355Z"
+            stroke="black"
+            stroke-width="1.25"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.3333 9.16602C16.3333 9.16602 16.3333 7.85818 16.2065 7.5519C16.0796 7.24562 15.8387 7.00476 15.357 6.52304L11.4099 2.57592C10.9942 2.16018 10.7863 1.95231 10.5287 1.82914C10.4752 1.80352 10.4203 1.78078 10.3643 1.76102C10.0951 1.66602 9.80117 1.66602 9.21317 1.66602C6.50902 1.66602 5.15692 1.66602 4.24111 2.40441C4.05609 2.55358 3.88757 2.72211 3.73839 2.90712C3 3.82294 3 5.17503 3 7.87922V11.666C3 14.8087 3 16.3801 3.97631 17.3563C4.86222 18.2423 6.23808 18.3243 8.83333 18.3319M10.5 2.08268V2.49935C10.5 4.85637 10.5 6.03488 11.2323 6.76712C11.9645 7.49935 13.143 7.49935 15.5 7.49935H15.9167"
+            stroke="black"
+            stroke-width="1.25"
             stroke-linecap="round"
             stroke-linejoin="round"
           />

@@ -34,7 +34,7 @@ export default function ProfileSetup() {
           </h1>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              href={"/user-profile/edit-profile"}
+              href={"/user-profile/profile-set-up/edit-profile"}
               className="bg-orange-500 hover:bg-orange-600 text-xs md:text-sm text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <PencilIcon className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default function ProfileSetup() {
         <h3 className="text-xl font-semibold text-gray-900 mb-6">Security</h3>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link
-            href={"/user-profile/change-password"}
+            href={"/user-profile/profile-set-up/change-password"}
             className="w-full inline-block text-center text-lg font-semibold border border-[#E4E4E4] text-gray-700 py-3 px-4 rounded-lg "
           >
             Change Password

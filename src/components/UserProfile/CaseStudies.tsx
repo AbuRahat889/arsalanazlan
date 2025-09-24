@@ -1,12 +1,13 @@
 "use client";
 
-import { courses } from "@/constants/coursesInfo";
+import { caseStudiesData } from "@/constants/caseStudiesData";
 import { motion } from "framer-motion";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import CourseCard from "../Accreditation/CourseCard";
+import CaseStudiesCard from "../CaseStudies/CaseStudiesCard";
+import { HoverEffect } from "../ui/card-hover-effect";
 
-export default function AllCourses() {
+export default function CaseStudies() {
   return (
     <div>
       <motion.div
@@ -23,34 +24,23 @@ export default function AllCourses() {
           className="flex justify-between items-center mb-8"
         >
           <h1 className="text-base md:text-2xl font-semibold text-gray-900">
-            Courses Management
+            Case Studies Management
           </h1>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              href={"/user-profile/course/add-course?type=add"}
+              href={"/user-profile/add-course?type=add"}
               className="bg-orange-500 hover:bg-orange-600 text-xs md:text-sm text-textColor px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <PlusIcon className="text-primary h-5 w-5" />
-              Add new training
+              Add new Case Studies
             </Link>
           </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
-          {courses.slice(0, 4).map((course, index) => (
-            <motion.div
-              key={course.id}
-              initial={{
-                x: index % 2 === 0 ? -100 : 100,
-                opacity: 0,
-              }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.0, delay: index * 0.2 }}
-            >
-              <CourseCard course={course} />
-            </motion.div>
-          ))}
-        </div>
+        <HoverEffect
+          items={caseStudiesData}
+          renderItem={(caseStudy) => <CaseStudiesCard caseStudy={caseStudy} />}
+        />
       </motion.div>
     </div>
   );

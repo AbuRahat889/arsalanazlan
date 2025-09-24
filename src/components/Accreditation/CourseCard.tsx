@@ -71,7 +71,7 @@ export default function CourseCard({ course }: CourseCardProps) {
         {path === "/user-profile/course" ? (
           <div className="flex items-center gap-3">
             <Link
-              href={`/user-profile/add-course?type=edit&id=${course.id}`}
+              href={`/user-profile/course/add-course?type=edit&id=${course.id}`}
               className="bg-[#e8e8e9] p-2 rounded-full hover:bg-gray-300 cursor-pointer"
             >
               <SquarePen className="size-4" />
