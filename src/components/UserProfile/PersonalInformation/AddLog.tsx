@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 
 import {
@@ -119,14 +118,13 @@ export default function AddLog() {
                 </label>
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
+                    <button
                       id="date"
-                      className="w-48 justify-between font-normal bg-[#f8f8f8]"
+                      className="w-48 justify-between font-normal bg-[#f8f8f8] flex items-center border border-borderColor rounded-md p-2"
                     >
                       {date ? date.toLocaleDateString() : "Select date"}
                       <ChevronDownIcon />
-                    </Button>
+                    </button>
                   </PopoverTrigger>
                   <PopoverContent
                     className="w-auto overflow-hidden p-0 bg-[#f8f8f8]"
