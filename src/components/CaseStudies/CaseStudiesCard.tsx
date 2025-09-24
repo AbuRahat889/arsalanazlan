@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PlaceholderImage from "@/assets/placeholder.webp";
 import Link from "next/link";
-import { SquarePen, Trash2 } from "lucide-react";
+import { EllipsisVertical, SquarePen, Trash2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 interface CaseStudy {
   id: number;
@@ -16,6 +19,26 @@ export default function CaseStudiesCard({
 }: {
   caseStudy: CaseStudy;
 }) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const path = usePathname();
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div>
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -41,26 +64,42 @@ export default function CaseStudiesCard({
         </div>
 
         {/* Title */}
-        <div className="p-4">
+        <div className="p-4 flex items-start justify-between">
           <Link
             href={`/case-studies/${caseStudy?.id}`}
             className="text-sm font-medium text-gray-900 leading-tight cursor-pointer hover:underline"
           >
             {caseStudy?.title}
           </Link>
-          {
-            <div className="flex items-center gap-3">
-              <Link
-                href={`/user-profile/add-course?type=edit&id=${caseStudy.id}`}
-                className="bg-[#e8e8e9] p-2 rounded-full hover:bg-gray-300 cursor-pointer"
-              >
-                <SquarePen className="size-4" />
-              </Link>
-              <div className="bg-[#e8e8e9] p-2 rounded-full hover:bg-gray-300 cursor-pointer">
-                <Trash2 className="size-4 text-primaryColor" />
-              </div>
+          {path === "/user-profile/case-studies" && (
+            <div className="relative" ref={dropdownRef}>
+              {/* Toggle Button */}
+              <EllipsisVertical
+                className="size-5 cursor-pointer"
+                onClick={() => setOpen((prev) => !prev)}
+              />
+
+              {/* Dropdown */}
+              {open && (
+                <div className="absolute -top-16 right-5 mt-2  gap-3 bg-white shadow-md rounded-lg p-2 z-10">
+                  <Link
+                    href={`/user-profile/case-studies/create-case-studies?type=edit&id=${caseStudy.id}`}
+                    className="flex  gap-1 items-center p-2 rounded-md hover:bg-gray-300 cursor-pointer"
+                  >
+                    <SquarePen className="size-4" />
+                    <span>Edit</span>
+                  </Link>
+                  <button
+                    className=" p-2 rounded-md flex items-center gap-1 hover:bg-gray-300  cursor-pointer"
+                    onClick={() => console.log("Delete", caseStudy.id)}
+                  >
+                    <Trash2 className="size-4 text-primaryColor" />
+                    <span>Delete</span>
+                  </button>
+                </div>
+              )}
             </div>
-          }
+          )}
         </div>
       </div>
     </div>

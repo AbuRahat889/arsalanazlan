@@ -162,7 +162,7 @@ export default function SettingsNavbar() {
     {
       label: "Case Studies",
       route: "/user-profile/case-studies",
-      activeFor: ["/user-profile/add-course"],
+      activeFor: ["/user-profile/case-studies/create-case-studies"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

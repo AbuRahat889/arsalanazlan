@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
-import { X, Upload, Play, ImageIcon } from "lucide-react";
+import { FileText, Play, Upload, X } from "lucide-react";
 import Image from "next/image";
+import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { useFormContext } from "react-hook-form";
 
 export interface UploadedFile {
   id: string;
   file: File;
   preview: string;
-  type: "image" | "video";
+  type: "image" | "video" | "pdf";
 }
 
 interface UploadMediaProps {
@@ -52,33 +52,34 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
     const validFiles = files.filter((file) => {
       const isImage = file.type.startsWith("image/");
       const isVideo = file.type.startsWith("video/");
-      return isImage || isVideo;
+      const isPdf = file.type === "application/pdf";
+      return isImage || isVideo || isPdf;
     });
 
     const newUploads: UploadedFile[] = validFiles.map((file) => ({
       id: Math.random().toString(36).substr(2, 9),
       file,
       preview: URL.createObjectURL(file),
-      type: file.type.startsWith("image/") ? "image" : "video",
+      type: file.type.startsWith("image/")
+        ? "image"
+        : file.type.startsWith("video/")
+        ? "video"
+        : "pdf",
     }));
 
     setUploadedFiles((prev) => {
       const updated = [...prev, ...newUploads];
-
-      // ✅ Always store File[] in React Hook Form
       setValue(
         name,
         updated.map((f) => f.file),
         { shouldValidate: true }
       );
-
       return updated;
     });
 
-    // Optional: upload to server if onUpload is provided
     if (onUpload) {
       const formData = new FormData();
-      validFiles.forEach((file) => formData.append("images", file));
+      validFiles.forEach((file) => formData.append("files", file));
       await onUpload(formData);
     }
   };
@@ -87,11 +88,9 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
     setUploadedFiles((prev) => {
       const updated = prev.filter((f) => f.id !== id);
 
-      // Clean up preview URL
       const removedFile = prev.find((f) => f.id === id);
       if (removedFile) URL.revokeObjectURL(removedFile.preview);
 
-      // ✅ Keep only File[] in form
       setValue(
         name,
         updated.map((f) => f.file),
@@ -133,7 +132,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
               ref={fileInputRef}
               type="file"
               multiple
-              accept="image/*,video/*"
+              accept="image/*,video/*,application/pdf"
               onChange={handleFileChange}
               className="hidden"
             />
@@ -149,7 +148,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {uploadedFiles.map((f) => (
               <div key={f.id} className="relative group">
-                <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
                   {f.type === "image" ? (
                     <Image
                       src={f.preview}
@@ -157,7 +156,7 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
                       fill
                       className="object-cover"
                     />
-                  ) : (
+                  ) : f.type === "video" ? (
                     <div className="relative w-full h-full">
                       <video
                         src={f.preview}
@@ -168,6 +167,15 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
                         <Play className="h-8 w-8 text-white" />
                       </div>
                     </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center p-4">
+                      <FileText className="h-10 w-10 text-red-500 mb-2" />
+                      <span className="text-xs text-gray-600 text-center break-words">
+                        {f.file.name.length > 15
+                          ? f.file.name.slice(0, 15) + "..."
+                          : f.file.name}
+                      </span>
+                    </div>
                   )}
 
                   <button
@@ -176,17 +184,6 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
                   >
                     <X className="h-4 w-4" />
                   </button>
-
-                  <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-                    {f.type === "image" ? (
-                      <ImageIcon className="h-3 w-3 inline mr-1" />
-                    ) : (
-                      <Play className="h-3 w-3 inline mr-1" />
-                    )}
-                    {f.file.name.length > 15
-                      ? f.file.name.slice(0, 15) + "..."
-                      : f.file.name}
-                  </div>
                 </div>
               </div>
             ))}

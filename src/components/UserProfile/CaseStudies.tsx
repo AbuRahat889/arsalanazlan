@@ -28,7 +28,7 @@ export default function CaseStudies() {
           </h1>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              href={"/user-profile/add-course?type=add"}
+              href={"/user-profile/case-studies/create-case-studies?type=add"}
               className="bg-orange-500 hover:bg-orange-600 text-xs md:text-sm text-textColor px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <PlusIcon className="text-primary h-5 w-5" />

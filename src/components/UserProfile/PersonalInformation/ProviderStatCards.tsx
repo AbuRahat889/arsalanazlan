@@ -176,7 +176,9 @@ export default function ProviderStatCards() {
           whileTap={{ scale: 0.95 }}
           className="w-full p-5 bg-primaryColor rounded-lg text-sm md:text-base text-textColor font-semibold flex items-center justify-center cursor-pointer"
         >
-          <Link href="/user-profile/add-log">Submit new training</Link>
+          <Link href="/user-profile/case-studies/create-case-studies?type=add">
+            Submit new training
+          </Link>
         </motion.div>
       </motion.div>
 
