@@ -1,10 +1,10 @@
-import ProfileSetup from "@/components/UserProfile/ProfileSetup";
+import AddCourse from "@/components/UserProfile/AddCourse";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <ProfileSetup />
+      <AddCourse />
     </div>
   );
 }

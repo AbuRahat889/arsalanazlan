@@ -1,5 +1,7 @@
-import { Users, MapPin } from "lucide-react";
+import { MapPin, SquarePen, Trash2, Users } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 interface CourseCardProps {
   course: {
@@ -15,6 +17,7 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course }: CourseCardProps) {
+  const path = usePathname();
   return (
     <div className="bg-white rounded-2xl p-4 md:p-8 shadow-course-shadow">
       {/* Header with title and badge */}
@@ -65,7 +68,21 @@ export default function CourseCard({ course }: CourseCardProps) {
         <span className="text-gray-500 text-sm">
           Established {course.established}
         </span>
-        <Button variant={"default"}>View Course</Button>
+        {path === "/user-profile/course" ? (
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/user-profile/add-course?type=edit&id=${course.id}`}
+              className="bg-[#e8e8e9] p-2 rounded-full hover:bg-gray-300 cursor-pointer"
+            >
+              <SquarePen className="size-4" />
+            </Link>
+            <div className="bg-[#e8e8e9] p-2 rounded-full hover:bg-gray-300 cursor-pointer">
+              <Trash2 className="size-4 text-primaryColor" />
+            </div>
+          </div>
+        ) : (
+          <Button variant={"default"}>View Course</Button>
+        )}
       </div>
     </div>
   );

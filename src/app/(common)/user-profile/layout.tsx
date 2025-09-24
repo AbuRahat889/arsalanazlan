@@ -1,4 +1,4 @@
-import UserProfileTab from "@/components/UserProfile.tsx/UserProfileTab";
+import UserProfileTab from "@/components/UserProfile/UserProfileTab";
 import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {

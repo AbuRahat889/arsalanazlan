@@ -23,6 +23,6 @@
     }
     
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(common)/blogs"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(common)/blogs", "src/components/UserProfile"],
   "exclude": ["node_modules"]
 }

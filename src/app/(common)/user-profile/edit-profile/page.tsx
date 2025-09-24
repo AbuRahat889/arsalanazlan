@@ -1,4 +1,4 @@
-import EditProfile from "@/components/UserProfile.tsx/EditProfile";
+import EditProfile from "@/components/UserProfile/EditProfile";
 import React from "react";
 
 export default function page() {

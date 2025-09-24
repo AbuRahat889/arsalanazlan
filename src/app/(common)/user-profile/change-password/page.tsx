@@ -1,4 +1,4 @@
-import ChangePassword from "@/components/UserProfile.tsx/ChangePassword";
+import ChangePassword from "@/components/UserProfile/ChangePassword";
 import React from "react";
 
 export default function page() {

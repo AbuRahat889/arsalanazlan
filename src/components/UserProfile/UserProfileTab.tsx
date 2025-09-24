@@ -116,6 +116,49 @@ export default function SettingsNavbar() {
         </svg>
       ),
     },
+    {
+      label: "Course",
+      route: "/user-profile/course",
+      activeFor: ["/user-profile/add-course"],
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="20"
+          viewBox="0 0 21 20"
+          fill="none"
+        >
+          <path
+            d="M17.1673 6.87435V14.9993C17.1673 17.4993 15.6756 18.3327 13.834 18.3327H7.16732C5.32565 18.3327 3.83398 17.4993 3.83398 14.9993V6.87435C3.83398 4.16602 5.32565 3.54102 7.16732 3.54102C7.16732 4.05768 7.37563 4.52435 7.71729 4.86601C8.05896 5.20768 8.52565 5.41602 9.04232 5.41602H11.959C12.9923 5.41602 13.834 4.57435 13.834 3.54102C15.6756 3.54102 17.1673 4.16602 17.1673 6.87435Z"
+            stroke="#0C0D0C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.8327 3.54102C13.8327 4.57435 12.991 5.41602 11.9577 5.41602H9.04102C8.52435 5.41602 8.05766 5.20768 7.71599 4.86601C7.37433 4.52435 7.16602 4.05768 7.16602 3.54102C7.16602 2.50768 8.00768 1.66602 9.04102 1.66602H11.9577C12.4743 1.66602 12.941 1.87435 13.2827 2.21602C13.6244 2.55769 13.8327 3.02435 13.8327 3.54102Z"
+            stroke="#0C0D0C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M7.16602 10.834H10.4993"
+            stroke="#0C0D0C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M7.16602 14.166H13.8327"
+            stroke="#0C0D0C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+    },
 
     {
       label: "My Certification",
@@ -197,7 +240,7 @@ export default function SettingsNavbar() {
   ];
 
   return (
-    <div className="h-96 w-full md:w-80 p-6 rounded-xl border border-borderColor">
+    <div className="h-auto md:h-[460px] w-full md:w-80 p-6 rounded-xl border border-borderColor">
       <ul className="ml-1">
         {navigation.map((item) => {
           const isActive =
