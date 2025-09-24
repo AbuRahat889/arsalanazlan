@@ -98,23 +98,23 @@ export const activities = [
         <path
           d="M13.0007 1.66602H5.50065C5.05862 1.66602 4.6347 1.84161 4.32214 2.15417C4.00958 2.46673 3.83398 2.89065 3.83398 3.33268V16.666C3.83398 17.108 4.00958 17.532 4.32214 17.8445C4.6347 18.1571 5.05862 18.3327 5.50065 18.3327H15.5007C15.9427 18.3327 16.3666 18.1571 16.6792 17.8445C16.9917 17.532 17.1673 17.108 17.1673 16.666V5.83268L13.0007 1.66602Z"
           stroke="#F59E0B"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.66667"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M12.166 1.66602V4.99935C12.166 5.44138 12.3416 5.8653 12.6542 6.17786C12.9667 6.49042 13.3907 6.66602 13.8327 6.66602H17.166"
           stroke="#F59E0B"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.66667"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M8 12.5007L9.66667 14.1673L13 10.834"
           stroke="#F59E0B"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.66667"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     ),

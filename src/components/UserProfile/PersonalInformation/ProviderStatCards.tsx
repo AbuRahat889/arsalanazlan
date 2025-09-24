@@ -40,16 +40,16 @@ export default function ProviderStatCards() {
             <path
               d="M3.83301 5H13.833C15.6011 5 17.2968 5.70238 18.5471 6.95262C19.7973 8.20286 20.4997 9.89856 20.4997 11.6667V35C20.4997 33.6739 19.9729 32.4021 19.0352 31.4645C18.0975 30.5268 16.8258 30 15.4997 30H3.83301V5Z"
               stroke="#334155"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M37.1667 5H27.1667C25.3986 5 23.7029 5.70238 22.4526 6.95262C21.2024 8.20286 20.5 9.89856 20.5 11.6667V35C20.5 33.6739 21.0268 32.4021 21.9645 31.4645C22.9021 30.5268 24.1739 30 25.5 30H37.1667V5Z"
               stroke="#334155"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </motion.div>
@@ -85,30 +85,30 @@ export default function ProviderStatCards() {
             <path
               d="M27.1663 35V31.6667C27.1663 29.8986 26.464 28.2029 25.2137 26.9526C23.9635 25.7024 22.2678 25 20.4997 25H10.4997C8.73156 25 7.03587 25.7024 5.78563 26.9526C4.53539 28.2029 3.83301 29.8986 3.83301 31.6667V35"
               stroke="#F59E0B"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M15.4997 18.3333C19.1816 18.3333 22.1663 15.3486 22.1663 11.6667C22.1663 7.98477 19.1816 5 15.4997 5C11.8178 5 8.83301 7.98477 8.83301 11.6667C8.83301 15.3486 11.8178 18.3333 15.4997 18.3333Z"
               stroke="#F59E0B"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M37.167 35.0001V31.6668C37.1659 30.1897 36.6743 28.7548 35.7693 27.5873C34.8643 26.4199 33.5972 25.5861 32.167 25.2168"
               stroke="#F59E0B"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M27.167 5.2168C28.601 5.58397 29.8721 6.41797 30.7797 7.58731C31.6874 8.75666 32.1801 10.1948 32.1801 11.6751C32.1801 13.1554 31.6874 14.5936 30.7797 15.7629C29.8721 16.9323 28.601 17.7663 27.167 18.1335"
               stroke="#F59E0B"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </motion.div>
@@ -144,16 +144,16 @@ export default function ProviderStatCards() {
             <path
               d="M20.5 23.334C26.0228 23.334 30.5 18.8568 30.5 13.334C30.5 7.81114 26.0228 3.33398 20.5 3.33398C14.9772 3.33398 10.5 7.81114 10.5 13.334C10.5 18.8568 14.9772 23.334 20.5 23.334Z"
               stroke="#334155"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M26.2943 21.4824L28.8327 36.6658L20.4993 31.6658L12.166 36.6658L14.7043 21.4824"
               stroke="#334155"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </motion.div>

@@ -56,30 +56,30 @@ export default function SettingsNavbar() {
           <path
             d="M8 2.5H3.83333C3.3731 2.5 3 2.8731 3 3.33333V9.16667C3 9.6269 3.3731 10 3.83333 10H8C8.46024 10 8.83333 9.6269 8.83333 9.16667V3.33333C8.83333 2.8731 8.46024 2.5 8 2.5Z"
             stroke="#0F172A"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M17.167 2.5H13.0003C12.5401 2.5 12.167 2.8731 12.167 3.33333V5.83333C12.167 6.29357 12.5401 6.66667 13.0003 6.66667H17.167C17.6272 6.66667 18.0003 6.29357 18.0003 5.83333V3.33333C18.0003 2.8731 17.6272 2.5 17.167 2.5Z"
             stroke="#0F172A"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M17.167 10H13.0003C12.5401 10 12.167 10.3731 12.167 10.8333V16.6667C12.167 17.1269 12.5401 17.5 13.0003 17.5H17.167C17.6272 17.5 18.0003 17.1269 18.0003 16.6667V10.8333C18.0003 10.3731 17.6272 10 17.167 10Z"
             stroke="#0F172A"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M8 13.334H3.83333C3.3731 13.334 3 13.7071 3 14.1673V16.6673C3 17.1276 3.3731 17.5007 3.83333 17.5007H8C8.46024 17.5007 8.83333 17.1276 8.83333 16.6673V14.1673C8.83333 13.7071 8.46024 13.334 8 13.334Z"
             stroke="#0F172A"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       ),
@@ -131,30 +131,30 @@ export default function SettingsNavbar() {
           <path
             d="M17.1673 6.87435V14.9993C17.1673 17.4993 15.6756 18.3327 13.834 18.3327H7.16732C5.32565 18.3327 3.83398 17.4993 3.83398 14.9993V6.87435C3.83398 4.16602 5.32565 3.54102 7.16732 3.54102C7.16732 4.05768 7.37563 4.52435 7.71729 4.86601C8.05896 5.20768 8.52565 5.41602 9.04232 5.41602H11.959C12.9923 5.41602 13.834 4.57435 13.834 3.54102C15.6756 3.54102 17.1673 4.16602 17.1673 6.87435Z"
             stroke="#0C0D0C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M13.8327 3.54102C13.8327 4.57435 12.991 5.41602 11.9577 5.41602H9.04102C8.52435 5.41602 8.05766 5.20768 7.71599 4.86601C7.37433 4.52435 7.16602 4.05768 7.16602 3.54102C7.16602 2.50768 8.00768 1.66602 9.04102 1.66602H11.9577C12.4743 1.66602 12.941 1.87435 13.2827 2.21602C13.6244 2.55769 13.8327 3.02435 13.8327 3.54102Z"
             stroke="#0C0D0C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M7.16602 10.834H10.4993"
             stroke="#0C0D0C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M7.16602 14.166H13.8327"
             stroke="#0C0D0C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       ),
@@ -174,15 +174,15 @@ export default function SettingsNavbar() {
           <path
             d="M11.334 17.355V18.3327H12.3118C12.6529 18.3327 12.8235 18.3327 12.9769 18.2692C13.1302 18.2056 13.2509 18.085 13.4921 17.8438L17.5117 13.8238C17.7393 13.5963 17.8531 13.4826 17.9139 13.3599C18.0296 13.1264 18.0296 12.8523 17.9139 12.6188C17.8531 12.4961 17.7393 12.3823 17.5117 12.1548C17.2842 11.9273 17.1705 11.8136 17.0477 11.7528C16.8142 11.6371 16.5401 11.6371 16.3066 11.7528C16.1838 11.8136 16.0701 11.9273 15.8426 12.1548L11.8229 16.1748C11.5817 16.416 11.4611 16.5366 11.3975 16.6899C11.334 16.8433 11.334 17.0138 11.334 17.355Z"
             stroke="black"
-            stroke-width="1.25"
-            stroke-linejoin="round"
+            strokeWidth="1.25"
+            strokeLinejoin="round"
           />
           <path
             d="M16.3333 9.16602C16.3333 9.16602 16.3333 7.85818 16.2065 7.5519C16.0796 7.24562 15.8387 7.00476 15.357 6.52304L11.4099 2.57592C10.9942 2.16018 10.7863 1.95231 10.5287 1.82914C10.4752 1.80352 10.4203 1.78078 10.3643 1.76102C10.0951 1.66602 9.80117 1.66602 9.21317 1.66602C6.50902 1.66602 5.15692 1.66602 4.24111 2.40441C4.05609 2.55358 3.88757 2.72211 3.73839 2.90712C3 3.82294 3 5.17503 3 7.87922V11.666C3 14.8087 3 16.3801 3.97631 17.3563C4.86222 18.2423 6.23808 18.3243 8.83333 18.3319M10.5 2.08268V2.49935C10.5 4.85637 10.5 6.03488 11.2323 6.76712C11.9645 7.49935 13.143 7.49935 15.5 7.49935H15.9167"
             stroke="black"
-            stroke-width="1.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       ),
