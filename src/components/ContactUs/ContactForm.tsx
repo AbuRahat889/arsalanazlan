@@ -37,7 +37,7 @@ export default function ContactForm() {
                 id="firstName"
                 name="firstName"
                 className="w-full px-3 py-2 border border-input bg-background text-secondaryColor rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-                placeholder="Enter your first name"
+                placeholder="Enter your name"
               />
             </div>
             <div>
@@ -52,7 +52,7 @@ export default function ContactForm() {
                 id="email"
                 name="emal"
                 className="w-full px-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor focus:border-primaryColor"
-                placeholder="email@gmail.com"
+                placeholder="abc@gmail.com"
               />
             </div>
           </div>

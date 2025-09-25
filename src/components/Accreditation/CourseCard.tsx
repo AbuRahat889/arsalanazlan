@@ -81,7 +81,7 @@ export default function CourseCard({ course }: CourseCardProps) {
             </div>
           </div>
         ) : (
-          <Button variant={"default"}>View Course</Button>
+          <Button href={`/accreditation/${course.id}`} variant={"default"}>View Course</Button>
         )}
       </div>
     </div>

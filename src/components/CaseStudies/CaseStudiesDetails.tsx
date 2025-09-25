@@ -3,6 +3,7 @@ import React from "react";
 import logo from "@/assets/logo.svg";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 // Parent container variant for staggered children
 const container = {
@@ -124,7 +125,7 @@ export default function CaseStudiesDetails() {
                   whileTap={{ scale: 0.95 }}
                   className="mt-3 bg-primaryColor text-white px-3 sm:px-4 py-2 rounded text-xs sm:text-sm font-medium hover:bg-orange-600 transition-colors"
                 >
-                  View Profile
+                  <Link href={`/accreditation/${1}`}>View Profile</Link>
                 </motion.button>
               </div>
             </motion.div>
