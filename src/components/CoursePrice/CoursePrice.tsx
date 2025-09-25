@@ -21,20 +21,21 @@ export default function CoursePrice() {
     if (!val) {
       // fire confetti when switched to Yearly
       confetti({
-        particleCount: 50,
-        spread: 60,
+        particleCount: 550,
+        spread: 150,
         origin: { x: 0.5, y: 0.5 },
         colors: [
           "hsl(var(--primary))",
           "hsl(var(--accent))",
           "hsl(var(--secondary))",
           "hsl(var(--muted))",
+          "#f1a63d",
         ],
-        ticks: 200,
+        ticks: 400,
         gravity: 1.2,
         decay: 0.94,
-        startVelocity: 30,
-        shapes: ["circle"],
+        startVelocity: 40,
+        shapes: ["square", "circle", "star"],
       });
     }
   };

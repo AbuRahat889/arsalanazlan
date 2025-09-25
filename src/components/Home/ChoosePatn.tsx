@@ -69,6 +69,7 @@ export default function ChoosePatn() {
 
             <Button
               variant={"default"}
+              href="/certification"
               className="w-full flex items-start md:items-center gap-2 mt-6"
             >
               Start Your Certification
@@ -161,9 +162,10 @@ export default function ChoosePatn() {
 
             <Button
               variant={"default"}
+              href="/accreditation"
               className="w-full flex items-start md:items-center gap-2 mt-6"
             >
-              Start Your Certification
+              Get Accredited
               <GoArrowRight />
             </Button>
           </motion.div>

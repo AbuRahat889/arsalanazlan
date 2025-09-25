@@ -1,15 +1,16 @@
 import CoursePrice from "@/components/CoursePrice/CoursePrice";
 import PricingFaq from "@/components/CoursePrice/PricingFaq";
 import Heading from "@/components/ui/heading";
+import Link from "next/link";
 import { RxArrowLeft } from "react-icons/rx";
 
 export default function Page() {
   return (
     <div className="py-14 container mx-auto px-5 xl:px-0">
       <div className="flex items-center gap-2 px-0 md:px-28">
-        <div>
+        <Link href="/accreditation">
           <RxArrowLeft className="cursor-pointer size-5" />
-        </div>
+        </Link>
         <p className="text-secondaryColor text-base font-normal leading-normal">
           Back to Training Provider Directory
         </p>

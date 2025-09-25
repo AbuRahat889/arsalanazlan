@@ -11,8 +11,6 @@ import { useState } from "react";
 
 export default function PricingDetails({ priceDetails }: any) {
   const [isMonthly, setIsMonthly] = useState(true);
-  //   const isDesktop = useMediaQuery('(min-width: 768px)');
-  console.log(priceDetails, "priceDetails");
 
   const handleToggle = (val: boolean) => {
     setIsMonthly(val);
@@ -21,19 +19,20 @@ export default function PricingDetails({ priceDetails }: any) {
       // fire confetti when switched to Yearly
       confetti({
         particleCount: 550,
-        spread: 200,
+        spread: 150,
         origin: { x: 0.5, y: 0.5 },
         colors: [
           "hsl(var(--primary))",
           "hsl(var(--accent))",
           "hsl(var(--secondary))",
           "hsl(var(--muted))",
+          "#f1a63d",
         ],
-        ticks: 200,
-        gravity: 1.5,
+        ticks: 400,
+        gravity: 1.2,
         decay: 0.94,
-        startVelocity: 30,
-        shapes: ["square", "circle"],
+        startVelocity: 40,
+        shapes: ["square", "circle", "star"],
       });
     }
   };
@@ -91,11 +90,11 @@ export default function PricingDetails({ priceDetails }: any) {
           )}
         >
           {/* heading  */}
-          <div className="">
+          <div className="pb-7">
             <p className={`text-[#76726c] text-xl font-medium leading-[120%]`}>
               {priceDetails.name}
             </p>
-            <div className="flex items-end py-7">
+            <div className="flex items-end pt-7 pb-2">
               <span className="text-primaryColor text-5xl font-bold ">
                 <NumberFlow
                   value={
@@ -123,6 +122,11 @@ export default function PricingDetails({ priceDetails }: any) {
                 </span>
               )}
             </div>
+            {!isMonthly && (
+              <div className="bg-green-500 py-2 px-2 rounded-md text-white w-44 text-center text-sm">
+                Save $49 annually
+              </div>
+            )}
           </div>
 
           {/* features list */}
@@ -168,7 +172,9 @@ export default function PricingDetails({ priceDetails }: any) {
           <div>
             <Button
               variant={priceDetails.popular ? "default" : "outline"}
-              href={`/payment?plan=${priceDetails.id}&price=${isMonthly ? priceDetails.price : priceDetails.yearlyPrice}`}
+              href={`/payment?plan=${priceDetails.id}&price=${
+                isMonthly ? priceDetails.price : priceDetails.yearlyPrice
+              }`}
               className={cn(
                 "w-full font-medium transition-all duration-300",
                 priceDetails.popular

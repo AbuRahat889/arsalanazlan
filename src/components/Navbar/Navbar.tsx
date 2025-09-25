@@ -14,9 +14,21 @@ const Navbar = () => {
   const pathname = usePathname(); // ✅ current route
 
   const menuItems = [
-    { label: "Certification", href: "/certification" },
-    { label: "Accreditation", href: "/accreditation" },
-    { label: "Verification", href: "/verification" },
+    {
+      label: "Certification",
+      href: "/certification",
+      activeFor: ["/certification/price"],
+    },
+    {
+      label: "Accreditation",
+      href: "/accreditation",
+      activeFor: ["/course-price", "/case-studies"],
+    },
+    {
+      label: "Verification",
+      href: "/verification",
+      activeFor: ["/professional-directory"],
+    },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact-us" },
   ];
@@ -44,7 +56,7 @@ const Navbar = () => {
                 className={`relative cursor-pointer capitalize transition-all duration-300 
                 before:absolute before:bottom-[-2px] before:left-0 before:h-[2px] before:rounded-full before:transition-all before:duration-300
                 ${
-                  pathname === item.href
+                  pathname === item.href || item.activeFor?.includes(pathname)
                     ? "text-primaryColor before:w-full before:bg-primaryColor"
                     : "hover:text-primaryColor before:w-0 hover:before:w-full before:bg-primaryColor"
                 }`}
@@ -121,7 +133,7 @@ const Navbar = () => {
                   className={`relative cursor-pointer capitalize transition-all duration-300 
                   before:absolute before:bottom-[-2px] before:left-0 before:h-[2px] before:rounded-full before:transition-all before:duration-300
                   ${
-                    pathname === item.href
+                    pathname === item.href || item.activeFor?.includes(pathname)
                       ? "text-primaryColor before:w-full before:bg-primaryColor"
                       : "hover:text-primaryColor before:w-0 hover:before:w-full before:bg-primaryColor"
                   }`}
