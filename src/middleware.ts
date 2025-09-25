@@ -25,5 +25,5 @@ export const config = {
     // "/all-booking",
     // "/booking",
     // "/work-on",
-  ], // Adjust this to match your protected routes
+  ],
 };

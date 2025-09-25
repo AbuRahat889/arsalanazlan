@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"; // ✅ usePathname
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MediaButton } from "../ui/icon";
+import { CiMenuFries } from "react-icons/ci";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -108,19 +109,22 @@ const Navbar = () => {
             onClick={() => setMobileSidebarOpen(true)}
           />
         </div> */}
-
+        <CiMenuFries
+          className="text-[1.8rem] text-[#424242] cursor-pointer md:hidden flex"
+          onClick={() => setMobileSidebarOpen(true)}
+        />
         {/* Mobile Sidebar (Drawer) */}
         <aside
-          className={`fixed top-0 right-0 h-full bg-white dark:bg-slate-700 shadow-lg transform transition-transform duration-300 ease-in-out
+          className={`fixed top-0 right-0 h-full bg-white dark:bg-slate-700 shadow-lg transform transition-transform duration-300 ease-in-out 
           ${mobileSidebarOpen ? "translate-x-0" : "translate-x-full"} 
-          w-3/4 sm:w-1/2 z-50 p-6`}
+          w-3/4 sm:w-1/2 z-[99999] p-6`}
         >
           {/* Close button */}
           <button
             onClick={() => setMobileSidebarOpen(false)}
-            className="absolute top-4 right-4 text-2xl text-gray-600 dark:text-[#abc2d3] hover:text-primaryColor transition"
+            className="text-red-600 dark:text-[#abc2d3] hover:text-primaryColor transition py-5"
           >
-            <IoMdClose />
+            <IoMdClose className="size-5"/>
           </button>
 
           {/* Mobile Links */}
