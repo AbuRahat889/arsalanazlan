@@ -32,7 +32,7 @@ export default function FaqItem({ faqItems }: { faqItems: FaqItem[] }) {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 className={cn(
-                  "rounded-xl border border-[#595959] mb-6",
+                  "rounded-xl border border-[#595959] mb-6 transition-all duration-300 ease-in-out",
                   expandedId === faq.id ? "shadow-3xl" : ""
                 )}
                 style={{ minHeight: "80px" }}
