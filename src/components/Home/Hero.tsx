@@ -24,7 +24,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-2xl lg:text-6xl font-semibold leading-normal lg:leading-[50px]"
+          className="text-2xl lg:text-6xl font-semibold leading-normal lg:leading-[40px]"
         >
           Advance Your <span className="text-primaryColor">Professional</span>{" "}
           Journey
@@ -44,12 +44,12 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-4 md:mt-12"
+          className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-4 md:mt-6 "
         >
           <button className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor">
             <MediaButton type="earn" />
             Earn Certification
-          </button>
+          </button> 
           <button className="border-2 border-primaryColor text-primaryColor px-3 md:px-5 py-2 md:py-3 rounded-lg flex items-center gap-2 text-[1rem] group">
             <MediaButton type="browse" />
             Browse Templates
@@ -61,7 +61,7 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <p className="text-white max-w-[800px] mt-10 md:mt-[64px] mb-3 md:mb-10 text-base md:text-lg">
+          <p className="text-white max-w-[800px] mx-auto mt-10 md:mt-10 mb-3 md:mb-10 text-base md:text-lg">
             Trusted by professionals worldwide
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-9 lg:gap-14">
