@@ -31,7 +31,7 @@ export default function TestimonialCard({
     <div className="bg-white rounded-3xl p-6 shadow-lg w-full h-96 relative">
       {/* Profile Image */}
       <div className="flex justify-center mb-4 relative">
-        <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden -top-20 absolute">
+        <div className="w-24 h-24 rounded-full border-4 bg-white border-white shadow-lg overflow-hidden -top-20 absolute">
           <Image
             src={image || CardImage}
             alt={`${name} profile`}

@@ -11,16 +11,7 @@ const AuthApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["user"],
-    }),
-
-    //get all user from admin dashboard
-    getAllUsers: build.query({
-      query: () => ({
-        url: `/users/all-users`,
-        method: "GET",
-      }),
-      providesTags: ["user"],
+      invalidatesTags: ["auth"],
     }),
 
     //get me
@@ -29,7 +20,7 @@ const AuthApi = baseApi.injectEndpoints({
         url: `/users/me`,
         method: "GET",
       }),
-      providesTags: ["user"],
+      providesTags: ["auth"],
     }),
 
     //forgot password
@@ -39,17 +30,14 @@ const AuthApi = baseApi.injectEndpoints({
         method: "POST",
         body: { email },
       }),
-      invalidatesTags: ["user"],
+      invalidatesTags: ["auth"],
     }),
   }),
 });
 
 export const {
   useAdminLoginMutation,
-
-  useGetAllUsersQuery,
   useGetMeQuery,
-
   useForgotPasswordMutation,
 } = AuthApi;
 export default AuthApi;
