@@ -9,10 +9,17 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import TestimonialCard from "./TestimonialCard";
 
-const SwiperSlider = () => {
+const SwiperSlider = ({ type }: { type: any }) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
+  const filteredTestimonials = testimonials.filter(
+    (item) => item.type === type
+  );
+  const testimonialsToShow = filteredTestimonials.length
+    ? filteredTestimonials
+    : testimonials; // Fallback to all testimonials if none match the type
+  console.log(testimonialsToShow);
   return (
     <div className="relative product-slider mt-10 px-5 md:px-16">
       <Swiper
@@ -54,9 +61,9 @@ const SwiperSlider = () => {
           });
         }}
       >
-        {testimonials?.map((testimonial: any, index: number) => (
+        {testimonialsToShow?.map((testimonial: any, index: number) => (
           <SwiperSlide key={index} className="py-14">
-            <TestimonialCard {...testimonial} />
+            <TestimonialCard alCard {...testimonial} />
           </SwiperSlide>
         ))}
       </Swiper>

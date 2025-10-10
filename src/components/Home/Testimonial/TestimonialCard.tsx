@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CardImage from "@/assets/testimonials.svg";
+import CardImage from "@/assets/profile.jpg";
 
 interface TestimonialCardProps {
   name: string;
@@ -28,12 +28,12 @@ export default function TestimonialCard({
   testimonial,
 }: TestimonialCardProps) {
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-lg w-full relative">
+    <div className="bg-white rounded-3xl p-6 shadow-lg w-full h-96 relative">
       {/* Profile Image */}
       <div className="flex justify-center mb-4 relative">
         <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden -top-20 absolute">
           <Image
-            src={CardImage || image || "/placeholder.svg"}
+            src={image || CardImage}
             alt={`${name} profile`}
             fill
             className="object-cover"

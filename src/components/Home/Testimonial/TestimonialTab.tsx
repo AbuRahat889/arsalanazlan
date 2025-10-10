@@ -10,12 +10,12 @@ const Testimonial = () => {
     {
       key: "1",
       label: "Individuals",
-      children: <SwiperSlider />,
+      children: <SwiperSlider type={"Individuals"} />,
     },
     {
       key: "2",
       label: "Accreditation",
-      children: <SwiperSlider />,
+      children: <SwiperSlider type={"Accreditation"} />,
     },
   ];
 
