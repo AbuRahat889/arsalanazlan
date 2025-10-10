@@ -2,20 +2,23 @@
 
 import image from "@/assets/loginImage.png";
 import Loader from "@/components/ui/Loader";
-import { useAdminLoginMutation } from "@/redux/api/auth";
-import { setUser } from "@/redux/slices/authSlice";
-import Cookies from "js-cookie";
+import { useResetPasswordMutation } from "@/redux/api/auth";
+import { jwtDecode } from "jwt-decode";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "sonner";
+
+type DecodedToken = {
+  email?: string;
+  [key: string]: any;
+};
+
 const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const {
     register,
@@ -32,22 +35,27 @@ const ForgotPassword = () => {
   const passwordValue = watch("password");
   const confirmPasswordValue = watch("confirmPassword");
 
-  const [loginFN, { isLoading }] = useAdminLoginMutation();
+  const [resetPasswordFN, { isLoading }] = useResetPasswordMutation();
 
   const onSubmit = async (data: any) => {
     try {
-      const res = await loginFN(data);
+      const token = localStorage.getItem("resetPasswordToken");
+      if (!token) {
+        toast.error("No token found. Please try again.");
+        return;
+      }
+
+      const decoded = jwtDecode<DecodedToken>(token);
+
+      const resetPassInfo = {
+        email: decoded?.email,
+        password: data.confirmPassword,
+        token: token,
+      };
+      const res = await resetPasswordFN(resetPassInfo);
       if (res?.data?.success) {
-        Cookies.set("token", res?.data?.data?.accessToken);
-        dispatch(
-          setUser({
-            token: res?.data?.data?.accessToken,
-            user: res?.data?.data,
-            isAuthenticated: true,
-          })
-        );
-        toast.success("login successfully!");
-        router.push("/");
+        toast.success(res?.data?.message || "Password reset successfully");
+        router.push("/auth/login");
       } else {
         const errorMessage =
           (res?.error &&
@@ -60,13 +68,14 @@ const ForgotPassword = () => {
         toast.error(errorMessage);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error ? String(error) : "An error occurred. Please try again."
+      );
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row w-full ">
-      <ToastContainer />
       {/* Left Section */}
       <div className="hidden md:block w-full ">
         <Image

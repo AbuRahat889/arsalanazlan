@@ -2,21 +2,16 @@
 
 import image from "@/assets/loginImage.png";
 import Loader from "@/components/ui/Loader";
-import { useAdminLoginMutation } from "@/redux/api/auth";
-import { setUser } from "@/redux/slices/authSlice";
-import Cookies from "js-cookie";
+import { useForgotPasswordMutation } from "@/redux/api/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
 import { HiArrowNarrowLeft } from "react-icons/hi";
+import { toast } from "sonner";
 
 const ForgotPassword = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
@@ -30,22 +25,14 @@ const ForgotPassword = () => {
 
   const emailValue = watch("email");
 
-  const [loginFN, { isLoading }] = useAdminLoginMutation();
+  const [forgotPasswordFN, { isLoading }] = useForgotPasswordMutation();
 
   const onSubmit = async (data: any) => {
     try {
-      const res = await loginFN(data);
+      const res = await forgotPasswordFN(data);
       if (res?.data?.success) {
-        Cookies.set("token", res?.data?.data?.accessToken);
-        dispatch(
-          setUser({
-            token: res?.data?.data?.accessToken,
-            user: res?.data?.data,
-            isAuthenticated: true,
-          })
-        );
-        toast.success("login successfully!");
-        router.push("/");
+        toast.success(res?.data?.message || "Mail sent successfully");
+        router.push(`/auth/otp?purpose=PASSWORD_RESET&email=${data.email}`);
       } else {
         const errorMessage =
           (res?.error &&
@@ -58,13 +45,14 @@ const ForgotPassword = () => {
         toast.error(errorMessage);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error ? String(error) : "An error occurred. Please try again."
+      );
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row w-full ">
-      <ToastContainer />
       {/* Left Section */}
       <div className="hidden md:block w-full ">
         <Image

@@ -2,21 +2,17 @@
 
 import image from "@/assets/loginImage.png";
 import Loader from "@/components/ui/Loader";
-import { useAdminLoginMutation } from "@/redux/api/auth";
-import { setUser } from "@/redux/slices/authSlice";
-import Cookies from "js-cookie";
+import { useUsersCreateMutation } from "@/redux/api/auth";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "sonner";
 const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const {
     register,
@@ -35,22 +31,18 @@ const ForgotPassword = () => {
   const passwordValue = watch("password");
   const confirmPasswordValue = watch("confirmPassword");
 
-  const [loginFN, { isLoading }] = useAdminLoginMutation();
+  const [createUserFN, { isLoading }] = useUsersCreateMutation();
 
   const onSubmit = async (data: any) => {
     try {
-      const res = await loginFN(data);
+      const createuserInfo = {
+        email: data.email,
+        password: data.confirmPassword,
+      };
+      const res = await createUserFN(createuserInfo);
       if (res?.data?.success) {
-        Cookies.set("token", res?.data?.data?.accessToken);
-        dispatch(
-          setUser({
-            token: res?.data?.data?.accessToken,
-            user: res?.data?.data,
-            isAuthenticated: true,
-          })
-        );
-        toast.success("login successfully!");
-        router.push("/");
+        toast.success(res?.data?.message || "User created successfully");
+        router.push(`/auth/otp?purpose=EMAIL_VERIFICATION&email=${data.email}`);
       } else {
         const errorMessage =
           (res?.error &&
@@ -63,13 +55,14 @@ const ForgotPassword = () => {
         toast.error(errorMessage);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error ? String(error) : "An error occurred. Please try again."
+      );
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row w-full ">
-      <ToastContainer />
       {/* Left Section */}
       <div className="hidden md:block w-full ">
         <Image

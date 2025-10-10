@@ -9,10 +9,19 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { MediaButton } from "../ui/icon";
 import { CiMenuFries } from "react-icons/ci";
+import { MovingButton } from "../ui/moving-border";
+import { Button } from "../ui/button";
+import { useGetMeQuery } from "@/redux/api/auth";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store/store";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const pathname = usePathname(); // ✅ current route
+  const userInfo = useSelector((state: RootState) => state.auth);
+
+  const { data } = useGetMeQuery("");
+  console.log(userInfo.token); // Log the whole userInfo object instead
 
   const menuItems = [
     {
@@ -68,47 +77,52 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className=" flex items-center gap-8">
-          <div className="">
-            <MediaButton type="notification" />
+        {userInfo?.token || data?.data ? (
+          <div className=" flex items-center gap-8">
+            <div className="">
+              <MediaButton type="notification" />
+            </div>
+            <Link
+              href={"/user-profile/personal-info"}
+              className="bg-primaryColor rounded-full p-[1px]"
+            >
+              <Image
+                src={profileImage}
+                alt="Logo"
+                className="h-12 w-12 rounded-full "
+                priority
+              />
+            </Link>
           </div>
-          <Link
-            href={"/user-profile/personal-info"}
-            className="bg-primaryColor rounded-full p-[1px]"
-          >
-            <Image
-              src={profileImage}
-              alt="Logo"
-              className="h-12 w-12 rounded-full "
-              priority
-            />
-          </Link>
-        </div>
-        {/* Action Buttons + Mobile Menu Toggle */}
-        {/* <div className="items-center gap-3 flex">
-          <Link href="/auth/login">
-            <MovingButton
-              borderRadius="1.75rem"
-              className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+        ) : (
+          <div className="items-center gap-3 flex">
+            <Link href="/auth/login">
+              <MovingButton
+                borderRadius="1.75rem"
+                className=" text-sm rounded-full text-primaryColor px-2 py-2 md:text-base font-normal "
+              >
+                {" "}
+                Log in
+              </MovingButton>
+            </Link>
+            <Button
+              href="/auth/sign-up"
+              variant="default"
+              className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize transition-all duration-300 sm:flex hidden"
             >
               {" "}
-              Log in
-            </MovingButton>
-          </Link>
-          <Button
-            href="/auth/sign-up"
-            variant="default"
-            className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-primaryColor transition-all duration-300 sm:flex hidden"
-          >
-            {" "}
-            Register
-          </Button>
+              Register
+            </Button>
 
-          <CiMenuFries
-            className="text-[1.8rem] text-[#424242] cursor-pointer md:hidden flex"
-            onClick={() => setMobileSidebarOpen(true)}
-          />
-        </div> */}
+            <CiMenuFries
+              className="text-[1.8rem] text-[#424242] cursor-pointer md:hidden flex"
+              onClick={() => setMobileSidebarOpen(true)}
+            />
+          </div>
+        )}
+
+        {/* Action Buttons + Mobile Menu Toggle */}
+
         <CiMenuFries
           className="text-[1.8rem] text-[#424242] cursor-pointer md:hidden flex"
           onClick={() => setMobileSidebarOpen(true)}
@@ -124,7 +138,7 @@ const Navbar = () => {
             onClick={() => setMobileSidebarOpen(false)}
             className="text-red-600 dark:text-[#abc2d3] hover:text-primaryColor transition py-5"
           >
-            <IoMdClose className="size-5"/>
+            <IoMdClose className="size-5" />
           </button>
 
           {/* Mobile Links */}

@@ -5,9 +5,57 @@ import { baseApi } from "./baseApi";
 const AuthApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     //login user
-    adminLogin: build.mutation({
+    usersLogin: build.mutation({
       query: (data) => ({
-        url: `/auth/admin/login`,
+        url: `/auth/login`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
+
+    //create user
+    usersCreate: build.mutation({
+      query: (data) => ({
+        url: `/auth/signup`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
+
+    //verify otp
+    usersVerifyOtp: build.mutation({
+      query: (data) => ({
+        url: `/auth/verify-otp`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    //verify otp resend
+    usersVerifyOtpResend: build.mutation({
+      query: (data) => ({
+        url: `/auth/resend-otp`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
+
+    //forgot password
+    forgotPassword: build.mutation({
+      query: (data) => ({
+        url: `/auth/forget-password`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
+    //reset password
+    resetPassword: build.mutation({
+      query: (data) => ({
+        url: `/auth/reset-password`,
         method: "POST",
         body: data,
       }),
@@ -17,27 +65,22 @@ const AuthApi = baseApi.injectEndpoints({
     //get me
     getMe: build.query({
       query: () => ({
-        url: `/users/me`,
+        url: `/auth/get-me`,
         method: "GET",
       }),
       providesTags: ["auth"],
-    }),
-
-    //forgot password
-    forgotPassword: build.mutation({
-      query: ({ email }) => ({
-        url: `/auth/forget-password`,
-        method: "POST",
-        body: { email },
-      }),
-      invalidatesTags: ["auth"],
     }),
   }),
 });
 
 export const {
-  useAdminLoginMutation,
-  useGetMeQuery,
+  useUsersLoginMutation,
+  useUsersCreateMutation,
+  useUsersVerifyOtpMutation,
+  useUsersVerifyOtpResendMutation,
   useForgotPasswordMutation,
+  useResetPasswordMutation,
+
+  useGetMeQuery,
 } = AuthApi;
 export default AuthApi;

@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 
 // Utility function to handle the base API URL
 const baseApiHandler = () => {
-  const apiUrl = "http://72.167.223.4:5014/api/v1";
-  // const apiUrl = "http://10.0.20.36:5014/api/v1";
+  // const apiUrl = "http://10.0.20.145:5002/api/v1";
+  const apiUrl = "http://206.162.244.142:5017/api/v1";
 
   return apiUrl;
 };

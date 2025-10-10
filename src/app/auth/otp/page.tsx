@@ -2,26 +2,29 @@
 
 import image from "@/assets/loginImage.png";
 import Loader from "@/components/ui/Loader";
-import { useAdminLoginMutation } from "@/redux/api/auth";
-import { setUser } from "@/redux/slices/authSlice";
-import Cookies from "js-cookie";
+import {
+  useUsersVerifyOtpMutation,
+  useUsersVerifyOtpResendMutation,
+} from "@/redux/api/auth";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiArrowNarrowLeft } from "react-icons/hi";
-import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "sonner";
+
 const ForgotPassword = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-
   const { handleSubmit } = useForm(); // ✅ FIXED
+
+  const params = useSearchParams();
+  const purpose = params.get("purpose");
+  const email = params.get("email");
 
   const [autoOtp, setAutoOtp] = useState("");
   const navigationInputs = useRef<any[]>([]);
 
-  const length = 4;
+  const length = 6;
 
   const onChange = (value: string) => {
     setAutoOtp(value);
@@ -87,22 +90,28 @@ const ForgotPassword = () => {
     }
   };
 
-  const [loginFN, { isLoading }] = useAdminLoginMutation();
+  const [verifyOtpFN, { isLoading }] = useUsersVerifyOtpMutation();
 
   const onSubmit = async () => {
     try {
-      const res = await loginFN(autoOtp);
+      const verificationInfo = {
+        email: email,
+        code: autoOtp,
+        purpose: purpose,
+      };
+      const res = await verifyOtpFN(verificationInfo);
       if (res?.data?.success) {
-        Cookies.set("token", res?.data?.data?.accessToken);
-        dispatch(
-          setUser({
-            token: res?.data?.data?.accessToken,
-            user: res?.data?.data,
-            isAuthenticated: true,
-          })
+        localStorage.setItem(
+          "resetPasswordToken",
+          res?.data?.data?.resetPasswordToken
         );
-        toast.success("login successfully!");
-        router.push("/");
+
+        toast.success(res?.data?.message || "Account verified successfully");
+        if (purpose === "PASSWORD_RESET") {
+          router.push("/auth/new-password");
+        } else {
+          router.push("/auth/login");
+        }
       } else {
         const errorMessage =
           (res?.error &&
@@ -115,13 +124,36 @@ const ForgotPassword = () => {
         toast.error(errorMessage);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error ? String(error) : "An error occurred. Please try again."
+      );
+    }
+  };
+
+  //handle resend otp
+  const [resendOtpFN, { isLoading: isResending }] =
+    useUsersVerifyOtpResendMutation();
+  const handleResendOtp = async () => {
+    try {
+      const resendInfo = {
+        email: email,
+        purpose: purpose,
+      };
+      const res = await resendOtpFN(resendInfo);
+      if (res?.data?.success) {
+        toast.success("OTP resent successfully!");
+      } else {
+        toast.error("Failed to resend OTP. Please try again.");
+      }
+    } catch (error) {
+      toast.error(
+        error ? String(error) : "An error occurred. Please try again."
+      );
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row w-full ">
-      <ToastContainer />
       {/* Left Section */}
       <div className="hidden md:block w-full ">
         <Image
@@ -150,7 +182,7 @@ const ForgotPassword = () => {
               </h2>
 
               <p className="text-sm md:text-lg text-secondaryColor font-normal leading-[150%] text-center mb-6">
-                We’ve sent a code to mahadi88@gmail.com
+                We’ve sent a code to {email}
               </p>
             </div>
 
@@ -183,8 +215,11 @@ const ForgotPassword = () => {
               </div>
               <p className="text-textColor text-base font-normal leading-6 mt-6 text-center">
                 Didn’t get a code?{" "}
-                <span className="hover:text-primaryColor font-bold hover:underline transition-colors duration-300 ease-in-out cursor-pointer ">
-                  Click to resend
+                <span
+                  onClick={handleResendOtp}
+                  className="hover:text-primaryColor font-bold hover:underline transition-colors duration-300 ease-in-out cursor-pointer "
+                >
+                  {isResending ? "Resending..." : "Click to resend"}
                 </span>
               </p>
 
