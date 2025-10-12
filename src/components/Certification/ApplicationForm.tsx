@@ -6,6 +6,8 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { CustomDropdown } from "../ui/dropdown";
 import UploadMedia from "../ui/UploadMedia";
+import Modal from "../ui/modal";
+import ApplicationModal from "./ApplicationModal";
 
 type FormValues = {
   fullName: string;
@@ -24,6 +26,7 @@ export default function ApplicationForm() {
     undefined
   );
   const [selectedType, setSelectedType] = useState("All Types");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -129,6 +132,7 @@ export default function ApplicationForm() {
 
           <button
             type="submit"
+            onClick={() => setIsModalOpen(true)}
             className="mt-4 px-4 py-2 bg-primaryColor text-white rounded"
           >
             Submit Application
@@ -136,7 +140,7 @@ export default function ApplicationForm() {
         </form>
       </FormProvider>
 
-      <div className="bg-[#eff6ff] border border-[#BFDBFE] py-4 px-6 rounded-xl mt-7" >
+      <div className="bg-[#eff6ff] border border-[#BFDBFE] py-4 px-6 rounded-xl mt-7">
         <p className="block mb-1 text-sm font-medium text-[#1E40AF]">
           Need Help?
         </p>
@@ -146,6 +150,10 @@ export default function ApplicationForm() {
           certifications@cpdawards.org.uk or call +1 (555) 123-4567.
         </p>
       </div>
+
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+        <ApplicationModal setIsModalOpen={setIsModalOpen} />
+      </Modal>
     </div>
   );
 }
