@@ -12,8 +12,23 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store/store";
+import { useGetUserByIdQuery } from "@/redux/api/usersApi";
+import ProfileSetupSkeleton from "../Skletone/ProfileSetupSkeleton";
 
 export default function ProfileSetup() {
+  //get user data
+  const userInfo = useSelector((state: RootState) => state.auth.user);
+  const { data, isLoading } = useGetUserByIdQuery(userInfo?.id, {
+    skip: !userInfo?.id,
+  });
+
+  const profileData = data?.data;
+
+  if (isLoading) {
+    return <ProfileSetupSkeleton />;
+  }
   return (
     <div>
       <motion.div
@@ -52,7 +67,7 @@ export default function ProfileSetup() {
         >
           <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-primaryColor">
             <Image
-              src={profileImage}
+              src={profileData?.profileImage || profileImage}
               alt="Profile photo"
               width={96}
               height={96}
@@ -60,7 +75,7 @@ export default function ProfileSetup() {
             />
           </div>
           <p className="text-xl font-semibold text-gray-900 mt-4">
-            Mahadi Hasan
+            {profileData?.profile?.firstName} {profileData?.profile?.lastName}
           </p>
         </motion.div>
 
@@ -79,9 +94,16 @@ export default function ProfileSetup() {
         >
           <div className="space-y-4">
             {[
-              { icon: Mail, text: "mdmahadi36841@email.com" },
-              { icon: Lock, text: "Secondary Education" },
-              { icon: MapPinIcon, text: "Canada" },
+              { icon: Mail, text: profileData?.email || "No Email" },
+              {
+                icon: Lock,
+                text:
+                  profileData?.profile?.specialization || "No Specialization",
+              },
+              {
+                icon: MapPinIcon,
+                text: profileData?.profile?.country || "No Country",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -99,8 +121,15 @@ export default function ProfileSetup() {
 
           <div className="space-y-4">
             {[
-              { icon: ClockIcon, text: "UTC+0 (GMT)" },
-              { icon: GraduationCap, text: "Education" },
+              {
+                icon: ClockIcon,
+                text: profileData?.profile?.timezone || "No Timezone",
+              },
+              {
+                icon: GraduationCap,
+                text:
+                  profileData?.profile?.professionalSector || "No Job Title",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}

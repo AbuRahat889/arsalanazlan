@@ -68,7 +68,7 @@ const AuthApi = baseApi.injectEndpoints({
         url: `/auth/get-me`,
         method: "GET",
       }),
-      providesTags: ["auth"],
+      providesTags: ["auth", "users"],
     }),
   }),
 });

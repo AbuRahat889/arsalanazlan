@@ -20,7 +20,7 @@ const UsersApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["users", "auth"],
     }),
 
     // user logs activity

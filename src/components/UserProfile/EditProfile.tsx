@@ -79,7 +79,7 @@ export default function EditProfile() {
         professionalSummary: profile.professionalSummary || "",
         specialization: profile.specialization || "",
         timezone: profile.timezone || "",
-        profileImage: data.data.profileImage || null, 
+        profileImage: data.data.profileImage || null,
       });
 
       // set other related states
@@ -101,7 +101,7 @@ export default function EditProfile() {
       firstName: data.firstName,
       lastName: data?.lastName,
       country: data?.location,
-      timezone: data?.timezone,
+      timezone: timeZone,
       professionalSector: selectProfession,
       specialization: data?.specialization,
       jobTitle: data?.jobTitle,
@@ -116,7 +116,7 @@ export default function EditProfile() {
       const res = await updateProfileFN(formData).unwrap();
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        router.push("/user-profile/personal-info");
+        router.back();
       }
     } catch (error) {
       toast.error((error as string) || "Failed to update profile");
