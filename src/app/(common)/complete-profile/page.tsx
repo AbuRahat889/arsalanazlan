@@ -1,0 +1,41 @@
+import Heading from "@/components/ui/heading";
+import EditProfile from "@/components/UserProfile/EditProfile";
+import React from "react";
+
+export default function page() {
+  return (
+    <div className="max-w-5xl mx-auto py-10">
+      <div className="bg-[#fdf4e7] w-16 h-16 flex items-center justify-center rounded-full mb-6 mx-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="29"
+          height="29"
+          viewBox="0 0 29 29"
+          fill="none"
+        >
+          <path
+            d="M20.1814 10.5907C20.1814 7.31248 17.5239 4.65498 14.2457 4.65498C10.9676 4.65498 8.31006 7.31248 8.31006 10.5907C8.31006 13.8688 10.9676 16.5263 14.2457 16.5263C17.5239 16.5263 20.1814 13.8688 20.1814 10.5907Z"
+            stroke="#ED900C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M22.5554 24.8363C22.5554 20.2468 18.835 16.5263 14.2455 16.5263C9.65604 16.5263 5.93555 20.2468 5.93555 24.8363"
+            stroke="#ED900C"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <Heading
+        title="Complete Your Profile"
+        subtitle="Help us personalize your CPD experience"
+      />
+      <div className="mt-16">
+        <EditProfile />
+      </div>
+    </div>
+  );
+}

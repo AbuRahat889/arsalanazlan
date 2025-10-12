@@ -2,8 +2,10 @@ import { CheckIcon } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import Image from "next/image";
 import { MediaButton } from "../ui/icon";
+import { useRouter } from "next/navigation";
 
 export default function PaymentSuccess() {
+  const router = useRouter();
   return (
     <div className="">
       <div className="">
@@ -116,7 +118,10 @@ export default function PaymentSuccess() {
           </div>
 
           {/* Complete Profile Button */}
-          <button className="w-full bg-primaryColor text-white font-medium py-3 px-4 rounded-lg transition-colors">
+          <button
+            onClick={() => router.push("/complete-profile")}
+            className="w-full bg-primaryColor text-white font-medium py-3 px-4 rounded-lg transition-colors"
+          >
             Complete Profile
           </button>
         </div>
