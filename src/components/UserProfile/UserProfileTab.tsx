@@ -6,16 +6,21 @@ import { useState } from "react";
 import { MediaButton } from "../ui/icon";
 import Modal from "../ui/modal";
 import LogOutModal from "./LogOutModal";
+import { useGetMeQuery } from "@/redux/api/auth";
+import SidebarSkletone from "../Skletone/sidebarSkletone";
 
 export default function SettingsNavbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const path = usePathname();
+  const { data, isLoading } = useGetMeQuery("");
+  const userRole = data?.data?.role;
 
   const navigation = [
     {
       label: "Personal Info",
       route: "/user-profile/personal-info",
       activeFor: ["/user-profile/add-log"],
+      role: ["USER_PROFILE"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +53,7 @@ export default function SettingsNavbar() {
     {
       label: "Dashboard",
       route: "/user-profile/dashboard",
-      activeFor: ["/user-profile/add-log"],
+      role: ["ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +100,7 @@ export default function SettingsNavbar() {
         "/user-profile/profile-set-up/change-password",
         "/user-profile/profile-set-up/edit-profile",
       ],
+      role: ["USER_PROFILE", "ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -124,6 +130,7 @@ export default function SettingsNavbar() {
       label: "Course",
       route: "/user-profile/course",
       activeFor: ["/user-profile/course/add-course"],
+      role: ["ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -167,6 +174,7 @@ export default function SettingsNavbar() {
       label: "Case Studies",
       route: "/user-profile/case-studies",
       activeFor: ["/user-profile/case-studies/create-case-studies"],
+      role: ["ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,6 +204,7 @@ export default function SettingsNavbar() {
       label: "My Certification",
       route: "/user-profile/my-certification",
       activeFor: ["/user-profile/my-certification/certificate-details"],
+      role: ["USER_PROFILE", "ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -238,7 +247,7 @@ export default function SettingsNavbar() {
     {
       label: "My Plans",
       route: "/user-profile/my-plans",
-
+      role: ["USER_PROFILE", "ACCREDITATION_AGENT"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -271,10 +280,17 @@ export default function SettingsNavbar() {
     },
   ];
 
+  const filteredNavigation = navigation.filter((item) =>
+    item.role.includes(userRole)
+  );
+
+  if (isLoading) {
+    return <SidebarSkletone />;
+  }
   return (
     <div className="h-auto md:h-[520px] w-full md:w-80 p-6 rounded-xl border border-borderColor">
       <ul className="ml-1">
-        {navigation.map((item) => {
+        {filteredNavigation.map((item) => {
           const isActive =
             path === item.route || item.activeFor?.includes(path);
 

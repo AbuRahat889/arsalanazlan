@@ -13,8 +13,23 @@ const UsersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+
+    // user logs activity
+    // create logs
+    createLogs: build.query({
+      query: ({ page, limit }) => ({
+        url: `/log/my-logs`,
+        method: "GET",
+        params: { page, limit },
+      }),
+      providesTags: ["users"],
+    }),
   }),
 });
 
-export const { useUpdateUserProfileMutation } = UsersApi;
+export const {
+  useUpdateUserProfileMutation,
+  //user logs activity
+  useCreateLogsQuery,
+} = UsersApi;
 export default UsersApi;

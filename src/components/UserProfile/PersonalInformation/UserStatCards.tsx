@@ -1,13 +1,29 @@
 "use client";
 
 import { MediaButton } from "@/components/ui/icon";
-import { workshops } from "@/constants/activityInfo";
-import { Calendar, CheckCircle, Clock, FileText } from "lucide-react";
+import Pagination from "@/components/ui/Pagination";
+import { useCreateLogsQuery } from "@/redux/api/usersApi";
+import { UserActivityLog } from "@/Types/ActivityLogs";
 import { motion } from "framer-motion";
-import React from "react";
+import { Calendar, CheckCircle, Clock, FileText } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function UserStatCards() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data } = useCreateLogsQuery({
+    page: currentPage,
+    limit: 3,
+  });
+
+  const activityLogs = data?.data?.data || [];
+  const totalPages = data?.data?.meta?.totalPages || 1;
+
+  console.log(activityLogs);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   return (
     <div>
       {/* statCards */}
@@ -152,9 +168,9 @@ export default function UserStatCards() {
           }}
           className="mt-6 space-y-6"
         >
-          {workshops.map((item) => (
+          {activityLogs?.map((item: UserActivityLog, index: number) => (
             <motion.div
-              key={item.id}
+              key={index}
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
@@ -175,9 +191,9 @@ export default function UserStatCards() {
                 <div
                   className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium
                 ${
-                  item.statusColor === "green"
+                  item.status === "APPROVED"
                     ? "bg-green-50 text-green-700"
-                    : item.statusColor === "yellow"
+                    : item.status === "PENDING"
                     ? "bg-yellow-50 text-yellow-700"
                     : "bg-red-50 text-red-700"
                 }`}
@@ -191,14 +207,21 @@ export default function UserStatCards() {
               <div className="flex items-center gap-6 mb-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
-                  {item.duration}
+                  {item.CPDHours} hours
                 </div>
                 <div className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  {item.date}
+
+                  {item.createdAt
+                    ? new Date(item.createdAt).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })
+                    : "No date"}
                 </div>
                 <div className="bg-muted px-2 py-1 rounded text-xs">
-                  {item.type}
+                  {item.activityCategory}
                 </div>
               </div>
 
@@ -208,14 +231,24 @@ export default function UserStatCards() {
               </p>
 
               {/* Attachments */}
-              <div className="flex items-center gap-1 text-sm text-muted-foreground">
+              <Link
+                href={item.documents?.[0]}
+                target="_blank"
+                className="flex items-center gap-1 text-sm text-muted-foreground"
+              >
                 <FileText className="w-4 h-4" />
-                {item.attachments} evidence files attached
-              </div>
+                evidence files attached
+              </Link>
             </motion.div>
           ))}
         </motion.div>
       </motion.div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }

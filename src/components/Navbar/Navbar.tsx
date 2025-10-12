@@ -21,7 +21,6 @@ const Navbar = () => {
   const userInfo = useSelector((state: RootState) => state.auth);
 
   const { data, isLoading } = useGetMeQuery("");
-  console.log(data?.data?.profileImage);
 
   const menuItems = [
     {

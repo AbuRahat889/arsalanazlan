@@ -27,7 +27,7 @@ export default function LogOutModal({ setIsModalOpen }: Props) {
         fill="none"
         className="mx-auto mb-6"
       >
-        <g clip-path="url(#clip0_253_2242)">
+        <g clipPath="url(#clip0_253_2242)">
           <path
             d="M93.0975 24.3469C90.5775 15.0713 80.9306 5.4225 71.6531 2.9025C65.9644 1.485 58.3444 0.024375 48 0C37.6556 0.024375 30.0356 1.485 24.3469 2.9025C15.0713 5.4225 5.4225 15.0694 2.9025 24.3469C1.485 30.0356 0.024375 37.6556 0 48C0.024375 58.3444 1.485 65.9644 2.9025 71.6531C5.4225 80.9306 15.0713 90.5775 24.3469 93.0975C30.0356 94.515 37.6594 95.9756 48 96C58.3425 95.9756 65.9644 94.515 71.6531 93.0975C80.9306 90.5775 90.5775 80.9306 93.0975 71.6531C94.515 65.9644 95.9756 58.3406 96 48C95.9756 37.6556 94.515 30.0356 93.0975 24.3469Z"
             fill="#E8E8E7"
@@ -50,9 +50,9 @@ export default function LogOutModal({ setIsModalOpen }: Props) {
             y2="34.851"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#FDF4EA" />
-            <stop offset="0.57" stop-color="#EEF0FC" />
-            <stop offset="1" stop-color="white" />
+            <stop stopColor="#FDF4EA" />
+            <stop offset="0.57" stopColor="#EEF0FC" />
+            <stop offset="1" stopColor="white" />
           </linearGradient>
           <clipPath id="clip0_253_2242">
             <rect width="96" height="96" fill="white" />
