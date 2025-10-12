@@ -1,15 +1,15 @@
 "use client";
 
-import { logout } from "@/redux/slices/authSlice";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { MediaButton } from "../ui/icon";
+import Modal from "../ui/modal";
+import LogOutModal from "./LogOutModal";
 
 export default function SettingsNavbar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const path = usePathname();
-  const dispatch = useDispatch();
 
   const navigation = [
     {
@@ -271,13 +271,6 @@ export default function SettingsNavbar() {
     },
   ];
 
-  const handleLogout = () => {
-    dispatch(logout());
-    Cookies.remove("token");
-    window.location.href = "/";
-    // Add your logout logic here
-  };
-
   return (
     <div className="h-auto md:h-[520px] w-full md:w-80 p-6 rounded-xl border border-borderColor">
       <ul className="ml-1">
@@ -303,13 +296,17 @@ export default function SettingsNavbar() {
         })}
 
         <div
-          onClick={handleLogout}
+          onClick={() => setIsModalOpen(true)}
           className={`flex items-center gap-3 px-4 py-4 text-lg font-medium mb-2 rounded-md cursor-pointer `}
         >
           <MediaButton type="logout" />
           <span className="text-sm text-red-500">Logout</span>
         </div>
       </ul>
+
+      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+        <LogOutModal setIsModalOpen={setIsModalOpen} />
+      </Modal>
     </div>
   );
 }

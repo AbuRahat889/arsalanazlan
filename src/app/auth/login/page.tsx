@@ -13,6 +13,16 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { jwtDecode } from "jwt-decode";
+
+type DecodedUser = {
+  id: string;
+  email: string;
+  iat: number;
+  exp: number;
+  [key: string]: any;
+};
+
 const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
@@ -38,13 +48,17 @@ const ForgotPassword = () => {
   const onSubmit = async (data: any) => {
     try {
       const res = await loginFN(data);
-      console.log(res?.data?.data?.accessToken);
       if (res?.data?.success) {
         Cookies.set("token", res?.data?.data?.accessToken);
+        const decoded = jwtDecode<DecodedUser>(res?.data?.data?.accessToken);
         dispatch(
           setUser({
             token: res?.data?.data?.accessToken,
-            user: res?.data?.data,
+            user: {
+              ...decoded,
+              name: decoded.name ?? "",
+              role: decoded.role ?? "",
+            },
             isAuthenticated: true,
           })
         );
