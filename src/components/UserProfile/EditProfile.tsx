@@ -1,18 +1,21 @@
 "use client";
 
+import porfileImage from "@/assets/profile.jpg";
 import { FormInput } from "@/components/ui/Input";
-import { CameraIcon, MoveLeft } from "lucide-react";
-import React, { useState } from "react";
-import { useForm, FormProvider, Controller } from "react-hook-form";
-import { CustomDropdown } from "../ui/dropdown";
 import {
   Locations,
   ProfessionalSector,
   TimeZone,
 } from "@/constants/dropdownInfo";
-import { usePathname, useRouter } from "next/navigation";
+import { CameraIcon } from "lucide-react";
 import Image from "next/image";
-import porfileImage from "@/assets/profile.jpg";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import { CustomDropdown } from "../ui/dropdown";
+import { MediaButton } from "../ui/icon";
+import { useUpdateUserProfileMutation } from "@/redux/api/usersApi";
+import { toast } from "sonner";
 
 type FormValues = {
   firstName: string;
@@ -20,6 +23,9 @@ type FormValues = {
   jobTitle: string;
   location: string;
   profileImage: File | null;
+  specialization?: string;
+  timezone?: string;
+  professionalSummary?: string;
 };
 
 export default function EditProfile() {
@@ -30,32 +36,60 @@ export default function EditProfile() {
   const [selectProfession, setSelectProfession] = useState<string | undefined>(
     undefined
   );
-  const [selectSpecialization, setSelectSpecialization] = useState<
-    string | undefined
-  >(undefined);
 
   const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
   const pathName = usePathname();
-  console.log(pathName);
+
   const methods = useForm<FormValues>({
     defaultValues: {
       firstName: "",
       lastName: "",
       jobTitle: "",
       location: "",
+      professionalSummary: "",
+      profileImage: null,
+      specialization: "",
+      timezone: "",
     },
   });
-
-  const onSubmit = (data: FormValues) => {
-    console.log("Form Data:", data);
+  //update user profile information
+  const [updateProfileFN, { isLoading }] = useUpdateUserProfileMutation();
+  const formData = new FormData();
+  const onSubmit = async (data: FormValues) => {
+    const profileInfo = {
+      firstName: data.firstName,
+      lastName: data?.lastName,
+      country: data?.location,
+      timezone: data?.timezone,
+      professionalSector: selectProfession,
+      specialization: data?.specialization,
+      jobTitle: data?.jobTitle,
+      location: data?.location,
+      professionalSummary: data?.professionalSummary,
+    };
+    formData.append("data", JSON.stringify(profileInfo));
+    if (data.profileImage) {
+      formData.append("profileImage", data.profileImage);
+    }
+    try {
+      const res = await updateProfileFN(formData).unwrap();
+      if (res?.success) {
+        toast.success(res?.message || "Profile updated successfully");
+        router.push("/user-profile/personal-info");
+      }
+    } catch (error) {
+      toast.error((error as string) || "Failed to update profile");
+    }
   };
 
   return (
     <div className="p-3 md:p-6 border border-[#E4E4E4] rounded-lg w-full">
       {pathName !== "/complete-profile" && (
         <div className="flex items-center gap-3 cursor-pointer">
-          <MoveLeft onClick={() => router.back()} />
+          <div onClick={() => router.back()}>
+            <MediaButton type="back" />
+          </div>
           <h1 className="text-textColor text-2xl font-semibold leading-normal">
             Edit Profile Set Up
           </h1>
@@ -80,7 +114,7 @@ export default function EditProfile() {
           className="space-y-5 mt-6 w-full"
         >
           {/* Profile Image Upload */}
-          {pathName !== "/complete-profile" && (
+          {pathName == "/complete-profile" && (
             <div className="py-5">
               <Controller
                 name="profileImage"
@@ -140,10 +174,10 @@ export default function EditProfile() {
           <div className="flex flex-col md:flex-row items-center gap-6 w-full">
             <div className="w-full">
               <label
-                htmlFor="location"
+                htmlFor="country"
                 className="block mb-1 text-sm font-medium text-gray-700"
               >
-                Location
+                Country
               </label>
               <CustomDropdown
                 options={Locations}
@@ -155,7 +189,7 @@ export default function EditProfile() {
             </div>
             <div className="w-full">
               <label
-                htmlFor="location"
+                htmlFor="timeZone"
                 className="block mb-1 text-sm font-medium text-gray-700"
               >
                 Time Zone
@@ -185,22 +219,11 @@ export default function EditProfile() {
                 className="w-full bg-white"
               />
             </div>
-
-            <div className="w-full">
-              <label
-                htmlFor="location"
-                className="block mb-1 text-sm font-medium text-gray-700"
-              >
-                Specialization
-              </label>
-              <CustomDropdown
-                options={ProfessionalSector}
-                value={selectSpecialization}
-                onChange={setSelectSpecialization}
-                placeholder="Select here"
-                className="w-full bg-white"
-              />
-            </div>
+            <FormInput<FormValues>
+              name="specialization"
+              label="Specialization"
+              placeholder="Write here"
+            />
           </div>
           <div className="flex flex-col md:flex-row items-center gap-6 w-full">
             <FormInput<FormValues>
@@ -219,6 +242,8 @@ export default function EditProfile() {
             <textarea
               className="w-full px-3 py-3  rounded-xl text-[#999] text-base font-medium outline-none border-2 border-[#CBD5E1]"
               placeholder="Write here"
+              rows={4}
+              {...methods.register("professionalSummary")}
             />
           </div>
 
@@ -226,7 +251,7 @@ export default function EditProfile() {
             type="submit"
             className="mt-4 px-4 py-2 bg-primaryColor text-white rounded w-full"
           >
-            Save Changes
+            {isLoading ? "Updating..." : "Save Changes"}
           </button>
         </form>
       </FormProvider>

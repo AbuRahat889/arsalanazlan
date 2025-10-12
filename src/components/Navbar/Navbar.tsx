@@ -20,7 +20,8 @@ const Navbar = () => {
   const pathname = usePathname(); // ✅ current route
   const userInfo = useSelector((state: RootState) => state.auth);
 
-  const { data } = useGetMeQuery("");
+  const { data, isLoading } = useGetMeQuery("");
+  console.log(data?.data?.profileImage);
 
   const menuItems = [
     {
@@ -76,22 +77,28 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {userInfo?.token || data?.data ? (
+        {userInfo?.token ? (
           <div className=" flex items-center gap-8">
             <div className="">
               <MediaButton type="notification" />
             </div>
-            <Link
-              href={"/user-profile/personal-info"}
-              className="bg-primaryColor rounded-full p-[1px]"
-            >
-              <Image
-                src={profileImage}
-                alt="Logo"
-                className="h-12 w-12 rounded-full "
-                priority
-              />
-            </Link>
+            {isLoading ? (
+              <div className="w-12 h-12 rounded-full bg-gray-200 animate-pulse" />
+            ) : (
+              <Link
+                href={"/user-profile/personal-info"}
+                className="bg-primaryColor rounded-full p-[1px]"
+              >
+                <Image
+                  src={data?.data?.profileImage || profileImage}
+                  alt="Logo"
+                  className="h-12 w-12 rounded-full "
+                  height={200}
+                  width={200}
+                  priority
+                />
+              </Link>
+            )}
           </div>
         ) : (
           <div className="items-center gap-3 flex">

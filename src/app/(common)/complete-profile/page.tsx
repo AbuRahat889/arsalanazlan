@@ -1,10 +1,26 @@
-import Heading from "@/components/ui/heading";
-import EditProfile from "@/components/UserProfile/EditProfile";
-import React from "react";
+"use client";
 
-export default function page() {
+import Heading from "@/components/ui/heading";
+import { MediaButton } from "@/components/ui/icon";
+import EditAccreditedprofile from "@/components/UserProfile/EditAccreditedprofile";
+import EditProfile from "@/components/UserProfile/EditProfile";
+import { useGetMeQuery } from "@/redux/api/auth";
+import { useRouter } from "next/navigation";
+
+export default function Page() {
+  const router = useRouter();
+  const { data } = useGetMeQuery("");
+  console.log(data?.data);
   return (
     <div className="max-w-5xl mx-auto py-10">
+      <div className="flex items-center gap-3 cursor-pointer">
+        <div onClick={() => router.back()}>
+          <MediaButton type="back" />
+        </div>
+        <h1 className="text-secondaryColor text-xl font-semibold leading-normal">
+          Back to Pricing
+        </h1>
+      </div>
       <div className="bg-[#fdf4e7] w-16 h-16 flex items-center justify-center rounded-full mb-6 mx-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +49,15 @@ export default function page() {
         title="Complete Your Profile"
         subtitle="Help us personalize your CPD experience"
       />
-      <div className="mt-16">
-        <EditProfile />
-      </div>
+      {data?.data?.role === "USER_PROFILE" ? (
+        <div className="mt-16">
+          <EditProfile />
+        </div>
+      ) : (
+        <div className="mt-16">
+          <EditAccreditedprofile />
+        </div>
+      )}
     </div>
   );
 }

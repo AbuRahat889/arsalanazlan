@@ -44,7 +44,8 @@ type MediaButtonProps = {
     | "clock"
     | "file"
     | "growth2"
-    | "logout";
+    | "logout"
+    | "back";
 };
 
 const icons = {
@@ -897,6 +898,30 @@ const icons = {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  back: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <path
+        d="M7.9987 12.6666L3.33203 7.99992L7.9987 3.33325"
+        stroke="#475569"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M12.6654 8H3.33203"
+        stroke="#475569"
+        stroke-width="1.33333"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   ),
