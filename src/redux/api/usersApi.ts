@@ -4,6 +4,15 @@ import { baseApi } from "./baseApi";
 
 const UsersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    //get singel user
+    getUserById: build.query({
+      query: (id) => ({
+        url: `/users/single/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["users"],
+    }),
+
     //send message to admin
     updateUserProfile: build.mutation({
       query: (data) => ({
@@ -38,6 +47,7 @@ const UsersApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetUserByIdQuery,
   useUpdateUserProfileMutation,
   //user logs activity
   useGetUserLogsQuery,

@@ -10,12 +10,18 @@ import {
 import { CameraIcon } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { CustomDropdown } from "../ui/dropdown";
 import { MediaButton } from "../ui/icon";
-import { useUpdateUserProfileMutation } from "@/redux/api/usersApi";
+import {
+  useGetUserByIdQuery,
+  useUpdateUserProfileMutation,
+} from "@/redux/api/usersApi";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store/store";
+import ProfileFormSkeleton from "../Skletone/EditProfileSkletone";
 
 type FormValues = {
   firstName: string;
@@ -40,7 +46,6 @@ export default function EditProfile() {
   const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
   const pathName = usePathname();
-
   const methods = useForm<FormValues>({
     defaultValues: {
       firstName: "",
@@ -53,6 +58,41 @@ export default function EditProfile() {
       timezone: "",
     },
   });
+
+  //get user data
+  const userInfo = useSelector((state: RootState) => state.auth.user);
+  const { data, isLoading: LoadingUser } = useGetUserByIdQuery(userInfo?.id, {
+    skip: !userInfo?.id,
+  });
+
+  //set default values to the form
+  useEffect(() => {
+    //Only run when user data is available
+    if (data?.data?.profile && pathName !== "/complete-profile") {
+      const profile = data.data.profile;
+
+      methods.reset({
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        jobTitle: profile.jobTitle || "",
+        location: profile.location || "",
+        professionalSummary: profile.professionalSummary || "",
+        specialization: profile.specialization || "",
+        timezone: profile.timezone || "",
+        profileImage: data.data.profileImage || null, 
+      });
+
+      // set other related states
+      setSelectedLocation(profile.country || undefined);
+      setTimeZone(profile.timezone || undefined);
+      setSelectProfession(profile.professionalSector || undefined);
+
+      if (data.data.profileImage) {
+        setPreview(data.data.profileImage);
+      }
+    }
+  }, [data, pathName, methods]);
+
   //update user profile information
   const [updateProfileFN, { isLoading }] = useUpdateUserProfileMutation();
   const formData = new FormData();
@@ -82,6 +122,10 @@ export default function EditProfile() {
       toast.error((error as string) || "Failed to update profile");
     }
   };
+
+  if (LoadingUser) {
+    return <ProfileFormSkeleton />;
+  }
 
   return (
     <div className="p-3 md:p-6 border border-[#E4E4E4] rounded-lg w-full">
@@ -114,7 +158,7 @@ export default function EditProfile() {
           className="space-y-5 mt-6 w-full"
         >
           {/* Profile Image Upload */}
-          {pathName == "/complete-profile" && (
+          {pathName !== "/complete-profile" && (
             <div className="py-5">
               <Controller
                 name="profileImage"
@@ -127,7 +171,7 @@ export default function EditProfile() {
                     >
                       <div className="relative inline-block">
                         <Image
-                          src={preview ? preview : porfileImage} // ✅ fallback to default image
+                          src={preview ? preview : porfileImage}
                           alt="Profile Preview"
                           height={100}
                           width={100}
