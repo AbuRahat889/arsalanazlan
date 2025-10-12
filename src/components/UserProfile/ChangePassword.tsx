@@ -1,9 +1,13 @@
 "use client";
 
-import { Eye, EyeOff, MoveLeft } from "lucide-react";
+import { useChangePasswordMutation } from "@/redux/api/auth";
+import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import Loader from "../ui/Loader";
+import { MediaButton } from "../ui/icon";
 
 export default function ChangePassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,34 +30,41 @@ export default function ChangePassword() {
   const confirmPasswordValue = watch("confirmPassword");
   const oldPasswordValue = watch("oldPassword");
 
+  // change password function
+  const [chaggePasswordFN, { isLoading }] = useChangePasswordMutation();
   const onSubmit = async (data: any) => {
-    console.log(data);
-    // try {
-    //   const res = await loginFN(data);
-    //   if (res?.data?.success) {
+    try {
+      const changePass = {
+        oldPassword: data.oldPassword,
+        newPassword: data.confirmPassword,
+      };
+      const res = await chaggePasswordFN(changePass).unwrap();
+      if (res?.success) {
+        toast.success(res?.message || "Password changed successfully");
+        router.back();
+      } else {
+        const errorMessage = res?.data?.errorMessages?.[0]?.message;
+        toast.error(errorMessage);
+      }
+    } catch (error) {
+      const message =
+        (error as any)?.data?.errorMessages?.[0]?.message ||
+        (error as any)?.data?.message ||
+        (error as any)?.error ||
+        (error as any)?.message ||
+        "Something went wrong";
 
-    //     toast.success("login successfully!");
-    //     router.push("/");
-    //   } else {
-    //     const errorMessage =
-    //       (res?.error &&
-    //         "data" in res.error &&
-    //         (res.error.data as any)?.message) ||
-    //       (res?.error &&
-    //         "message" in res.error &&
-    //         (res.error as any).message) ||
-    //       "An error occurred";
-    //     toast.error(errorMessage);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      toast.error(message);
+    }
   };
 
   return (
     <div className="p-3 md:p-6 border border-[#E4E4E4] rounded-lg w-full">
       <div className="flex items-center gap-3 cursor-pointer">
-        <MoveLeft onClick={() => router.back()} />
+        <div onClick={() => router.back()}>
+          <MediaButton type="back" />
+        </div>
+
         <h1 className="text-textColor text-2xl font-semibold leading-normal">
           Security
         </h1>
@@ -195,7 +206,7 @@ export default function ChangePassword() {
           type="submit"
           className="w-48 mt-6 font-bold text-base py-3 rounded-lg bg-primaryColor text-white"
         >
-          Change Password
+          {isLoading ? <Loader /> : "Change Password"}
         </button>
       </form>
     </div>

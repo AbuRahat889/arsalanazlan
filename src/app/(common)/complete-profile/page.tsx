@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   const { data } = useGetMeQuery("");
-  console.log(data?.data);
   return (
     <div className="max-w-5xl mx-auto py-10">
       <div className="flex items-center gap-3 cursor-pointer">

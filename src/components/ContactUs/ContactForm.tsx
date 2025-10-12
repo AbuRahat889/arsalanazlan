@@ -18,24 +18,10 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm();
 
-  //   email
-  // :
-  // "ketyjika@mailinator.com"
-  // firstName
-  // :
-  // "Rina"
-  // message
-  // :
-  // "Est inventore repreh"
-  // subject
-  // :
-  // "Esse commodo consect"
-
   // Handle form submission
   const [contactFN, { isLoading }] = useSendMessageMutation();
   const onSubmit = async (data: any) => {
     const res = await contactFN(data).unwrap();
-    console.log(res);
     if (res?.success) {
       toast.success(res?.message || "Message sent successfully");
       reset();

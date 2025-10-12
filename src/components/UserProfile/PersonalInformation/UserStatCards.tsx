@@ -19,8 +19,6 @@ export default function UserStatCards() {
   const activityLogs = data?.data?.data || [];
   const totalPages = data?.data?.meta?.totalPages || 1;
 
-  console.log(activityLogs);
-
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };

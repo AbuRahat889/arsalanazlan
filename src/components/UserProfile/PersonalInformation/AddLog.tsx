@@ -76,7 +76,6 @@ export default function AddLog() {
       }
 
       const res = await createLogFN(formData).unwrap();
-      console.log(res);
       if (res?.success) {
         toast.success("Log created successfully!");
         router.back();
