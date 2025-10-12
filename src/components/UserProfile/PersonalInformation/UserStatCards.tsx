@@ -2,7 +2,7 @@
 
 import { MediaButton } from "@/components/ui/icon";
 import Pagination from "@/components/ui/Pagination";
-import { useCreateLogsQuery } from "@/redux/api/usersApi";
+import { useGetUserLogsQuery } from "@/redux/api/usersApi";
 import { UserActivityLog } from "@/Types/ActivityLogs";
 import { motion } from "framer-motion";
 import { Calendar, CheckCircle, Clock, FileText } from "lucide-react";
@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function UserStatCards() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data } = useCreateLogsQuery({
+  const { data } = useGetUserLogsQuery({
     page: currentPage,
     limit: 3,
   });
@@ -232,7 +232,7 @@ export default function UserStatCards() {
 
               {/* Attachments */}
               <Link
-                href={item.documents?.[0]}
+                href={item.documents?.[0] || "/blank"}
                 target="_blank"
                 className="flex items-center gap-1 text-sm text-muted-foreground"
               >

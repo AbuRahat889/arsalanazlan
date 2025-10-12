@@ -12,6 +12,7 @@ export const Locations = [
   { value: "United States", label: "United States" },
   { value: "Others", label: "Others" },
 ];
+
 export const TimeZone = [
   { value: "UTC-8 (PST)", label: "UTC-8 (PST)" },
   { value: "UTC-5 (EST)", label: "UTC-5 (EST)" },
@@ -21,8 +22,6 @@ export const TimeZone = [
   { value: "UTC-8 (CST)", label: "UTC-8 (CST)" },
   { value: "UTC-10 (AEST)", label: "UTC-10 (AEST)" },
 ];
-
-
 
 export const ProfessionalSector = [
   {
@@ -90,4 +89,15 @@ export const ProfessionalSector = [
       { value: "Pharmacy", label: "Pharmacy" },
     ],
   },
+];
+
+export const ActivityType = [
+  { value: "Workshop", label: "Workshop" },
+  { value: "Seminar", label: "Seminar" },
+  { value: "Conference", label: "Conference" },
+  { value: "Webinar", label: "Webinar" },
+  { value: "Training", label: "Training" },
+  { value: "ResearchPresentation", label: "Research Presentation" },
+  { value: "FieldActivity", label: "Field Activity" },
+  { value: "OnlineCourse", label: "Online Course" },
 ];

@@ -32,16 +32,16 @@ export default function Page() {
           <path
             d="M20.1814 10.5907C20.1814 7.31248 17.5239 4.65498 14.2457 4.65498C10.9676 4.65498 8.31006 7.31248 8.31006 10.5907C8.31006 13.8688 10.9676 16.5263 14.2457 16.5263C17.5239 16.5263 20.1814 13.8688 20.1814 10.5907Z"
             stroke="#ED900C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M22.5554 24.8363C22.5554 20.2468 18.835 16.5263 14.2455 16.5263C9.65604 16.5263 5.93555 20.2468 5.93555 24.8363"
             stroke="#ED900C"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </div>

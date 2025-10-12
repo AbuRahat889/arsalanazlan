@@ -15,8 +15,8 @@ const UsersApi = baseApi.injectEndpoints({
     }),
 
     // user logs activity
-    // create logs
-    createLogs: build.query({
+    // get all users logs
+    getUserLogs: build.query({
       query: ({ page, limit }) => ({
         url: `/log/my-logs`,
         method: "GET",
@@ -24,12 +24,23 @@ const UsersApi = baseApi.injectEndpoints({
       }),
       providesTags: ["users"],
     }),
+
+    // create logs
+    createUsersLogs: build.mutation({
+      query: (data) => ({
+        url: `/log/create`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
 export const {
   useUpdateUserProfileMutation,
   //user logs activity
-  useCreateLogsQuery,
+  useGetUserLogsQuery,
+  useCreateUsersLogsMutation,
 } = UsersApi;
 export default UsersApi;

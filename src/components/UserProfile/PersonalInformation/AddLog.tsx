@@ -1,28 +1,34 @@
 "use client";
 
+import { Calendar } from "@/components/ui/calendar";
 import { CustomDropdown } from "@/components/ui/dropdown";
 import { FormInput } from "@/components/ui/Input";
-import { Locations } from "@/constants/dropdownInfo";
-import { ChevronDownIcon, MoveLeft } from "lucide-react";
+import { ActivityType } from "@/constants/dropdownInfo";
+import { ChevronDownIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Calendar } from "@/components/ui/calendar";
-
+import { MediaButton } from "@/components/ui/icon";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import UploadMedia from "@/components/ui/UploadMedia";
+import { useCreateUsersLogsMutation } from "@/redux/api/usersApi";
+import { toast } from "sonner";
+import Loader from "@/components/ui/Loader";
 
 type FormValues = {
-  activityTitle: string;
-  provider: string;
-  cpdHours: string;
+  title: string;
+  organization: string;
+  CPDHours: string;
+  description: string;
+  learningOutcomes: string;
   activityType: string;
   date: Date | undefined;
+  documents: File[] | undefined;
 };
 
 export default function AddLog() {
@@ -35,22 +41,60 @@ export default function AddLog() {
   const router = useRouter();
   const methods = useForm<FormValues>({
     defaultValues: {
-      activityTitle: "",
-      provider: "",
-      cpdHours: "",
+      title: "",
+      organization: "",
+      CPDHours: "",
+      description: "",
+      learningOutcomes: "",
       activityType: "",
       date: undefined,
+      documents: undefined,
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form Data:", data);
+  // create activity log
+  const [createLogFN, { isLoading }] = useCreateUsersLogsMutation(); // useCreateUsersLogsMutation();
+  const onSubmit = async (data: FormValues) => {
+    const formData = new FormData();
+
+    try {
+      const exampleData = {
+        title: data.title,
+        organization: data.organization,
+        activityCategory: selectProfession,
+        CPDHours: data.CPDHours,
+        description: data.description,
+        learningOutcomes: data.learningOutcomes,
+        activityDate: date,
+      };
+      formData.append("data", JSON.stringify(exampleData));
+
+      if (data.documents) {
+        data.documents.forEach((file) => {
+          formData.append("documents", file);
+        });
+      }
+
+      const res = await createLogFN(formData).unwrap();
+      console.log(res);
+      if (res?.success) {
+        toast.success("Log created successfully!");
+        router.back();
+      }
+    } catch (error) {
+      toast.error(
+        (error as string) || "Failed to create log. Please try again."
+      );
+    }
   };
 
   return (
     <div className="p-3 md:p-6 border border-[#E4E4E4] rounded-lg w-full">
       <div className="flex items-center gap-3 cursor-pointer">
-        <MoveLeft onClick={() => router.back()} />
+        <div onClick={() => router.back()}>
+          <MediaButton type="back" />
+        </div>
+
         <h1 className="text-textColor text-xl md:text-2xl font-semibold leading-normal">
           Log New CPD Activity
         </h1>
@@ -72,7 +116,7 @@ export default function AddLog() {
               </p>
             </div>
             <FormInput<FormValues>
-              name="activityTitle"
+              name="title"
               label="Activity Title *"
               placeholder="e.g., Advanced Project Management Workshop"
               className="bg-[#f8f8f8]"
@@ -80,14 +124,15 @@ export default function AddLog() {
 
             <div className="flex flex-col md:flex-row items-center gap-6 w-full">
               <FormInput<FormValues>
-                name="provider"
+                name="organization"
                 label="Provider/Organization *"
                 placeholder="e.g., PMI Institute"
                 className="bg-[#f8f8f8]"
               />
               <FormInput<FormValues>
-                name="cpdHours"
+                name="CPDHours"
                 label="CPD Hours *"
+                type="number"
                 placeholder="e.g., 5 hours"
                 className="bg-[#f8f8f8]"
               />
@@ -102,7 +147,7 @@ export default function AddLog() {
                   Activity Type *
                 </label>
                 <CustomDropdown
-                  options={Locations}
+                  options={ActivityType}
                   value={selectProfession}
                   onChange={setSelectProfession}
                   placeholder="Select here"
@@ -114,7 +159,7 @@ export default function AddLog() {
                   htmlFor="date"
                   className="block mb-1 text-sm font-medium text-gray-700"
                 >
-                  Date of birth
+                  Activity Date *
                 </label>
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
@@ -159,6 +204,8 @@ export default function AddLog() {
               <textarea
                 className="w-full px-3 py-3  rounded-xl text-[#999] text-base font-medium outline-none border-2 border-[#CBD5E1] bg-[#f8f8f8]"
                 placeholder="Describe the content, topics covered, and key takeaways from this activity..."
+                rows={4}
+                {...methods.register("description", { required: true })}
               />
               <p className="text-sm text-[#555555] font-normal leading-normal">
                 Provide a detailed description of what the activity covered and
@@ -172,6 +219,8 @@ export default function AddLog() {
               <textarea
                 className="w-full px-3 py-3  rounded-xl text-[#999] text-base font-medium outline-none border-2 border-[#CBD5E1] bg-[#f8f8f8]"
                 placeholder="What did you learn? How will you apply this knowledge in your professional practice?"
+                rows={4}
+                {...methods.register("learningOutcomes", { required: true })}
               />
             </div>
           </div>
@@ -188,7 +237,7 @@ export default function AddLog() {
             </div>
 
             <div className="py-5">
-              <UploadMedia name={"evidence"} />
+              <UploadMedia name={"documents"} />
             </div>
           </div>
 
@@ -196,7 +245,7 @@ export default function AddLog() {
             type="submit"
             className="mt-4 px-4 py-2 bg-primaryColor text-white rounded w-full"
           >
-            Save Activity
+            {isLoading ? <Loader /> : "Save Activity"}
           </button>
         </form>
       </FormProvider>

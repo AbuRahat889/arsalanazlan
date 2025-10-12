@@ -7,7 +7,7 @@ import { MediaButton } from "../ui/icon";
 import Modal from "../ui/modal";
 import LogOutModal from "./LogOutModal";
 import { useGetMeQuery } from "@/redux/api/auth";
-import SidebarSkletone from "../Skletone/sidebarSkletone";
+import SidebarSkletone from "../Skletone/SidebarSkletone";
 
 export default function SettingsNavbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
