@@ -12,7 +12,7 @@ export default function page() {
         colorTitle="Certification"
         discription="Advance your career with globally recognized certification across Standard, Advanced, and Fellow Levels"
         button="Apply Now"
-        buttonLink="certification/price"
+        buttonLink="certification/apply-certification"
       />
       <Pricing />
       <ApplicationProcess />

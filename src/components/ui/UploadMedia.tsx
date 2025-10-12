@@ -15,9 +15,14 @@ export interface UploadedFile {
 interface UploadMediaProps {
   name: string;
   onUpload?: (formData: FormData) => Promise<string[] | void>;
+  label?: string;
 }
 
-export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
+export default function UploadMedia({
+  name,
+  onUpload,
+  label,
+}: UploadMediaProps) {
   const { setValue } = useFormContext();
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -109,7 +114,8 @@ export default function UploadMedia({ name, onUpload }: UploadMediaProps) {
 
   return (
     <>
-      <div className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0] max-w-3xl rounded-md">
+      <p className="block text-base font-medium text-gray-700">{label}</p>
+      <div className="bg-[#f5f5f5] border-2 border-dashed border-[#e0e0e0]  rounded-md w-full">
         <div className="p-5 text-center space-y-4">
           <div
             className={`${isDragOver ? "bg-white border-blue-300" : ""}`}

@@ -189,43 +189,6 @@ export default function AddLog() {
 
             <div className="py-5">
               <UploadMedia name={"evidence"} />
-              {/* <Controller
-                name="profileImage"
-                control={methods.control}
-                render={({ field }) => (
-                  <>
-                    <label
-                      htmlFor="profileImage"
-                      className="cursor-pointer flex flex-col"
-                    >
-                      <div className="">
-                        <Image
-                          src={preview } // ✅ fallback to default image
-                          alt="Profile Preview"
-                          height={100}
-                          width={100}
-                          className="w-full h-48 rounded-md object-cover border-2 border-dashed border-primaryColor"
-                        />
-                      </div>
-                    </label>
-                    <input
-                      id="profileImage"
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0] || null;
-                        field.onChange(file);
-                        if (file) {
-                          setPreview(URL.createObjectURL(file));
-                        } else {
-                          setPreview(null);
-                        }
-                      }}
-                    />
-                  </>
-                )}
-              /> */}
             </div>
           </div>
 
