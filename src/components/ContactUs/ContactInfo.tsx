@@ -12,7 +12,7 @@ export default function ContactInfo() {
       initial={{ opacity: 0, x: -100 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
       transition={{ duration: 0.5, delay: 0.5 }}
-      className="p-6 border-2 border-borderColor rounded-lg shadow-[0_0_40px_0_rgba(237,144,12,0.08)]"
+      className="p-6 border border-borderColor rounded-lg shadow-[0_0_40px_0_rgba(237,144,12,0.08)]"
     >
       <h1 className="text-2xl font-bold leading-7 text-textColor mb-6">
         Contact Information

@@ -1,7 +1,6 @@
 import ReduxProvider from "@/redux/provider/ReduxProvider";
 import type { Metadata } from "next";
 import { Inter, Playfair } from "next/font/google";
-import { ToastContainer } from "react-toastify";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +33,6 @@ export default function RootLayout({
         <ReduxProvider>
           <div className="">{children}</div>
         </ReduxProvider>
-        <ToastContainer />
       </body>
     </html>
   );

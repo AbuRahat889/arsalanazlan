@@ -15,7 +15,7 @@ export default function page() {
         <div className="col-span-5 mb-5 lg:mb-0">
           <ContactInfo />
         </div>
-        <div className="col-span-6">
+        <div className="col-span-7">
           <ContactForm />
         </div>
       </div>

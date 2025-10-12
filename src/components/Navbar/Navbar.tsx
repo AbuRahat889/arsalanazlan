@@ -21,7 +21,6 @@ const Navbar = () => {
   const userInfo = useSelector((state: RootState) => state.auth);
 
   const { data } = useGetMeQuery("");
-  console.log(userInfo.token); // Log the whole userInfo object instead
 
   const menuItems = [
     {
