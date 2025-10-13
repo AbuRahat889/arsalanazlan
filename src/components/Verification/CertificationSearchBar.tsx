@@ -75,7 +75,9 @@ export default function CertificationSearchBar({ setSearchParams }: any) {
           placeholder="Locations"
           className="w-full bg-[#f8f8f8]"
         />
+        
       </div>
+    
 
       {/* Click outside to close dropdowns */}
       {(isTypeDropdownOpen || isLocationDropdownOpen) && (

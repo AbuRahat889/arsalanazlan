@@ -87,7 +87,9 @@ export function CustomDropdown({
         aria-expanded={isOpen}
       >
         <span className="block truncate text-secondaryColor">
-          {findOptionLabel(options, selectedValue) || placeholder}
+          {selectedValue
+            ? findOptionLabel(options, selectedValue)
+            : placeholder}
         </span>
         <svg
           className={cn(

@@ -1,9 +1,11 @@
 export const CourseType = [
+  { value: "", label: "All" },
   { value: "STANDARD", label: "STANDARD" },
   { value: "ADVANCED", label: "ADVANCED" },
   { value: "FELLOW", label: "FELLOW" },
 ];
 export const Locations = [
+  { value: "", label: "All" },
   { value: "France", label: "France" },
   { value: "Germany", label: "Germany" },
   { value: "Australia", label: "Australia" },
@@ -14,6 +16,7 @@ export const Locations = [
 ];
 
 export const TimeZone = [
+  { value: "", label: "All" },
   { value: "UTC-8 (PST)", label: "UTC-8 (PST)" },
   { value: "UTC-5 (EST)", label: "UTC-5 (EST)" },
   { value: "UTC-0 (GMT)", label: "UTC-0 (GMT)" },
@@ -24,6 +27,7 @@ export const TimeZone = [
 ];
 
 export const ProfessionalSector = [
+  { value: "", label: "All" },
   {
     value: "Engineering",
     label: "Engineering",
@@ -92,6 +96,7 @@ export const ProfessionalSector = [
 ];
 
 export const ActivityType = [
+  { value: "", label: "All" },
   { value: "Workshop", label: "Workshop" },
   { value: "Seminar", label: "Seminar" },
   { value: "Conference", label: "Conference" },
