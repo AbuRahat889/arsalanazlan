@@ -13,8 +13,21 @@ const CertificateApi = baseApi.injectEndpoints({
       }),
       providesTags: ["certificate"],
     }),
+
+    //apply for certificate with out activity log
+    applyForCertificate: build.mutation({
+      query: (data) => ({
+        url: `/certifications/create`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["certificate"],
+    }),
   }),
 });
 
-export const { useGetAllVerifiedCertificatQuery } = CertificateApi;
+export const {
+  useGetAllVerifiedCertificatQuery,
+  useApplyForCertificateMutation,
+} = CertificateApi;
 export default CertificateApi;

@@ -1,24 +1,16 @@
 "use client";
 
-import { Calendar } from "@/components/ui/calendar";
 import { CustomDropdown } from "@/components/ui/dropdown";
 import { FormInput } from "@/components/ui/Input";
 import { ActivityType } from "@/constants/dropdownInfo";
-import { ChevronDownIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-
 import { MediaButton } from "@/components/ui/icon";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import Loader from "@/components/ui/Loader";
 import UploadMedia from "@/components/ui/UploadMedia";
 import { useCreateUsersLogsMutation } from "@/redux/api/usersApi";
 import { toast } from "sonner";
-import Loader from "@/components/ui/Loader";
 
 type FormValues = {
   title: string;
@@ -27,7 +19,6 @@ type FormValues = {
   description: string;
   learningOutcomes: string;
   activityType: string;
-  date: Date | undefined;
   documents: File[] | undefined;
 };
 
@@ -36,8 +27,6 @@ export default function AddLog() {
     undefined
   );
 
-  const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
   const router = useRouter();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -47,7 +36,6 @@ export default function AddLog() {
       description: "",
       learningOutcomes: "",
       activityType: "",
-      date: undefined,
       documents: undefined,
     },
   });
@@ -65,7 +53,6 @@ export default function AddLog() {
         CPDHours: data.CPDHours,
         description: data.description,
         learningOutcomes: data.learningOutcomes,
-        activityDate: date,
       };
       formData.append("data", JSON.stringify(exampleData));
 
@@ -74,7 +61,6 @@ export default function AddLog() {
           formData.append("documents", file);
         });
       }
-
       const res = await createLogFN(formData).unwrap();
       if (res?.success) {
         toast.success("Log created successfully!");
@@ -152,39 +138,6 @@ export default function AddLog() {
                   placeholder="Select here"
                   className="w-full bg-[#f8f8f8]"
                 />
-              </div>
-              <div className="w-full">
-                <label
-                  htmlFor="date"
-                  className="block mb-1 text-sm font-medium text-gray-700"
-                >
-                  Activity Date *
-                </label>
-                <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                    <button
-                      id="date"
-                      className="w-48 justify-between font-normal bg-[#f8f8f8] flex items-center border border-borderColor rounded-md p-2"
-                    >
-                      {date ? date.toLocaleDateString() : "Select date"}
-                      <ChevronDownIcon />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-auto overflow-hidden p-0 bg-[#f8f8f8]"
-                    align="start"
-                  >
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      captionLayout="dropdown"
-                      onSelect={(date) => {
-                        setDate(date);
-                        setOpen(false);
-                      }}
-                    />
-                  </PopoverContent>
-                </Popover>
               </div>
             </div>
           </div>
