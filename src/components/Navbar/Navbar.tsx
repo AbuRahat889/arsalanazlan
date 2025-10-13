@@ -2,23 +2,20 @@
 
 import logo from "@/assets/logo.svg";
 import profileImage from "@/assets/profile.jpg";
+import { useGetMeQuery } from "@/redux/api/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // ✅ usePathname
 import { useState } from "react";
-import { IoMdClose } from "react-icons/io";
-import { MediaButton } from "../ui/icon";
 import { CiMenuFries } from "react-icons/ci";
-import { MovingButton } from "../ui/moving-border";
+import { IoMdClose } from "react-icons/io";
 import { Button } from "../ui/button";
-import { useGetMeQuery } from "@/redux/api/auth";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store/store";
+import { MediaButton } from "../ui/icon";
+import { MovingButton } from "../ui/moving-border";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const pathname = usePathname(); // ✅ current route
-  const userInfo = useSelector((state: RootState) => state.auth);
 
   const { data, isLoading } = useGetMeQuery("");
 
@@ -76,7 +73,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {userInfo?.token ? (
+        {data || isLoading ? (
           <div className=" flex items-center gap-8">
             <div className="">
               <MediaButton type="notification" />

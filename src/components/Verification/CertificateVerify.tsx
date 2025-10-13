@@ -1,11 +1,14 @@
 "use client";
 
 import { useGetAllVerifiedCertificatQuery } from "@/redux/api/certificateApi";
+import { CertificateProps } from "@/Types/Certificate";
 import Link from "next/link";
 import Heading from "../ui/heading";
 import { MovingButton } from "../ui/moving-border";
 import DirectoryCard from "./DirectoryCard";
-import { CertificateProps } from "@/Types/Certificate";
+import CertificationVerificationSkletone from "../Skletone/CertificationVerificationSkletone";
+import Image from "next/image";
+import NoData from "@/assets/NoData.gif";
 
 export default function CertificateVerify() {
   const { data, isLoading } = useGetAllVerifiedCertificatQuery({
@@ -14,9 +17,6 @@ export default function CertificateVerify() {
   });
   const certificates = data?.data?.data || [];
 
-  if (isLoading) {
-    return <CertificateVerify />;
-  }
   return (
     <div>
       <div className="py-14 px-5 xl:px-0 bg-[#f9fafb]">
@@ -27,9 +27,23 @@ export default function CertificateVerify() {
           />
           <div className="mt-10 ">
             <div className="overflow-x-auto w-full">
-              {certificates?.map((card: CertificateProps, index: number) => (
-                <DirectoryCard key={index} certificate={card} />
-              ))}
+              {isLoading ? (
+                <CertificationVerificationSkletone />
+              ) : certificates?.length == 0 ? (
+                <div className="flex justify-center items-center">
+                  <Image
+                    src={NoData}
+                    alt="Loading animation"
+                    width={400}
+                    height={400}
+                    unoptimized
+                  />
+                </div>
+              ) : (
+                certificates?.map((card: CertificateProps, index: number) => (
+                  <DirectoryCard key={index} certificate={card} />
+                ))
+              )}
             </div>
             <div className="flex justify-center items-center pt-6">
               <MovingButton

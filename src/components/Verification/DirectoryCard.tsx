@@ -12,6 +12,7 @@ type Props = {
 };
 
 export default function DirectoryCard({ certificate }: Props) {
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

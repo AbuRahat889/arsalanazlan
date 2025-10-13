@@ -7,11 +7,14 @@ import DirectoryCard from "./DirectoryCard";
 import { CertificateProps } from "@/Types/Certificate";
 import Pagination from "../ui/Pagination";
 import { useState } from "react";
+import Image from "next/image";
+import NoData from "@/assets/NoData.gif";
+import CertificationVerificationSkletone from "../Skletone/CertificationVerificationSkletone";
 
 export default function ProfessionalDirectory() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useState<Record<string, any>>({});
-  const { data } = useGetAllVerifiedCertificatQuery({
+  const { data, isLoading } = useGetAllVerifiedCertificatQuery({
     page: currentPage,
     limit: 15,
     ...searchParams,
@@ -33,16 +36,32 @@ export default function ProfessionalDirectory() {
 
         <CertificationSearchBar setSearchParams={setSearchParams} />
         <div className="mb-5 overflow-x-auto">
-          {certificates?.map((card: CertificateProps, index: number) => (
-            <DirectoryCard key={index} certificate={card} />
-          ))}
+          {isLoading ? (
+            <CertificationVerificationSkletone />
+          ) : certificates?.length == 0 ? (
+            <div className="flex justify-center items-center">
+              <Image
+                src={NoData}
+                alt="Loading animation"
+                width={400}
+                height={400}
+                unoptimized
+              />
+            </div>
+          ) : (
+            certificates?.map((card: CertificateProps, index: number) => (
+              <DirectoryCard key={index} certificate={card} />
+            ))
+          )}
         </div>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-        />
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        )}
       </div>
     </div>
   );
