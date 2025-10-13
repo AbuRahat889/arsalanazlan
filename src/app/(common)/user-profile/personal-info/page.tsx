@@ -1,10 +1,9 @@
-import UserStatCards from "@/components/UserProfile/PersonalInformation/UserStatCards";
-import React from "react";
+import PersonalInfoPage from "@/components/UserProfile/PersonalInformation/PersonalInfoPage";
 
 export default function page() {
   return (
     <div>
-      <UserStatCards />
+      <PersonalInfoPage />
     </div>
   );
 }

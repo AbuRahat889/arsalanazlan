@@ -42,6 +42,18 @@ const CertificateApi = baseApi.injectEndpoints({
       }),
       providesTags: ["certificate"],
     }),
+
+    //get my apporved certificates 
+    // getMyCertificatesStatus: build.query({
+    //   query: ({ page, limit }) => ({
+    //     url: `/certifications/create`,
+    //     method: "GET",
+    //     params: { page, limit },
+    //   }),
+    //   providesTags: ["certificate"],
+    // }),
+
+
   }),
 });
 
