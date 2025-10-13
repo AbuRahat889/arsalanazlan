@@ -1,5 +1,5 @@
 export interface UserActivityLog {
-  id: number;
+  id: string;
   title: string;
   organization: string;
   status: string;

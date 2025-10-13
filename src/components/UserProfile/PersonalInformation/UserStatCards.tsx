@@ -1,6 +1,8 @@
 "use client";
 
+import ApplicationForm from "@/components/Certification/ApplicationForm";
 import { MediaButton } from "@/components/ui/icon";
+import Modal from "@/components/ui/modal";
 import Pagination from "@/components/ui/Pagination";
 import { useGetUserLogsQuery } from "@/redux/api/usersApi";
 import { UserActivityLog } from "@/Types/ActivityLogs";
@@ -8,9 +10,13 @@ import { motion } from "framer-motion";
 import { Calendar, CheckCircle, Clock, FileText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function UserStatCards() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isCPDHours, setCPDHours] = useState(0);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [applicationModal, setApplicationModal] = useState(false);
   const { data } = useGetUserLogsQuery({
     page: currentPage,
     limit: 3,
@@ -22,7 +28,17 @@ export default function UserStatCards() {
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
-  
+
+  const handleChange = (value: string, hour: number) => {
+    if (selected.includes(value)) {
+      setSelected(selected.filter((i) => i !== value));
+      setCPDHours(isCPDHours - hour);
+    } else {
+      setSelected([...selected, value]);
+      setCPDHours(isCPDHours + hour);
+    }
+  };
+
   return (
     <div>
       {/* statCards */}
@@ -187,18 +203,100 @@ export default function UserStatCards() {
                     {item.organization}
                   </p>
                 </div>
-                <div
-                  className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium
-                ${
-                  item.status === "APPROVED"
-                    ? "bg-green-50 text-green-700"
-                    : item.status === "PENDING"
-                    ? "bg-yellow-50 text-yellow-700"
-                    : "bg-red-50 text-red-700"
-                }`}
-                >
-                  <CheckCircle className="w-4 h-4" />
-                  {item.status}
+                <div className="flex items-center gap-6">
+                  <div
+                    className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium
+                    ${
+                      item.status === "APPROVED"
+                        ? "bg-green-50 text-green-700"
+                        : item.status === "PENDING"
+                        ? "bg-yellow-50 text-yellow-700"
+                        : "bg-red-50 text-red-700"
+                    }`}
+                  >
+                    <CheckCircle className="w-4 h-4" />
+                    {item.status}
+                  </div>
+
+                  {/* checkbox if status is approved show checkbox */}
+                  {item.status === "APPROVED" && (
+                    <div className="flex flex-col gap-[10px]">
+                      <label className="flex items-center gap-[10px] cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="checkboxGroup"
+                          value={item.id}
+                          checked={selected.includes(item.id)}
+                          onChange={() => handleChange(item.id, item?.CPDHours)}
+                          className="hidden"
+                        />
+                        <div className="relative">
+                          <span
+                            className={`${
+                              selected.includes(item.id)
+                                ? "opacity-100 z-20 scale-[1]"
+                                : "opacity-0 scale-[0.4] z-[-1]"
+                            } transition-all duration-200 absolute top-0 left-0`}
+                          >
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g id="Group 335">
+                                <rect
+                                  id="Rectangle 331"
+                                  x="-0.00012207"
+                                  y="6.10352e-05"
+                                  width="20"
+                                  height="20"
+                                  rx="4"
+                                  className="fill-[#ed900c]"
+                                  stroke="#ed900c"
+                                ></rect>
+                                <path
+                                  id="Vector"
+                                  d="M8.19594 15.4948C8.0646 15.4949 7.93453 15.4681 7.81319 15.4157C7.69186 15.3633 7.58167 15.2865 7.48894 15.1896L4.28874 11.8566C4.10298 11.6609 3.99914 11.3965 3.99988 11.1213C4.00063 10.8461 4.10591 10.5824 4.29272 10.3878C4.47953 10.1932 4.73269 10.0835 4.99689 10.0827C5.26109 10.0819 5.51485 10.1901 5.70274 10.3836L8.19591 12.9801L14.2887 6.6335C14.4767 6.4402 14.7304 6.3322 14.9945 6.33307C15.2586 6.33395 15.5116 6.44362 15.6983 6.63815C15.8851 6.83268 15.9903 7.09627 15.9912 7.37137C15.992 7.64647 15.8883 7.91073 15.7027 8.10648L8.90294 15.1896C8.8102 15.2865 8.7 15.3633 8.57867 15.4157C8.45734 15.4681 8.32727 15.4949 8.19594 15.4948Z"
+                                  fill="white"
+                                ></path>
+                              </g>
+                            </svg>
+                          </span>
+
+                          <span
+                            className={`${
+                              !selected.includes(item.id)
+                                ? "opacity-100 z-20 scale-[1]"
+                                : "opacity-0 scale-[0.4] z-[-1]"
+                            } transition-all duration-200`}
+                          >
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g id="Group 335">
+                                <rect
+                                  id="Rectangle 331"
+                                  x="-0.00012207"
+                                  y="6.10352e-05"
+                                  width="20"
+                                  height="20"
+                                  rx="4"
+                                  className="fill-transparent "
+                                  stroke="#ed900c"
+                                ></rect>
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </label>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -241,7 +339,33 @@ export default function UserStatCards() {
             </motion.div>
           ))}
         </motion.div>
+        <div
+          onClick={() => {
+            if (isCPDHours && isCPDHours > 0) {
+              setApplicationModal(true);
+            } else {
+              toast.error(
+                "Please select at least one activity log to apply for certification."
+              );
+            }
+          }}
+          className="p-3 border border-borderColor rounded-xl mt-6 cursor-pointer"
+        >
+          <p className="text-base text-[#3A3A3A] font-medium text-center">
+            Apply Certification
+          </p>
+        </div>
       </motion.div>
+
+      <Modal
+        isModalOpen={applicationModal}
+        setIsModalOpen={setApplicationModal}
+      >
+        <ApplicationForm
+          hours={isCPDHours}
+          setApplicationModal={setApplicationModal}
+        />
+      </Modal>
 
       <Pagination
         currentPage={currentPage}

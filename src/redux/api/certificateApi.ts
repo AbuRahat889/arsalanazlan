@@ -23,11 +23,21 @@ const CertificateApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["certificate"],
     }),
+    //apply for certificate from activity log
+    applyCertificateThroughActivity: build.mutation({
+      query: (data) => ({
+        url: `/certifications/apply-through-activity`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["certificate"],
+    }),
   }),
 });
 
 export const {
   useGetAllVerifiedCertificatQuery,
   useApplyForCertificateMutation,
+  useApplyCertificateThroughActivityMutation,
 } = CertificateApi;
 export default CertificateApi;

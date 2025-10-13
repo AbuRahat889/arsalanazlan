@@ -2,14 +2,18 @@
 
 import { FormInput } from "@/components/ui/Input";
 import { CourseType } from "@/constants/dropdownInfo";
-import { useState } from "react";
+import {
+  useApplyCertificateThroughActivityMutation,
+  useApplyForCertificateMutation,
+} from "@/redux/api/certificateApi";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { CustomDropdown } from "../ui/dropdown";
 import Modal from "../ui/modal";
 import UploadMedia from "../ui/UploadMedia";
 import ApplicationModal from "./ApplicationModal";
-import { useApplyForCertificateMutation } from "@/redux/api/certificateApi";
-import { toast } from "sonner";
 
 type FormValues = {
   fullName: string;
@@ -20,13 +24,20 @@ type FormValues = {
   documents: File[] | undefined;
   notes: string;
 };
+type Params = {
+  hours?: number;
+  setApplicationModal?: (value: boolean) => void;
+};
 
-export default function ApplicationForm() {
+export default function ApplicationForm({
+  hours,
+  setApplicationModal,
+}: Params) {
   const [selectedType, setSelectedType] = useState<string | undefined>(
     undefined
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const pathName = usePathname();
   const methods = useForm<FormValues>({
     defaultValues: {
       fullName: "",
@@ -39,12 +50,22 @@ export default function ApplicationForm() {
     },
   });
 
+  //set cpd hours if user is applying from personal info page
+  useEffect(() => {
+    if (pathName === "/user-profile/personal-info") {
+      methods.setValue("CPDHours", hours ?? 0);
+    }
+  }, [hours, methods, pathName]);
+
   //apply for certificate mutation hook
   const [applyForCertificateFN, { isLoading }] =
     useApplyForCertificateMutation();
 
+  //apply for certificate through activity log mutation hook
+  const [applyForLog, { isLoading: isLogLoading }] =
+    useApplyCertificateThroughActivityMutation();
+
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
     const formData = new FormData();
     try {
       const certificateInfo = {
@@ -55,14 +76,25 @@ export default function ApplicationForm() {
         phoneNumber: data.phoneNumber,
         notes: data.notes,
       };
-      formData.append("data", JSON.stringify(certificateInfo));
-      data.documents?.forEach((file) => formData.append("documents", file));
-
-      const res = await applyForCertificateFN(formData).unwrap();
-
-      if (res?.success) {
-        setIsModalOpen(true);
-        methods.reset();
+      if (pathName === "/user-profile/personal-info") {
+        const res = await applyForLog(certificateInfo).unwrap();
+        console.log(res, "res log");
+        if (res?.success) {
+          setApplicationModal?.(false);
+          toast.success(
+            res?.message || "Certificate application submitted successfully"
+          );
+          methods.reset();
+        }
+      } else {
+        //certificate application from certification page with document upload
+        formData.append("data", JSON.stringify(certificateInfo));
+        data.documents?.forEach((file) => formData.append("documents", file));
+        const res = await applyForCertificateFN(formData).unwrap();
+        if (res?.success) {
+          setIsModalOpen(true);
+          methods.reset();
+        }
       }
     } catch (error) {
       toast.error(error as string);
@@ -71,6 +103,11 @@ export default function ApplicationForm() {
 
   return (
     <div className="max-w-5xl mx-auto">
+      {pathName === "/user-profile/personal-info" && (
+        <p className="text-xl font-semibold text-secondaryColor text-center">
+          Certification Application
+        </p>
+      )}
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}
@@ -112,6 +149,7 @@ export default function ApplicationForm() {
               label="CPD Hours Completed *"
               type="number"
               placeholder="Write here"
+              readOnly={pathName === "/user-profile/personal-info"}
             />
             <FormInput<FormValues>
               name="phoneNumber"
@@ -120,10 +158,12 @@ export default function ApplicationForm() {
             />
           </div>
 
-          <UploadMedia
-            name={"documents"}
-            label={"Upload Evidence Documents *"}
-          />
+          {pathName !== "/user-profile/personal-info" && (
+            <UploadMedia
+              name={"documents"}
+              label={"Upload Evidence Documents *"}
+            />
+          )}
           <div>
             <label htmlFor="">Additional Notes</label>
             <textarea
@@ -138,21 +178,23 @@ export default function ApplicationForm() {
             type="submit"
             className="mt-4 px-4 py-2 bg-primaryColor text-white rounded"
           >
-            {isLoading ? "Submitting..." : "Submit Application"}
+            {isLoading || isLogLoading ? "Submitting..." : "Submit Application"}
           </button>
         </form>
       </FormProvider>
 
-      <div className="bg-[#eff6ff] border border-[#BFDBFE] py-4 px-6 rounded-xl mt-7">
-        <p className="block mb-1 text-sm font-medium text-[#1E40AF]">
-          Need Help?
-        </p>
-        <p className="block mb-1 text-sm font-medium text-[#1E40AF]">
-          If you have questions about the application process or need
-          assistance, please contact our support team at
-          certifications@cpdawards.org.uk or call +1 (555) 123-4567.
-        </p>
-      </div>
+      {pathName !== "/user-profile/personal-info" && (
+        <div className="bg-[#eff6ff] border border-[#BFDBFE] py-4 px-6 rounded-xl mt-7">
+          <p className="block mb-1 text-sm font-medium text-[#1E40AF]">
+            Need Help?
+          </p>
+          <p className="block mb-1 text-sm font-medium text-[#1E40AF]">
+            If you have questions about the application process or need
+            assistance, please contact our support team at
+            certifications@cpdawards.org.uk or call +1 (555) 123-4567.
+          </p>
+        </div>
+      )}
 
       <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
         <ApplicationModal setIsModalOpen={setIsModalOpen} />
