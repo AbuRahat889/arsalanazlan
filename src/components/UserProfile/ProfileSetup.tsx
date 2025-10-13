@@ -3,11 +3,13 @@
 import profileImage from "@/assets/profile.jpg";
 import {
   ClockIcon,
+  GlobeIcon,
   GraduationCap,
   Lock,
   Mail,
   MapPinIcon,
   PencilIcon,
+  Phone,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -95,11 +97,18 @@ export default function ProfileSetup() {
           <div className="space-y-4">
             {[
               { icon: Mail, text: profileData?.email || "No Email" },
-              {
-                icon: Lock,
-                text:
-                  profileData?.profile?.specialization || "No Specialization",
-              },
+              userInfo?.role === "USER_PROFILE"
+                ? {
+                    icon: Lock,
+                    text:
+                      profileData?.profile?.specialization ||
+                      "No Specialization",
+                  }
+                : {
+                    icon: Phone,
+                    text:
+                      profileData?.profile?.phoneNumber || "No Specialization",
+                  },
               {
                 icon: MapPinIcon,
                 text: profileData?.profile?.country || "No Country",
@@ -125,11 +134,18 @@ export default function ProfileSetup() {
                 icon: ClockIcon,
                 text: profileData?.profile?.timezone || "No Timezone",
               },
-              {
-                icon: GraduationCap,
-                text:
-                  profileData?.profile?.professionalSector || "No Job Title",
-              },
+
+              userInfo?.role === "USER_PROFILE"
+                ? {
+                    icon: GraduationCap,
+                    text:
+                      profileData?.profile?.professionalSector ||
+                      "No Job Title",
+                  }
+                : {
+                    icon: GlobeIcon,
+                    text: profileData?.profile?.websiteUrl || "www.example.com",
+                  },
             ].map((item, index) => (
               <motion.div
                 key={index}
