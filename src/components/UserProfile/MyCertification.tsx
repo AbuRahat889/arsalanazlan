@@ -1,22 +1,25 @@
 "use client";
 
+import { useGetMyCertificatesStatusQuery } from "@/redux/api/certificateApi";
+import { motion } from "framer-motion";
 import {
+  AlertTriangle,
+  Calendar,
+  Check,
   Download,
   ExternalLink,
-  AlertTriangle,
   X,
-  Check,
-  Calendar,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 
-type ActivityStatus = "pending" | "declined" | "approved";
+type ActivityStatus = "APPROVED" | "REJECTED" | "PENDING";
 type CertificateStatus = "active" | "expired";
 
 interface CertificationActivity {
   id: number;
-  title: string;
+  jobTitle: string;
+  certificationLevel: string;
   status: ActivityStatus;
 }
 
@@ -28,25 +31,6 @@ interface Certificate {
   status: CertificateStatus;
 }
 
-const certificationActivities: CertificationActivity[] = [
-  {
-    id: 1,
-    title: "Standard Certification (SCPD) Evidence Uploaded for All Activities",
-    status: "pending",
-  },
-  {
-    id: 2,
-    title: "Fellow Certification (FCPD) Evidence Uploaded for All Activities",
-    status: "declined",
-  },
-  {
-    id: 3,
-    title:
-      "Advanced CPD Certification (ACPD) Evidence Uploaded for All Activities",
-    status: "approved",
-  },
-];
-
 const issuedCertificates: Certificate[] = [
   {
     id: 1,
@@ -57,31 +41,45 @@ const issuedCertificates: Certificate[] = [
   },
 ];
 
+const getActivityUI = (status: ActivityStatus) => {
+  switch (status) {
+    case "PENDING":
+      return {
+        bg: "bg-yellow-50 border-yellow-200",
+        icon: <AlertTriangle className="w-5 h-5 text-yellow-600" />,
+        label: "PENDING",
+        labelClass: "bg-yellow-100 text-yellow-800",
+      };
+    case "REJECTED":
+      return {
+        bg: "bg-red-50 border-red-200",
+        icon: <X className="w-5 h-5 text-red-600" />,
+        label: "REJECTED",
+        labelClass: "bg-red-100 text-red-800",
+      };
+    case "APPROVED":
+      return {
+        bg: "bg-green-50 border-green-200",
+        icon: <Check className="w-5 h-5 text-green-600" />,
+        label: "APPROVED",
+        labelClass: "bg-green-100 text-green-800",
+      };
+  }
+};
+
 export default function CertificationPage() {
-  const getActivityUI = (status: ActivityStatus) => {
-    switch (status) {
-      case "pending":
-        return {
-          bg: "bg-yellow-50 border-yellow-200",
-          icon: <AlertTriangle className="w-5 h-5 text-yellow-600" />,
-          label: "Pending",
-          labelClass: "bg-yellow-100 text-yellow-800",
-        };
-      case "declined":
-        return {
-          bg: "bg-red-50 border-red-200",
-          icon: <X className="w-5 h-5 text-red-600" />,
-          label: "Declined",
-          labelClass: "bg-red-100 text-red-800",
-        };
-      case "approved":
-        return {
-          bg: "bg-green-50 border-green-200",
-          icon: <Check className="w-5 h-5 text-green-600" />,
-          label: "Approved",
-          labelClass: "bg-green-100 text-green-800",
-        };
-    }
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data } = useGetMyCertificatesStatusQuery({
+    page: currentPage,
+    limit: 5,
+  });
+  const certificates = data?.data?.data || [];
+  const totalPages = data?.data?.meta?.totalPages || 1;
+
+  console.log(totalPages, "sdf ");
+  const onPageChange = (page: number) => {
+    console.log("ksdjk");
+    setCurrentPage(page);
   };
 
   return (
@@ -104,38 +102,66 @@ export default function CertificationPage() {
             </p>
 
             <div className="space-y-4">
-              {certificationActivities.map((activity, i) => {
-                const ui = getActivityUI(activity.status);
-                return (
-                  <motion.div
-                    key={activity.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.2, duration: 0.4 }}
-                    className={`flex items-center justify-between p-4 rounded-lg border ${ui.bg}`}
-                  >
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
-                      <div className="flex justify-between w-full md:w-auto">
-                        <div className="flex-shrink-0">{ui.icon}</div>
-                        <span
-                          className={`px-3 py-1 text-sm font-medium rounded-full block md:hidden ${ui.labelClass}`}
-                        >
-                          {ui.label}
+              {certificates.map(
+                (activity: CertificationActivity, i: number) => {
+                  const ui = getActivityUI(activity.status);
+                  return (
+                    <motion.div
+                      key={activity.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.2, duration: 0.4 }}
+                      className={`flex items-center justify-between p-4 rounded-lg border ${ui.bg}`}
+                    >
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+                        <div className="flex justify-between w-full md:w-auto">
+                          <div className="flex-shrink-0">{ui.icon}</div>
+                          <span
+                            className={`px-3 py-1 text-sm font-medium rounded-full block md:hidden ${ui.labelClass}`}
+                          >
+                            {ui.label}
+                          </span>
+                        </div>
+
+                        <span className="text-gray-900 font-medium text-sm md:text-base">
+                          {activity.certificationLevel
+                            ? activity.certificationLevel
+                                .charAt(0)
+                                .toUpperCase() +
+                              activity.certificationLevel.slice(1).toLowerCase()
+                            : ""}{" "}
+                          Certification{" "}
+                          {activity.certificationLevel === "STANDARD"
+                            ? "(SCPD)"
+                            : activity.certificationLevel === "FELLOW"
+                            ? "(FCPD)"
+                            : "(ACPD)"}{" "}
+                          {activity.jobTitle}
                         </span>
                       </div>
-
-                      <span className="text-gray-900 font-medium text-sm md:text-base">
-                        {activity.title}
+                      <span
+                        className={`px-3 py-1 text-sm font-medium rounded-full hidden md:block ${ui.labelClass}`}
+                      >
+                        {ui.label}
                       </span>
-                    </div>
-                    <span
-                      className={`px-3 py-1 text-sm font-medium rounded-full hidden md:block ${ui.labelClass}`}
-                    >
-                      {ui.label}
-                    </span>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                }
+              )}
+              {totalPages > 1 && (
+                <p
+                  onClick={() => {
+                    if (currentPage < totalPages) {
+                      onPageChange(currentPage + 1); // go to last page to show all
+                    } else {
+                      onPageChange(1); // reset to first page to "see less"
+                    }
+                  }}
+                  className="text-primaryColor cursor-pointer text-sm font-medium mt-2 text-right "
+                >
+                  {currentPage < totalPages ? "See Next" : "See Less"}
+                </p>
+              )}
             </div>
           </div>
         </motion.div>

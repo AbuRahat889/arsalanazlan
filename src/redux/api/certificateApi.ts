@@ -32,6 +32,16 @@ const CertificateApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["certificate"],
     }),
+
+    //get my certificates status
+    getMyCertificatesStatus: build.query({
+      query: ({ page, limit }) => ({
+        url: `/certifications/my-certificates`,
+        method: "GET",
+        params: { page, limit },
+      }),
+      providesTags: ["certificate"],
+    }),
   }),
 });
 
@@ -39,5 +49,7 @@ export const {
   useGetAllVerifiedCertificatQuery,
   useApplyForCertificateMutation,
   useApplyCertificateThroughActivityMutation,
+
+  useGetMyCertificatesStatusQuery,
 } = CertificateApi;
 export default CertificateApi;
