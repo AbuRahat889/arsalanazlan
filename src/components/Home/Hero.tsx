@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { MediaButton } from "../ui/icon";
 import CircuitBoard from "./CircuitBoard";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <CircuitBoard>
       <div className="relative z-50 flex flex-col items-center justify-center w-full h-full text-center container mx-auto px-5 py-10 md:py-0 lg:lg:px-0 text-white">
@@ -46,11 +48,17 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex items-center flex-col md:flex-row gap-3 justify-center md:gap-6 mt-4 md:mt-6 2xl:mt-12"
         >
-          <button className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor">
+          <button
+            onClick={() => router.push("/certification")}
+            className="bg-primaryColor px-3 md:px-5 py-2 md:py-3 border border-primaryColor rounded-lg flex items-center gap-2 text-base group text-textColor"
+          >
             <MediaButton type="earn" />
             Earn Certification
           </button>
-          <button className="border-2 border-primaryColor text-primaryColor px-3 md:px-5 py-2 md:py-3 rounded-lg flex items-center gap-2 text-[1rem] group">
+          <button
+            onClick={() => router.push("/accreditation")}
+            className="border-2 border-primaryColor text-primaryColor px-3 md:px-5 py-2 md:py-3 rounded-lg flex items-center gap-2 text-[1rem] group"
+          >
             <MediaButton type="browse" />
             Browse Templates
           </button>

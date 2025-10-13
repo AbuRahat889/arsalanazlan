@@ -22,6 +22,7 @@ export default function UserStatCards() {
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
+  
   return (
     <div>
       {/* statCards */}

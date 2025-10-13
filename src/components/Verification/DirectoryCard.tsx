@@ -5,24 +5,13 @@ import { MediaButton } from "../ui/icon";
 import profileImage from "@/assets/profile.jpg";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { CertificateProps } from "@/Types/Certificate";
 
 type Props = {
-  name: string;
-  role: string;
-  level: string;
-  country: string;
-  date: string;
-  status: string;
+  certificate: CertificateProps;
 };
 
-export default function DirectoryCard({
-  name,
-  role,
-  level,
-  country,
-  date,
-  status,
-}: Props) {
+export default function DirectoryCard({ certificate }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -45,10 +34,10 @@ export default function DirectoryCard({
         {/* User info */}
         <div>
           <h3 className="text-base text-textColor font-medium leading-6">
-            {name}
+            {certificate?.fullName}
           </h3>
-          <p className="text-sm text-secondaryColor font-normal leading-5">
-            {role}
+          <p className="text-sm text-secondaryColor font-normal leading-5 truncate line-clamp-1">
+            {certificate?.user?.userProfile?.professionalSector}
           </p>
         </div>
       </div>
@@ -59,31 +48,43 @@ export default function DirectoryCard({
         <div
           className={cn(
             "px-3 py-1 text-white text-sm rounded-full",
-            level === "FCPD"
+            certificate?.certificationLevel === "FELLOW"
               ? "bg-[#2b883c]"
-              : level === "ACPD"
+              : certificate?.certificationLevel === "ADVANCED"
               ? "bg-[#1f2c47]"
-              : "bg-[#f1a63d]"
+              : certificate?.certificationLevel === "STANDARD"
+              ? "bg-[#f1a63d]"
+              : ""
           )}
         >
-          {level}
+          {certificate?.certificationLevel}
         </div>
 
         {/* Country info */}
         <div className="flex items-center gap-2 text-gray-600">
           <MediaButton type="network" />
-          <span className="text-sm">{country}</span>
+          <span className="text-sm">
+            {certificate?.user?.userProfile?.country}
+          </span>
         </div>
 
         {/* Date info */}
         <div className="flex items-center gap-2 text-gray-600">
           <MediaButton type="calender" />
-          <span className="text-sm">{date}</span>
+          <span className="text-sm">
+            {certificate.createdAt
+              ? new Date(certificate.createdAt).toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                })
+              : "No date"}
+          </span>
         </div>
 
         {/* Status badge */}
         <span className="px-3 py-1 bg-slate-800 text-white text-sm rounded-full">
-          {status}
+          {certificate?.status}
         </span>
       </div>
     </motion.div>

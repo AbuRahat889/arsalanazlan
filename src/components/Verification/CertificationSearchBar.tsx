@@ -1,17 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { CustomDropdown } from "../ui/dropdown";
-import { CourseType, Locations } from "@/constants/dropdownInfo";
+import {
+  CourseType,
+  Locations,
+  ProfessionalSector,
+} from "@/constants/dropdownInfo";
 
-export default function CertificationSearchBar() {
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedType, setSelectedType] = useState("All Types");
-
-  const [selectedLocation, setSelectedLocation] = useState("Locations");
+export default function CertificationSearchBar({ setSearchParams }: any) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [certificationLevel, setCertificationLevel] = useState<
+    string | undefined
+  >(undefined);
+  const [professionalSector, setProfessionalSector] = useState<
+    string | undefined
+  >(undefined);
+  const [country, setCountry] = useState<string | undefined>(undefined);
   const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setSearchParams({
+      searchTerm,
+      certificationLevel,
+      professionalSector,
+      country,
+    });
+  }, [
+    searchTerm,
+    certificationLevel,
+    professionalSector,
+    country,
+    setSearchParams,
+  ]);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -22,8 +45,8 @@ export default function CertificationSearchBar() {
 
           <input
             type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by name"
             className="w-full text-gray-700 placeholder-gray-400 bg-transparent border-none outline-none"
           />
@@ -32,23 +55,23 @@ export default function CertificationSearchBar() {
         {/* All Types Dropdown */}
         <CustomDropdown
           options={CourseType}
-          value={selectedType}
-          onChange={setSelectedType}
+          value={certificationLevel}
+          onChange={setCertificationLevel}
           placeholder="Certification Level"
           className="w-full bg-[#f8f8f8]"
         />
         <CustomDropdown
-          options={Locations}
-          value={selectedLocation}
-          onChange={setSelectedLocation}
+          options={ProfessionalSector}
+          value={professionalSector}
+          onChange={setProfessionalSector}
           placeholder="Sector"
           className="w-full bg-[#f8f8f8]"
         />
         {/* Locations Dropdown */}
         <CustomDropdown
           options={Locations}
-          value={selectedLocation}
-          onChange={setSelectedLocation}
+          value={country}
+          onChange={setCountry}
           placeholder="Locations"
           className="w-full bg-[#f8f8f8]"
         />

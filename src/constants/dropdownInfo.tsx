@@ -1,7 +1,7 @@
 export const CourseType = [
-  { value: "FCPD", label: "FCPD" },
-  { value: "SCPD", label: "SCPD" },
-  { value: "ACPD", label: "ACPD" },
+  { value: "STANDARD", label: "STANDARD" },
+  { value: "ADVANCED", label: "ADVANCED" },
+  { value: "FELLOW", label: "FELLOW" },
 ];
 export const Locations = [
   { value: "France", label: "France" },
