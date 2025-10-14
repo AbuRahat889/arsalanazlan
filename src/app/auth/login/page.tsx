@@ -148,7 +148,7 @@ const ForgotPassword = () => {
               </div>
 
               {/* Password */}
-              <div className="relative">
+              <div className="relative ">
                 <label
                   htmlFor="password"
                   className={`absolute left-3 px-1 transition-all bg-white text-base ${
@@ -160,41 +160,42 @@ const ForgotPassword = () => {
                   Password
                 </label>
                 <div className="w-full flex items-center justify-between border-2 border-[#dce4e8] rounded-[10px] p-3 outline-none">
-                  <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    {...register("password", {
-                      required: "password is required",
-                    })}
-                    onFocus={() =>
-                      setIsFocused((prev) => ({ ...prev, password: true }))
-                    }
-                    onBlur={() =>
-                      setIsFocused((prev) => ({ ...prev, password: false }))
-                    }
-                    className=" text-[#747474] w-full outline-none"
-                  />
-                  <div
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  <div>
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      {...register("password", {
+                        required: "password is required",
+                      })}
+                      onFocus={() =>
+                        setIsFocused((prev) => ({ ...prev, password: true }))
+                      }
+                      onBlur={() =>
+                        setIsFocused((prev) => ({ ...prev, password: false }))
+                      }
+                      className=" text-[#747474] w-full outline-none"
+                    />
+                    <div
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-3 top-1/2 -translate-y-6 text-gray-500 cursor-pointer"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </div>
                   </div>
+
+                  {errors.password && (
+                    <p className="text-red-500 text-sm mt-2">
+                      {errors.password.message as string}
+                    </p>
+                  )}
                 </div>
-
-                {errors.password && (
-                  <p className="text-red-500 text-sm mt-2">
-                    {errors.password.message as string}
-                  </p>
-                )}
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm md:text-base flex items-center justify-end  text-primaryColor hover:underline font-medium mt-1"
+                >
+                  Forgot password?
+                </Link>
               </div>
-
-              <Link
-                href="/auth/forgot-password"
-                className="text-sm md:text-base  text-primaryColor hover:underline font-medium my-2"
-              >
-                Forgot password?
-              </Link>
 
               <button
                 type="submit"
@@ -208,7 +209,7 @@ const ForgotPassword = () => {
               Don’t have an account?{" "}
               <Link
                 href={"/auth/sign-up"}
-                className="hover:text-primaryColor hover:underline transition-colors duration-300 ease-in-out"
+                className="text-primaryColor hover:underline transition-colors duration-300 ease-in-out"
               >
                 Sign up for free
               </Link>

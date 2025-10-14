@@ -204,7 +204,7 @@ export default function SettingsNavbar() {
       label: "My Certification",
       route: "/user-profile/my-certification",
       activeFor: ["/user-profile/my-certification/certificate-details"],
-      role: ["USER_PROFILE", "ACCREDITATION_AGENT"],
+      role: ["USER_PROFILE"],
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
