@@ -43,17 +43,15 @@ const CertificateApi = baseApi.injectEndpoints({
       providesTags: ["certificate"],
     }),
 
-    //get my apporved certificates 
-    // getMyCertificatesStatus: build.query({
-    //   query: ({ page, limit }) => ({
-    //     url: `/certifications/create`,
-    //     method: "GET",
-    //     params: { page, limit },
-    //   }),
-    //   providesTags: ["certificate"],
-    // }),
-
-
+    //get my apporved certificates
+    getAllApprovedCertificates: build.query({
+      query: ({ page, limit }) => ({
+        url: `/certifications/my-approved-certificates`,
+        method: "GET",
+        params: { page, limit },
+      }),
+      providesTags: ["certificate"],
+    }),
   }),
 });
 
@@ -63,5 +61,6 @@ export const {
   useApplyCertificateThroughActivityMutation,
 
   useGetMyCertificatesStatusQuery,
+  useGetAllApprovedCertificatesQuery,
 } = CertificateApi;
 export default CertificateApi;

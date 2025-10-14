@@ -1,17 +1,23 @@
 "use client";
 
-import { useGetMyCertificatesStatusQuery } from "@/redux/api/certificateApi";
+import {
+  useGetAllApprovedCertificatesQuery,
+  useGetMyCertificatesStatusQuery,
+} from "@/redux/api/certificateApi";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
   Calendar,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Download,
   ExternalLink,
   X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import Pagination from "../ui/Pagination";
 
 type ActivityStatus = "APPROVED" | "REJECTED" | "PENDING";
 type CertificateStatus = "active" | "expired";
@@ -25,21 +31,11 @@ interface CertificationActivity {
 
 interface Certificate {
   id: number;
-  title: string;
-  issueDate: string;
-  expiryDate: string;
+  jobTitle: string;
+  createdAt: string;
+  isHidden: boolean;
   status: CertificateStatus;
 }
-
-const issuedCertificates: Certificate[] = [
-  {
-    id: 1,
-    title: "Advanced CPD Certification (ACPD)",
-    issueDate: "15 Jan 2025",
-    expiryDate: "15 Jan 2028",
-    status: "active",
-  },
-];
 
 const getActivityUI = (status: ActivityStatus) => {
   switch (status) {
@@ -69,6 +65,9 @@ const getActivityUI = (status: ActivityStatus) => {
 
 export default function CertificationPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentCertificatePage, setCurrentCertificatePage] = useState(1);
+
+  //get all my certificate activities
   const { data } = useGetMyCertificatesStatusQuery({
     page: currentPage,
     limit: 5,
@@ -76,10 +75,26 @@ export default function CertificationPage() {
   const certificates = data?.data?.data || [];
   const totalPages = data?.data?.meta?.totalPages || 1;
 
-  console.log(totalPages, "sdf ");
-  const onPageChange = (page: number) => {
-    console.log("ksdjk");
-    setCurrentPage(page);
+  //get all my approved certificates
+  const { data: approvedData } = useGetAllApprovedCertificatesQuery({
+    page: currentCertificatePage,
+    limit: 5,
+  });
+  const approvedCertificates = approvedData?.data?.data || [];
+  const totalCertificatePages = approvedData?.data?.meta?.totalPages || 1;
+
+  console.log(approvedCertificates);
+
+  const onPageChange = (type: string) => {
+    if (type === "prev") {
+      setCurrentPage(currentPage - 1);
+    } else {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const onCertificatePageChange = (page: number) => {
+    setCurrentCertificatePage(page);
   };
 
   return (
@@ -101,66 +116,81 @@ export default function CertificationPage() {
               Certification Activities
             </p>
 
-            <div className="space-y-4">
-              {certificates.map(
-                (activity: CertificationActivity, i: number) => {
-                  const ui = getActivityUI(activity.status);
-                  return (
-                    <motion.div
-                      key={activity.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.2, duration: 0.4 }}
-                      className={`flex items-center justify-between p-4 rounded-lg border ${ui.bg}`}
-                    >
-                      <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
-                        <div className="flex justify-between w-full md:w-auto">
-                          <div className="flex-shrink-0">{ui.icon}</div>
-                          <span
-                            className={`px-3 py-1 text-sm font-medium rounded-full block md:hidden ${ui.labelClass}`}
-                          >
-                            {ui.label}
+            <div className="space-y-4 ">
+              <div className="space-y-4 h-full lg:h-[370px]">
+                {certificates?.map(
+                  (activity: CertificationActivity, i: number) => {
+                    const ui = getActivityUI(activity.status);
+                    return (
+                      <motion.div
+                        key={activity.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.2, duration: 0.4 }}
+                        className={`flex items-center justify-between p-4 rounded-lg border ${ui.bg}`}
+                      >
+                        <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+                          <div className="flex justify-between w-full md:w-auto">
+                            <div className="flex-shrink-0">{ui.icon}</div>
+                            <span
+                              className={`px-3 py-1 text-sm font-medium rounded-full block md:hidden ${ui.labelClass}`}
+                            >
+                              {ui.label}
+                            </span>
+                          </div>
+
+                          <span className="text-gray-900 font-medium text-sm md:text-base">
+                            {activity.certificationLevel
+                              ? activity.certificationLevel
+                                  .charAt(0)
+                                  .toUpperCase() +
+                                activity.certificationLevel
+                                  .slice(1)
+                                  .toLowerCase()
+                              : ""}{" "}
+                            Certification{" "}
+                            {activity.certificationLevel === "STANDARD"
+                              ? "(SCPD)"
+                              : activity.certificationLevel === "FELLOW"
+                              ? "(FCPD)"
+                              : "(ACPD)"}{" "}
+                            {activity.jobTitle}
                           </span>
                         </div>
-
-                        <span className="text-gray-900 font-medium text-sm md:text-base">
-                          {activity.certificationLevel
-                            ? activity.certificationLevel
-                                .charAt(0)
-                                .toUpperCase() +
-                              activity.certificationLevel.slice(1).toLowerCase()
-                            : ""}{" "}
-                          Certification{" "}
-                          {activity.certificationLevel === "STANDARD"
-                            ? "(SCPD)"
-                            : activity.certificationLevel === "FELLOW"
-                            ? "(FCPD)"
-                            : "(ACPD)"}{" "}
-                          {activity.jobTitle}
+                        <span
+                          className={`px-3 py-1 text-sm font-medium rounded-full hidden md:block ${ui.labelClass}`}
+                        >
+                          {ui.label}
                         </span>
-                      </div>
-                      <span
-                        className={`px-3 py-1 text-sm font-medium rounded-full hidden md:block ${ui.labelClass}`}
-                      >
-                        {ui.label}
-                      </span>
-                    </motion.div>
-                  );
-                }
-              )}
+                      </motion.div>
+                    );
+                  }
+                )}
+              </div>
               {totalPages > 1 && (
-                <p
-                  onClick={() => {
-                    if (currentPage < totalPages) {
-                      onPageChange(currentPage + 1); // go to last page to show all
-                    } else {
-                      onPageChange(1); // reset to first page to "see less"
-                    }
-                  }}
-                  className="text-primaryColor cursor-pointer text-sm font-medium mt-2 text-right "
-                >
-                  {currentPage < totalPages ? "See Next" : "See Less"}
-                </p>
+                <div className="flex items-center justify-end gap-3">
+                  <p
+                    onClick={() => onPageChange("prev")}
+                    className="text-primaryColor cursor-pointer text-sm font-medium mt-2 text-right flex items-center"
+                  >
+                    {currentPage > 1 && (
+                      <>
+                        <ChevronLeft className="size-4" /> Prev
+                      </>
+                    )}
+                  </p>
+                  <p
+                    onClick={() => onPageChange("next")}
+                    className="text-primaryColor cursor-pointer text-sm font-medium mt-2 text-right flex items-center "
+                  >
+                    {currentPage < totalPages && (
+                      <>
+                        Next
+                        <ChevronRight className="size-4" />
+                      </>
+                    )}
+                  </p>
+                </div>
               )}
             </div>
           </div>
@@ -178,12 +208,12 @@ export default function CertificationPage() {
               Issued Certificates
             </p>
 
-            {issuedCertificates.map((cert, i) => (
+            {approvedCertificates.map((cert: Certificate, i: number) => (
               <motion.div
                 key={cert.id}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.2 + 0.7, duration: 0.4 }}
+                transition={{ delay: i * 0.01 + 0.01, duration: 0.4 }}
                 whileHover={{
                   y: -5,
                   boxShadow:
@@ -194,27 +224,35 @@ export default function CertificationPage() {
               >
                 <div>
                   <div className="flex items-start md:items-center justify-between w-full">
-                    <h3 className="text-sm md:text-base font-medium text-gray-900 mb-2">
-                      {cert.title}
-                    </h3>
+                    <p className="text-sm md:text-lg font-medium text-gray-900 mb-2">
+                      {cert.jobTitle}
+                    </p>
                     <span
                       className={`px-3 py-1 text-sm font-medium rounded-full ${
-                        cert.status === "active"
+                        cert.isHidden === false
                           ? "bg-green-100 text-green-800"
                           : "bg-gray-200 text-gray-700"
                       }`}
                     >
-                      {cert.status === "active" ? "Active" : "Expired"}
+                      {cert.isHidden === false ? "Active" : "Expired"}
                     </span>
                   </div>
                   <div className="flex flex-col md:flex-row items-start md:items-center gap-4 text-sm text-gray-600">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      <span>Issue Date: {cert.issueDate}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>Expiry: {cert.expiryDate}</span>
+                      <span>
+                        Issue Date:{" "}
+                        {cert?.createdAt
+                          ? new Date(cert?.createdAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "2-digit",
+                                day: "2-digit",
+                                year: "numeric",
+                              }
+                            )
+                          : "No date"}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -243,6 +281,14 @@ export default function CertificationPage() {
                 </div>
               </motion.div>
             ))}
+
+            {totalCertificatePages > 1 && (
+              <Pagination
+                currentPage={currentCertificatePage}
+                totalPages={totalCertificatePages}
+                onPageChange={onCertificatePageChange}
+              />
+            )}
           </div>
         </motion.div>
       </div>
