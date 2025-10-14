@@ -76,9 +76,15 @@ export default function ProfileSetup() {
               className="w-full h-full object-cover"
             />
           </div>
-          <p className="text-xl font-semibold text-gray-900 mt-4">
-            {profileData?.profile?.firstName} {profileData?.profile?.lastName}
-          </p>
+          {userInfo?.role === "USER_PROFILE" ? (
+            <p className="text-xl font-semibold text-gray-900 mt-4">
+              {profileData?.profile?.firstName} {profileData?.profile?.lastName}
+            </p>
+          ) : (
+            <p className="text-xl font-semibold text-gray-900 mt-4">
+              {profileData?.profile?.organizationName}
+            </p>
+          )}
         </motion.div>
 
         {/* Profile Information */}
@@ -144,7 +150,7 @@ export default function ProfileSetup() {
                   }
                 : {
                     icon: GlobeIcon,
-                    text: profileData?.profile?.websiteUrl || "www.example.com",
+                    text: profileData?.profile?.website || "www.example.com",
                   },
             ].map((item, index) => (
               <motion.div

@@ -13,10 +13,20 @@ const UsersApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
 
-    //send message to admin
+    //update user profile
     updateUserProfile: build.mutation({
       query: (data) => ({
         url: `/users/update-user-profile`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["users", "auth"],
+    }),
+
+    //update accreditation profile
+    updateAccreditationProfile: build.mutation({
+      query: (data) => ({
+        url: `/users/update-accreditation-profile`,
         method: "PATCH",
         body: data,
       }),
@@ -49,6 +59,7 @@ const UsersApi = baseApi.injectEndpoints({
 export const {
   useGetUserByIdQuery,
   useUpdateUserProfileMutation,
+  useUpdateAccreditationProfileMutation,
   //user logs activity
   useGetUserLogsQuery,
   useCreateUsersLogsMutation,
