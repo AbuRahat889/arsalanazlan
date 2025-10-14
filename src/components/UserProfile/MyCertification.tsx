@@ -18,24 +18,11 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
-
-type ActivityStatus = "APPROVED" | "REJECTED" | "PENDING";
-type CertificateStatus = "active" | "expired";
-
-interface CertificationActivity {
-  id: number;
-  jobTitle: string;
-  certificationLevel: string;
-  status: ActivityStatus;
-}
-
-interface Certificate {
-  id: number;
-  jobTitle: string;
-  createdAt: string;
-  isHidden: boolean;
-  status: CertificateStatus;
-}
+import {
+  ActivityStatus,
+  Certificate,
+  CertificationActivity,
+} from "@/Types/Certificate";
 
 const getActivityUI = (status: ActivityStatus) => {
   switch (status) {
@@ -83,8 +70,7 @@ export default function CertificationPage() {
   const approvedCertificates = approvedData?.data?.data || [];
   const totalCertificatePages = approvedData?.data?.meta?.totalPages || 1;
 
-  console.log(approvedCertificates);
-
+  //pagination handlers for activities and certificates
   const onPageChange = (type: string) => {
     if (type === "prev") {
       setCurrentPage(currentPage - 1);
@@ -271,7 +257,7 @@ export default function CertificationPage() {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
-                      href="/user-profile/my-certification/certificate-details"
+                      href={`/user-profile/my-certification/${cert.certificateId}`}
                       className="inline-flex items-center gap-2 px-4 py-2 bg-primaryColor text-white text-sm font-medium rounded-md transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />

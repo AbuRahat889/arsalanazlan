@@ -4,8 +4,13 @@ import { Download } from "lucide-react";
 import Image from "next/image";
 import Certificate from "@/assets/Certificate.png";
 import { motion } from "framer-motion";
+import { MediaButton } from "@/components/ui/icon";
+import { useParams, useRouter } from "next/navigation";
 
 export default function CertificateDetails() {
+  const router = useRouter();
+  const params = useParams().id;
+  console.log(params);
   return (
     <div className="border border-[#E5E5E5] rounded-lg p-6">
       <div className="max-w-6xl mx-auto">
@@ -14,8 +19,11 @@ export default function CertificateDetails() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-2xl font-semibold text-gray-900 mb-8"
+          className="text-2xl font-semibold text-gray-900 mb-8 flex items-center gap-3"
         >
+          <div onClick={() => router.back()} className="cursor-pointer">
+            <MediaButton type="back" />
+          </div>
           Certificate Details
         </motion.h1>
 
